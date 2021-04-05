@@ -1,4 +1,4 @@
-![](images/cabezera.png)
+![](images/cabecera.png)
 
 # Contenido
 
