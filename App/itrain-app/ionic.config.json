@@ -1,0 +1,7 @@
+{
+  "name": "itrain-app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

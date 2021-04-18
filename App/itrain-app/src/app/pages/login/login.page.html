@@ -1,0 +1,170 @@
+<ion-content>
+  <ion-slides class="mainSlide" #slideLoginToRegister>
+    <ion-slide>
+      <form (ngSubmit)="login(formLogin)" #formLogin="ngForm">
+        <ion-grid fixed>
+          <ion-row>
+            <ion-col>
+              <img src="/assets/avatars/av-1.png" />
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              <div class="container">
+                <ion-list>
+
+                  <!-- Input email -->
+                  <ion-item class="roundedInput">
+                    <ion-input
+                      [(ngModel)]="loginUser.email"
+                      name="Email"
+                      type="email"
+                      required
+                    >
+                    </ion-input>
+                  </ion-item>
+
+                  <!-- Input contraseña -->
+                  <ion-item class="roundedInput" >
+                    <ion-input
+                      [(ngModel)]="loginUser.password"
+                      name="Contraseña"
+                      type="password"
+                      required
+                    ></ion-input>
+                  </ion-item>
+
+                </ion-list>
+              </div>
+            </ion-col>
+          </ion-row>
+
+         <!-- Boton login -->
+          <ion-row>
+            <ion-col>
+              <ion-button color="itrain-yellow"
+                          type="submit"
+                          expand="block">
+                Login
+              </ion-button>
+            </ion-col>
+          </ion-row>
+
+        </ion-grid>
+      </form>
+    </ion-slide>
+
+    <!-- ------------------------------------------------------------- -->
+
+    <ion-slide>
+      <ion-grid fixed>
+
+        <!-- Componente de avatars -->
+
+        <app-avatar-select
+          (avatarSelect)="registerUser.avatar = $event"
+        ></app-avatar-select>
+
+        <!-- REGISTRAR USUARIO -->
+
+        <form (ngSubmit)="register(formRegister)" #formRegister="ngForm">
+          <ion-row>
+            <ion-col>
+              <div class="container">
+                <ion-list>
+
+                  <!-- Email -->
+                  <ion-item class="roundedInput">
+                   <ion-label>Email</ion-label>
+                    <ion-input
+                      [(ngModel)]="registerUser.email"
+                      name="email"
+                      type="email"
+                      required
+                      style="font-family: JetBrain;"
+                    >
+                    </ion-input>
+                  </ion-item>
+
+                  <!-- Nombre -->
+                  <ion-item class="roundedInput">
+                    <ion-label>Nombre</ion-label>
+                    <ion-input
+                      [(ngModel)]="registerUser.name"
+                      name="name"
+                      type="text"
+                      required
+                    >
+                    </ion-input>
+                  </ion-item>
+
+                  <!-- Contraseña -->
+                  <ion-item class="roundedInput">
+                    <ion-label>Password</ion-label>
+                   <ion-input
+                      [(ngModel)]="registerUser.password"
+                      name="password"
+                      type="password"
+                      required
+                    ></ion-input>
+                  </ion-item>
+
+                </ion-list>
+              </div>
+            </ion-col>
+          </ion-row>
+
+          <!-- Botón de crear usuario -->
+          <ion-row>
+            <ion-col>
+              <ion-button type="submit" color="itrain-yellow">
+                Crear usuario
+              </ion-button>
+            </ion-col>
+          </ion-row>
+
+        </form>
+      </ion-grid>
+    </ion-slide>
+  </ion-slides>
+</ion-content>
+
+
+<!-- Footer -->
+<ion-footer class="ion-no-border">
+  <ion-toolbar>
+    <ion-row>
+      <div class="container">
+        <ion-col *ngIf="slideNgIf === 1">
+
+          <!-- Botón ir al login -->
+          <ion-button
+            expand="block"
+            size="small"
+            fill="outline"
+            color="tertiary"
+            (click)="showLogin()"
+            color="itrain-blue"
+          >
+            Login
+          </ion-button>
+        </ion-col>
+
+        <!-- Botón ir al registro -->
+        <ion-col *ngIf="slideNgIf === 0">
+          <ion-button
+            expand="block"
+            size="small"
+            fill="outline"
+            color="tertiary"
+            (click)="showRegister()"
+            color="itrain-blue"
+          >
+            Registrarme
+          </ion-button>
+        </ion-col>
+      </div>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>
