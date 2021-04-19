@@ -3,6 +3,12 @@ import { Injectable, EventEmitter } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { IRespPost, IPost } from '../interfaces/interfaces';
 import { UserService } from './user.service';
+import { LoadingController, ToastController } from '@ionic/angular';
+import { UiService } from './ui.service';
+
+// Manejo de errores
+import { catchError, finalize } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 
 const URL = environment.url;
 
@@ -14,12 +20,18 @@ export class PostsService {
   constructor(
 
     private http: HttpClient,
-    private userService: UserService
+    private userService: UserService,
+    private loadingCtrl: LoadingController,
+    private uiService: UiService
 
   ) { }
 
   pagePosts = 0;
   newPost = new EventEmitter<IPost>();
+  loading: any;
+
+
+  // Obtener post
 
   getPosts(pull: boolean = false) {
 
@@ -31,6 +43,9 @@ export class PostsService {
     this.pagePosts++;
     return this.http.get<IRespPost>(`${URL}/posts/?page=${this.pagePosts}`);
   }
+
+
+  // Crear un post
 
   crearPost(post) {
 
@@ -54,6 +69,45 @@ export class PostsService {
     });
 
 
+  }
+
+  // Subir imagen
+
+  async uploadImageHttp(webPath: string) {
+    // anunciar inicio de upload al usuario
+    this.loading = await this.loadingCtrl.create({
+      message: 'Enviando al servidor...'
+    });
+    await this.loading.present();
+    const blob = await fetch(webPath).then(r => r.blob());
+    return new Promise<boolean>(resolve => {
+      // headers
+      const headers = new HttpHeaders({
+        'x-token': this.userService.token
+      });
+      const formData = new FormData();
+      formData.append('image', blob, `image.jpg`);
+      this.http.post<boolean>(`${URL}/posts/upload`, formData, { headers })
+        .pipe(
+          catchError(e => this.handleError(e)),
+          finalize(() => this.loading.dismiss())
+        )
+        .subscribe((resp: any) => {
+          if (resp.ok) {
+            this.uiService.presentToast('¡Imagen subida con exito!');
+            resolve(true);
+          } else {
+            this.uiService.presentToast('¡Error al subir la imagen!');
+            resolve(false);
+          }
+        });
+    });
+  }
+
+  // Control de errores
+  private handleError(error: any) {
+    const errorMsg = error.message ? error.message : error.toString();
+    return throwError(errorMsg);
   }
 
 }

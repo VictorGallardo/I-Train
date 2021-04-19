@@ -1,36 +1,46 @@
 <div clase="post">
+  <ion-item lines="none">
+    <ion-avatar slot="start">
+      <img src="/assets/avatars/{{ post.user.avatar }}" />
+    </ion-avatar>
 
-    <ion-item lines="none">
+    <ion-label>
+      <h3>{{ post.user.name }}</h3>
+      <h3>{{ post.user.email }}</h3>
+    </ion-label>
+  </ion-item>
 
-        <ion-avatar slot="start">
-            <img src="/assets/avatars/{{ post.user.avatar }}" />
-        </ion-avatar>
+  <!-- Slide imágenes ------------------------------------------------------->
+  <ion-slides pager="true" *ngIf="post.imgs.length > 1">
+    <!-- El slide se muestra si hay mas de una foto -->
+    <!-- PIPE Imagen para la url  -->
+    <ion-slide
+      *ngFor="let img of post.imgs"
+      class="image-slide"
+      [style]="(img | image: post.user._id) | domSanitizer"
+    ></ion-slide>
+  </ion-slides>
+  <!-- ---------------------------------------------------------------------->
 
-        <ion-label>
-            <h3>{{ post.user.name }}</h3>
-            <h3>{{ post.user.email }}</h3>
-        </ion-label>
+  <!-- SLIDE Solo una imagen ------------------------------------------------>
+  <ion-slides *ngIf="post.imgs.length === 1" [options]="slideOpts">
+    <!-- El slide se muestra si hay mas de una foto -->
+    <!-- El post.imgs[0] para mostrar solo una foto, la primera del array --->
+    <ion-slide
+      class="image-slide"
+      [style]="(post.imgs[0] | image: post.user._id) | domSanitizer"
+    ></ion-slide>
+  </ion-slides>
+  <!-------------------------------------------------------------------------->
 
-    </ion-item>
+  <ion-item lines="none">
+    <ion-icon slot="start" name="heart-outline"></ion-icon>
+    <ion-icon slot="end" name="bookmark"></ion-icon>
+  </ion-item>
 
-    <ion-slides mode="ios" pager="true" scrollbar="ios">
-
-        <ion-slide class="image-slide" [style]="img1 | domSanitizer"></ion-slide>
-        <ion-slide class="image-slide" [style]="img2 | domSanitizer"></ion-slide>
-        <ion-slide class="image-slide" [style]="img3 | domSanitizer"></ion-slide>
-
-    </ion-slides>
-
-
-    <ion-item lines="none">
-        <ion-icon slot="start" name="heart-outline"></ion-icon>
-        <ion-icon slot="end" name="bookmark"></ion-icon>
-    </ion-item>
-
-    <ion-item lines="none">
-        <ion-label text-wrap>
-            {{ post.message }}
-        </ion-label>
-    </ion-item>
-
+  <ion-item lines="none">
+    <ion-label text-wrap>
+      {{ post.message }}
+    </ion-label>
+  </ion-item>
 </div>
