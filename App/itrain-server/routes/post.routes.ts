@@ -36,15 +36,10 @@ postRoutes.get('/', async (req: any, res: Response) => {
 // Crear post
 postRoutes.post('/', [validateToken], (req: any, res: Response) => {
 
-
-    const body = req.body;
-
-    body.user = req.user._id;
-
-    const images = fileSystem.imagesTempToPost(req.user._id);
-
-    body.imgs = images;
-
+    const body = req.body; // El body es el cuerpo de todo lo que voy a meter en la DB
+    body.user = req.user._id; // Id del usuario que lo obtengo del token
+    const images = fileSystem.imagesTempToPost(req.user._id); // Obtengo lad imágenes
+    body.imgs = images; // Busca el array de imágenes e inserta la imagen
 
     Post.create(body).then(async postDB => {
 
@@ -108,7 +103,6 @@ postRoutes.get('/image/:userid/:img', (req: any, res: Response) => {
 
     res.sendFile(pathPhoto);
 });
-
 
 
 export default postRoutes

@@ -35,7 +35,6 @@ export class PostsService {
 
   getPosts(pull: boolean = false) {
 
-
     if (pull) {
       this.pagePosts = 0;
     }

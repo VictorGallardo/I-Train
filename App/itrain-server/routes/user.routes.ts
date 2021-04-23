@@ -46,11 +46,8 @@ userRoutes.post('/login', (req: Request, res: Response) => {
                 ok: false,
                 mensaje: 'Usuario/contraseña incorrecta ***'
             });
-
         }
-
     });
-
 });
 
 

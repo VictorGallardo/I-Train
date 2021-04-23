@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { PostsService } from '../../services/posts.service';
-import { UiService } from '../../services/ui.service';
+import { PostsService } from '../../../services/posts.service';
+import { UiService } from '../../../services/ui.service';
 import { Plugins, CameraResultType, CameraSource, CameraOptions } from '@capacitor/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
@@ -49,7 +49,7 @@ export class Tab2Page {
 
       this.tempImages = [];
 
-      this.route.navigateByUrl('main/tabs/tab1'); // Navega a tab1 y veremos el nuevo post
+      this.route.navigateByUrl('posts/tabs/tab1'); // Navega a tab1 y veremos el nuevo post
 
     } else {
 

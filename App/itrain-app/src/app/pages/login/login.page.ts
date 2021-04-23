@@ -51,7 +51,9 @@ export class LoginPage implements OnInit {
 
     if (valid) {
       // navega a main
-      this.navCtrl.navigateRoot('/main/tabs/tab1', { animated: true });
+      // this.navCtrl.navigateRoot('/main/tabs/tab1', { animated: true }); // Para ir a los Posts
+      this.navCtrl.navigateRoot('/lists/lists-tabs/unfinish', { animated: true }); // Para ir a las listas
+
 
     } else {
       // Mostrar alert : usuario/contraseña no correctos

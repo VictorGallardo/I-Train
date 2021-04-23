@@ -18,7 +18,7 @@ export class UserService {
 
 
   token: string = null;
-  user: IUser = {};
+  private user: IUser = {};
 
 
   constructor(private http: HttpClient, private navCtrl: NavController) { }
@@ -26,24 +26,37 @@ export class UserService {
 
   // Login usuario
 
-  login(email: string, password: string) {
+  login(email: string, password: string) { // Llamamos al login
 
-    const data = { email, password };
+    const data = { email, password };  // Mandamos el correo y el password
     return new Promise((resolve) => {
 
-      this.http.post(`${URL}/user/login`, data).subscribe((resp) => {
-        console.log(resp);
+      this.http.post(`${URL}/user/login`, data)
+        .subscribe(async resp => { // Ingresamos
 
-        if (resp['ok']) {
-          this.saveToken(resp['token']);
-          resolve(true);
-        } else {
-          this.token = null;
-          Storage.clear();
-          resolve(false);
-        }
-      });
+          console.log(resp);
+
+          if (resp['ok']) {
+            await this.saveToken(resp['token']); // Async para que espera a guardar el token
+            resolve(true);
+          } else {
+            this.token = null;
+            Storage.clear();
+            resolve(false);
+          }
+        });
     });
+  }
+
+  // Logout cerrar sesión usuario
+
+  logout() {
+
+    this.token = null; // Primero limpiamos el TOKEN.
+    this.user = null;  // Limpiamos también el usuario.
+    Storage.clear();   // Limpiamos el storage donde almacenamos el token.
+    this.navCtrl.navigateRoot('/login', { animated: true }); // Volvemos al login.
+
   }
 
 
@@ -52,45 +65,46 @@ export class UserService {
   register(user: IUser) {
 
     return new Promise((resolve) => {
-      this.http.post(`${URL}/user/create`, user).subscribe((resp) => {
-        console.log(resp);
+      this.http.post(`${URL}/user/create`, user)
+        .subscribe(async resp => {
+          console.log(resp);
 
-        if (resp['ok']) {
-
-          this.saveToken(resp['token']);
-          resolve(true);
-
-        } else {
-
-          this.token = null;
-          Storage.clear();
-          resolve(false);
-        }
-      });
+          if (resp['ok']) {
+            // Antes de solucionar el registro con el async esperamos a guardar el token
+            await this.saveToken(resp['token']);
+            resolve(true);
+          } else {
+            this.token = null;
+            Storage.clear();
+            resolve(false);
+          }
+        });
     });
   }
 
   // Obtener información del usuario ----------------------------------------------
 
   getUser() {
-
     if (!this.user) {
       this.validateToken();
     }
-
     return { ...this.user }; // Se destruye la relación, para generar un nuevo objeto
   }
+
 
   // Guarda token en capacitor Storage
 
   async saveToken(token: string) {
 
-    this.token = token;
+    this.token = token; // Recibimos el token
 
-    await Storage.set({
+    await Storage.set({ // Guardamos el token en el storage
       key: 'token',
       value: token
     });
+
+    await this.validateToken(); // Esperamos a que valide el token
+
   }
 
 

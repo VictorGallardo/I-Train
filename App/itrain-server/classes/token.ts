@@ -32,9 +32,6 @@ export default class Token {
             })
 
         });
-
-
     }
-
 
 }

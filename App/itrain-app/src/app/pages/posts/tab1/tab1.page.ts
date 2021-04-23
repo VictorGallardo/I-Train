@@ -1,6 +1,6 @@
-import { IPost } from './../../interfaces/interfaces';
+import { IPost } from '../../../interfaces/interfaces';
 import { Component, OnInit } from '@angular/core';
-import { PostsService } from '../../services/posts.service';
+import { PostsService } from '../../../services/posts.service';
 
 @Component({
   selector: 'app-tab1',

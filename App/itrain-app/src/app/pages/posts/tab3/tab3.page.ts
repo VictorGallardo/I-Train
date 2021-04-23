@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { IUser } from '../../interfaces/interfaces';
-import { UserService } from '../../services/user.service';
+import { IUser } from '../../../interfaces/interfaces';
 import { NgForm } from '@angular/forms';
-import { UiService } from '../../services/ui.service';
+import { UiService } from '../../../services/ui.service';
+import { PostsService } from '../../../services/posts.service';
+import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'app-tab3',
@@ -17,14 +18,16 @@ export class Tab3Page implements OnInit {
   constructor(
 
     private userService: UserService,
-    private uiService: UiService
+    private uiService: UiService,
+    private postsService: PostsService
 
   ) { }
 
 
   ngOnInit(): void {
 
-    this.user = this.userService.getUser(); // Cargamos los datos del usuario
+
+    this.user = this.userService.getUser();
     console.log(this.user);
 
   }
@@ -47,9 +50,11 @@ export class Tab3Page implements OnInit {
 
   }
 
+  // Logout 
 
   logout() {
-
+    this.postsService.pagePosts = 0; // Esto es para reestablecer las páginas
+    this.userService.logout();
   }
 
 }

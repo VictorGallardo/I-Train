@@ -24,7 +24,7 @@ const postSchema = new Schema({
 });
 
 
-// Esto crea la fecha de forma automática cada vez que se cre un ejercicio
+// Esto crea la fecha de forma automática cada vez que se cree un bloque
 postSchema.pre<Ipost>('save', function (next) {
     this.created = new Date();
     next();

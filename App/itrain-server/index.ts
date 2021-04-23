@@ -6,7 +6,9 @@ import cors from 'cors'
 
 import postRoutes from './routes/post.routes';
 import userRoutes from './routes/user.routes';
-import fileUpload from 'express-fileupload'
+import fileUpload from 'express-fileupload';
+import listRoutes from './routes/list.routes';
+import itemRoutes from './routes/item.routes';
 
 const server = new Server();
 
@@ -27,6 +29,8 @@ server.app.use(cors({ origin: true, credentials: true }));
 // Rutas de la app
 server.app.use('/user', userRoutes);
 server.app.use('/posts', postRoutes);
+server.app.use('/lists', listRoutes);
+server.app.use('/items', itemRoutes);
 
 
 // Conexión DB

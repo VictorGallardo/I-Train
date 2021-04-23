@@ -11,10 +11,7 @@ const userSchema: Schema<any> = new Schema({
         type: String,
         require: [true, 'El nombre es necesario']
     },
-    avatar: {
-        type: String,
-        default: 'userDefault.png'
-    },
+
     email: {
         type: String,
         unique: true,
@@ -23,7 +20,23 @@ const userSchema: Schema<any> = new Schema({
     password: {
         type: String,
         required: [true, 'La contraseña es necesaria']
-    }
+    },
+
+    role: {
+        type: String,
+        enum: ['basic', 'admin'],
+        default: 'basic'
+
+    },
+
+    avatar: {
+        type: String,
+        default: 'userDefault.png'
+    },
+
+    lists: [{
+        type: String
+    }]
 
 });
 
@@ -42,7 +55,9 @@ export interface Iuser extends Document {
     name: string;
     email: string;
     password: string;
+    role: string;
     avatar: string;
+    lists: string[];
 
     comparePassword(password: string): boolean;
 
