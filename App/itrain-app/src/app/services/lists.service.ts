@@ -13,7 +13,7 @@ const URL = environment.url;
 })
 export class ListsService {
 
-  listsPage = 0;
+  pageLists = 0;
   newList = new EventEmitter<IList>();
 
 
@@ -23,12 +23,17 @@ export class ListsService {
   ) { }
 
   // Obtener listas 
-  getLists() {
+  getLists(pull: boolean = false) {
+
+    if (pull) {
+      this.pageLists = 0;
+    }
+
     const headers = new HttpHeaders({
       'x-token': this.userService.token // Traemos el token del userService
     });
-    this.listsPage++;
-    return this.http.get<IRespList>(`${URL}/lists/?page=${this.listsPage}`, { headers }) // Hay que pasarle el header aqui IMPORTANTE!!
+    this.pageLists++;
+    return this.http.get<IRespList>(`${URL}/lists/?page=${this.pageLists}`, { headers }) // Hay que pasarle el header aqui IMPORTANTE!!
   }
 
   // Crear listas

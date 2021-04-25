@@ -20,6 +20,10 @@ const routes: Routes = [
         loadChildren: () => import('../items/items.module').then((m) => m.ItemsPageModule)
       },
       {
+        path: 'items',
+        loadChildren: () => import('../items/items.module').then((m) => m.ItemsPageModule)
+      },
+      {
         path: '',
         redirectTo: '/lists/unfinish',
         pathMatch: 'full'

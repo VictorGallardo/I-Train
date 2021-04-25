@@ -1,13 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
-import { IItem } from 'src/app/interfaces/interfaces';
+import { IItem } from '../../interfaces/interfaces';
 
 @Component({
-  selector: 'app-items',
-  templateUrl: './items.component.html',
-  styleUrls: ['./items.component.scss'],
+  selector: 'app-list-items',
+  templateUrl: './list-items.component.html',
+  styleUrls: ['./list-items.component.scss'],
 })
-export class ItemsComponent implements OnInit {
+export class ListItemsComponent implements OnInit {
 
   @Input() items: IItem[] = []; // Aquí estoy recibiendo las listas que le paso del unfinished.page.html
 

@@ -5,22 +5,37 @@
 </ion-header>
 
 <ion-content>
+  <!-- Estas listas hacen referencia a las que estoy reciviendo en el ts -->
 
-<!-- Refresher -->
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingText="Pull to refresh"
+      refreshingSpinner="bubbles"
+      refreshingText="Refreshing..."
+    >
+    </ion-refresher-content>
+  </ion-refresher>
 
-<!-- Listas -->
+  <!-- Lists Component -->
+  <app-lists [lists]="lists"></app-lists>
 
-<!-- Estas listas hacen referencia a las que estoy reciviendo en el ts -->
-<app-lists [lists]="lists"></app-lists> 
+  <!-- Infinite-scroll -->
+  <ion-infinite-scroll
+    [disabled]="!enabled"
+    threshold="100px"
+    position="bottom"
+    (ionInfinite)="nexts($event)"
+  >
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more data..."
+    >
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 
-<!-- Infinite scroll -->
-
-<ion-fab vertical="bottom" horizontal="center" slot="fixed">
-  <ion-fab-button (click)="addList()">
+  <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+    <ion-fab-button (click)="addList()">
       <ion-icon name="add"></ion-icon>
-  </ion-fab-button>
-</ion-fab>
-
-
-
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

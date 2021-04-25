@@ -7,6 +7,7 @@ Diario de trabajo **Proyecto Fin de Ciclo**, en el se anotarán los avances prod
 ## Semana **1** :calendar: ( 12/04 - 18/04 )
 
 - Inicio de proyecto - **Backend Server** ( itrain server ).
+
   - Clase Server - Instancia de express.
   - Modelos para la base de datos ( usuarios y publicaciones )
   - Crear usuario y actualizar usuarios.
@@ -15,6 +16,7 @@ Diario de trabajo **Proyecto Fin de Ciclo**, en el se anotarán los avances prod
   - Creacion y verificación de JsonWebTokens.
 
 * Inicio de proyecto - **Ionic App** ( itrain app ).
+
   - Interfaces.
   - Crear registros en la base de datos.
   - Obtener listados.
@@ -28,3 +30,21 @@ Diario de trabajo **Proyecto Fin de Ciclo**, en el se anotarán los avances prod
   - Actualizar datos del usuario.
   - Protección de rutas mediante Guards.
   - Diseño de páginas crear un registros y main.
+
+## Semana **1** :calendar: ( 19/04 - 25/04 )
+
+- Proyecto **Ionic app**.
+
+  - Implementación de la cámara ( métodos para tomar o añadir fotos ).
+  - Pipe con ruta.
+  - Mostrar imágenes.
+  - Logout de la sesión de usuario.
+  - Diseño página de ejercicios ( lista con los items ).
+  - Diseño pagina de listas donde van los items.
+  - Diseño página de crear o editar listas y items.
+  - Componentes para mostrar listas.
+
+- Proyecto **Backend Server**
+
+  - Creación de esquema, modelo y ruta para ejercicios (items).
+  - Método GET para obtener los ejercicios creados.

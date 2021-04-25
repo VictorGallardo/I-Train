@@ -25,11 +25,13 @@ const routes: Routes = [
   },
   {
     path: 'add-edit/:listId', // Aniadir items
-    loadChildren: () => import('./pages/lists/add-edit/add-edit.module').then((m) => m.AddEditPageModule)
+    loadChildren: () => import('./pages/lists/add-edit/add-edit.module').then((m) => m.AddEditPageModule),
+    canLoad: [UserGuard]
   },
   {
     path: 'add-edit', // Aniadir items
-    loadChildren: () => import('./pages/lists/add-edit/add-edit.module').then((m) => m.AddEditPageModule)
+    loadChildren: () => import('./pages/lists/add-edit/add-edit.module').then((m) => m.AddEditPageModule),
+    canLoad: [UserGuard]
   },
 
   // Si no hay ninguna ruta redirecciona a ésta.

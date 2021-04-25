@@ -15,6 +15,7 @@ export class UnfinishedPage implements OnInit {
 
   user: IUser = {};
   lists: IList[] = [];
+  enabled = true;
 
   list = {
     title: '',
@@ -32,18 +33,13 @@ export class UnfinishedPage implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.nexts();
 
     // this.userService.loadToken()
     this.user = this.userService.getUser();
-    console.log(this.user);
+    // console.log(this.user);
 
-    // Cargamos las listas 
-    this.listsService.getLists() // getList de listService // Esto me devuelve las listas del usuario logeado
-      .subscribe(resp => {
-        console.log(resp);
-        this.lists.push(...resp.lists); // Cargamos el array del lists
 
-      });
 
     this.listsService.newList.subscribe(list => {
       this.lists.unshift(list)
@@ -54,20 +50,50 @@ export class UnfinishedPage implements OnInit {
   }
 
 
+  // Refrescar listas
+  doRefresh(event) {
+
+    this.nexts(event, true);
+    this.enabled = true;
+    this.lists = [];
+
+  }
+
+  // Infinite scroll
+  nexts(event?, pull: boolean = false) {
+
+    // Cargamos las listas 
+    this.listsService.getLists(pull) // getList de listService // Esto me devuelve las listas del usuario logeado
+      .subscribe(resp => {
+        console.log(resp);
+        this.lists.push(...resp.lists); // Cargamos el array del lists
+
+        if (event) {
+          event.target.complete();
+
+          if (resp.lists.length === 0)
+            event.target.disabled = false;
+        }
+
+      });
+
+  }
+
+
   // Crear nueva lista
   async createdList() {
 
     console.log(this.list);
-    const created = await this.listsService.createdList(this.list);
+    await this.listsService.createdList(this.list);
 
     this.list = {
       title: '',
       completed: false
     }
 
-    console.log(this.listId);
-
     this.router.navigateByUrl(`main/lists/items/${this.listId}`);
+    console.log('Mandamos el listid --> ' + this.listId);
+
     // this.router.navigateByUrl(`/tabs/tab1/agregar/${listaId}`)
 
 
