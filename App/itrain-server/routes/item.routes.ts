@@ -16,7 +16,7 @@ itemRoutes.get('/:listid', async (req: any, res: Response) => {
     skip = skip * 10
 
     const body = req.body;
-    body.list = req.params._id;
+    body.list = req.params.listid;
 
     const items = await Item
         .find(body)
@@ -45,7 +45,7 @@ itemRoutes.post('/:listid', (req: any, res: Response) => {
     // Grabar en DB
     Item.create(body).then(async itemDB => {
 
-        await itemDB.populate('list').execPopulate(); // Poblamos con la lista
+        // await itemDB.populate('list').execPopulate(); // Poblamos con la lista
 
         res.json({
             ok: true,

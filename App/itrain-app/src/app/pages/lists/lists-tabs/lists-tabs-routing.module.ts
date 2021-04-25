@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
 import { ListsTabsPage } from './lists-tabs.page';
 
 const routes: Routes = [
@@ -10,27 +9,26 @@ const routes: Routes = [
     children: [
       {
         path: 'unfinish', // Ejercicios sin terminar
-        loadChildren: () => import('../../lists/unfinished/unfinished.module').then((m) => m.UnfinishedPageModule)
+        loadChildren: () => import('../unfinished/unfinished.module').then((m) => m.UnfinishedPageModule)
       },
       {
         path: 'finish', // Ejercicios terminados
-        loadChildren: () => import('../../lists/finished/finished.module').then((m) => m.FinishedPageModule)
+        loadChildren: () => import('../finished/finished.module').then((m) => m.FinishedPageModule)
       },
-      // {
-      //   path: 'agregar/:listaId',
-      //   loadChildren: () =>
-      //     // import('../agregar/agregar.module').then(m => m.AgregarPageModule)
-      // },
+      {
+        path: 'items/:listId',
+        loadChildren: () => import('../items/items.module').then((m) => m.ItemsPageModule)
+      },
       {
         path: '',
-        redirectTo: '/lists-tabs/unfinish',
+        redirectTo: '/lists/unfinish',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/lists-tabs/unfinish',
+    redirectTo: '/lists/unfinish',
     pathMatch: 'full'
 
   }

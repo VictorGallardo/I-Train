@@ -6,12 +6,14 @@ import { IonicModule } from '@ionic/angular';
 import { PipesModule } from '../pipes/pipes.module';
 import { AvatarSelectComponent } from './avatar-select/avatar-select.component';
 import { ListsComponent } from './lists/lists.component';
+import { ItemsComponent } from './items/items.component';
 
 
 @NgModule({
   // Declaro mis componentes
   declarations: [
     AvatarSelectComponent,
+    ItemsComponent,
     ListsComponent,
     PostComponent,
     PostsComponent,
@@ -19,6 +21,7 @@ import { ListsComponent } from './lists/lists.component';
   // Exporto mis componentes para poder usarlos 
   exports: [
     AvatarSelectComponent,
+    ItemsComponent,
     ListsComponent,
     PostsComponent,
   ],

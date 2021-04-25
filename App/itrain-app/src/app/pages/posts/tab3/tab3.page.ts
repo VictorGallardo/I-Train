@@ -26,7 +26,6 @@ export class Tab3Page implements OnInit {
 
   ngOnInit(): void {
 
-
     this.user = this.userService.getUser();
     console.log(this.user);
 

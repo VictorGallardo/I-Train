@@ -35,7 +35,7 @@ postSchema.pre<Ipost>('save', function (next) {
 interface Ipost extends Document {
 
     created: Date;
-    mensaje: string;
+    message: string;
     img: string[];
     coords: string;
     user: string;

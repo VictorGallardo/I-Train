@@ -34,9 +34,9 @@ const userSchema: Schema<any> = new Schema({
         default: 'userDefault.png'
     },
 
-    lists: [{
-        type: String
-    }]
+    // lists: [{
+    //     type: String
+    // }],
 
 });
 
@@ -49,6 +49,7 @@ userSchema.method('comparePassword', function (password: string = ''): boolean {
     }
 });
 
+
 // Interface para el tipado del modelo
 export interface Iuser extends Document {
 
@@ -57,7 +58,6 @@ export interface Iuser extends Document {
     password: string;
     role: string;
     avatar: string;
-    lists: string[];
 
     comparePassword(password: string): boolean;
 

@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, } from '@angular/core';
 import { ListsService } from '../../../services/lists.service';
 import { IUser, IList } from '../../../interfaces/interfaces';
 import { UserService } from '../../../services/user.service';
 import { UiService } from 'src/app/services/ui.service';
 import { AlertController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-unfinished',
@@ -17,15 +18,17 @@ export class UnfinishedPage implements OnInit {
 
   list = {
     title: '',
-    completed: false
+    completed: false,
   }
 
+  listId: string;
 
   constructor(
     private listsService: ListsService,
     private userService: UserService,
     private alertCtrl: AlertController,
     private uiService: UiService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -44,9 +47,14 @@ export class UnfinishedPage implements OnInit {
 
     this.listsService.newList.subscribe(list => {
       this.lists.unshift(list)
+      this.listId = list._id;
     })
+
+
   }
 
+
+  // Crear nueva lista
   async createdList() {
 
     console.log(this.list);
@@ -57,10 +65,15 @@ export class UnfinishedPage implements OnInit {
       completed: false
     }
 
-    //  this.router.navigateByUrl(`/tabs/tab1/agregar/${listaId}`)
+    console.log(this.listId);
+
+    this.router.navigateByUrl(`main/lists/items/${this.listId}`);
+    // this.router.navigateByUrl(`/tabs/tab1/agregar/${listaId}`)
+
 
   }
 
+  // Alert para crear lista
   async addList() {
 
     const alert = await this.alertCtrl.create({
@@ -87,7 +100,6 @@ export class UnfinishedPage implements OnInit {
             if (data.title.length > 0) {
               this.list.title = data.title
               this.createdList();
-              console.log(this.list);
             } else {
               this.uiService.presentToast('Debe escribir un nombre para la lista');
             }

@@ -16,6 +16,7 @@ listRoutes.get('/', [validateToken], async (req: any, res: Response) => {
 
     const body = req.body;
     body.user = req.user._id;
+    const idList = req.body._id
 
     const lists = await List
         .find(body)           // Busca por id user
@@ -28,7 +29,9 @@ listRoutes.get('/', [validateToken], async (req: any, res: Response) => {
     res.json({
         ok: true.valueOf,
         page,
-        lists
+        lists,
+        idList
+
     });
 
 });
@@ -42,8 +45,7 @@ listRoutes.post('/', [validateToken], (req: any, res: Response) => {
     // Con el body parser obtenemos toda la información que la persona manda
     const body = req.body;
     body.user = req.user._id;
-
-
+    body._id = req.body._id
 
     // Grabar en la base de datos
     List.create(body).then(async listDB => {
@@ -52,20 +54,36 @@ listRoutes.post('/', [validateToken], (req: any, res: Response) => {
         // ---------------------------------------------------------------
         // Esto es para que llene el usuario con toda su info
         // El -password no muestra la contraseña
-
-        await listDB.populate('user', 'lists').execPopulate();
+        await listDB.populate('user', '-password').execPopulate();
+        // listDB.items.push({ lists: 'kskdkks' })
+        // await listDB.save();
 
         res.json({
             ok: true,
             list: listDB
+
         });
 
     }).catch(err => { // Si sucede algún error
         res.json(err)
     });
-
-
 });
+
+
+// listRoutes.get('/list/:userid/:listid', (req: any, res: Response) => {
+
+
+//     const userId = req.params.userid;
+//     const listId = req.params.listid;
+
+//     const body = req.body;
+//     body.user = req.user._id;
+//     const list = body.lists
+
+//     res.json({
+//         userId, listId, list
+//     })
+// });
 
 
 export default listRoutes;

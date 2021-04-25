@@ -5,6 +5,7 @@ import bycrypt from 'bcrypt'
 import Token from '../classes/token';
 import { validateToken } from '../middlewares/authentication';
 
+
 const userRoutes = Router();
 
 // Login de usuario
@@ -135,4 +136,29 @@ userRoutes.get('/', [validateToken], (req: any, res: Response) => {
 });
 
 
+
+// // Insertar id en array lists: de usuarios (EN PRUEBAS)
+// userRoutes.post('/addlist/:iduser/:idlist', (req: Request, res: Response) => {
+
+//     // extraer la info del post
+//     const iduser = req.params.iduser;
+//     const idlist = req.params.idlist;
+
+//     User.findOne({ _id: iduser }, (err: any, userDB: Iuser) => {
+
+//         userDB.lists.push(idlist)
+//         userDB.save();
+
+//         res.json({
+//             ok: true,
+//             idlist
+
+
+//         });
+
+//     });
+// });
 export default userRoutes;
+
+
+

@@ -73,7 +73,7 @@ export class LoginPage implements OnInit {
     const valid = await this.userService.register(this.registerUser);
     if (valid) {
       // navega a main
-      this.navCtrl.navigateRoot('/main/tabs/tab1', { animated: true });
+      this.navCtrl.navigateRoot('/main/lists/unfinish', { animated: true });
 
     } else {
       // Mostrar alert : usuario/contraseña no correctos
