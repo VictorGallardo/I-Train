@@ -4,7 +4,7 @@ Diario de trabajo **Proyecto Fin de Ciclo**, en el se anotarán los avances prod
 <br>
 <br>
 
-## Semana **1** :calendar: ( 12/04 - 18/04 )
+## :calendar: Semana **1** ( 12/04 - 18/04 )
 
 - Inicio de proyecto - **Backend Server** ( itrain server ).
 
@@ -31,7 +31,7 @@ Diario de trabajo **Proyecto Fin de Ciclo**, en el se anotarán los avances prod
   - Protección de rutas mediante Guards.
   - Diseño de páginas crear un registros y main.
 
-## Semana **1** :calendar: ( 19/04 - 25/04 )
+## :calendar: Semana **2** ( 19/04 - 25/04 )
 
 - Proyecto **Ionic app**.
 
