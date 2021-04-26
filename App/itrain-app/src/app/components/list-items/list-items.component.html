@@ -1,12 +1,3 @@
-<ion-header class="ion-no-border">
-  <ion-toolbar color="dark">
-    <ion-buttons slot="end">
-      <ion-back-button defaultHref="/"></ion-back-button>
-    </ion-buttons>
-    <ion-title></ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
   <ion-list>
     <ion-list-header>
@@ -22,7 +13,7 @@
         <!-- [(ngModel)]="item.completed" -->
         <!-- (ionChange)="cambioCheck()" -->
         <ion-checkbox slot="start"></ion-checkbox>
-        <ion-label>{{ item.description }}</ion-label>
+        <ion-label>{{ item.title }}</ion-label>
       </ion-item>
 
       <ion-item-options side="end">

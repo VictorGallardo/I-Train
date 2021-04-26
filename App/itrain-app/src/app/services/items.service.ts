@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, EventEmitter } from '@angular/core';
-import { environment } from 'src/environments/environment.prod';
+import { environment } from 'src/environments/environment';
 import { IItem, IRespItem } from '../interfaces/interfaces';
 import { Router } from '@angular/router';
 
@@ -11,20 +11,13 @@ const URL = environment.url;
 })
 export class ItemsService {
 
-  pageItems = 0;
   newItem = new EventEmitter<IItem>();
 
   constructor(private http: HttpClient) { }
 
   // Obtener Items
-  getItems(pull: boolean = false, listId: string) {
-
-    if (pull) {
-      this.pageItems = 0;
-    }
-
-    this.pageItems++;
-    return this.http.get<IRespItem>(`${URL}/items/${listId}/?page=${this.pageItems}`)
+  getItems(listId: string) {
+    return this.http.get<IRespItem>(`${URL}/items/${listId}`)
   }
 
   // Crear Item

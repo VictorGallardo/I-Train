@@ -7,7 +7,7 @@
         <!-- | filtroCompletado:terminada -->
         <ion-item-sliding *ngFor="let list of lists">
           <!-- (click)="listSelect(list)" -->
-          <ion-item detail>
+          <ion-item detail (click)="goToItems(list._id)">
             <ion-label>{{ list.title }}</ion-label>
             <ion-note slot="end">{{ list.items.length }}</ion-note>
           </ion-item>

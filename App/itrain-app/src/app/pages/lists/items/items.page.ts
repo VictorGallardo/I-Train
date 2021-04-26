@@ -19,19 +19,20 @@ export class ItemsPage implements OnInit {
       private itemsService: ItemsService,
       private actvRoute: ActivatedRoute,
       private router: Router
-    ) {
-
-
-  }
+    ) { }
 
 
   ngOnInit() {
 
     console.log('Entramos en items');
-
-    this.nexts();
-
     this.listId = this.actvRoute.snapshot.paramMap.get('listId');
+
+    this.itemsService.getItems(this.listId)
+      .subscribe(resp => {
+        console.log(resp);
+        this.items.push(...resp.items);
+
+      });
 
     this.itemsService.newItem.subscribe(item => {
       // Insertamos el item en el array de items en la 1º posición
@@ -44,33 +45,6 @@ export class ItemsPage implements OnInit {
 
   }
 
-  // Refrescar items
-  doRefresh(event) {
-
-    this.nexts(event, true, this.listId);
-    this.enabled = true;
-    this.items = [];
-
-  }
-
-  // Infinite scroll
-  nexts(event?, pull: boolean = false, listId?: string) {
-
-    this.itemsService.getItems(pull, listId)
-      .subscribe(resp => {
-        console.log(resp);
-        this.items.push(...resp.items);
-
-        if (event) {
-          event.target.complete();
-
-          if (resp.items.length === 0)
-            event.target.disabled = false;
-        }
-
-      });
-
-  }
 
 
   // Ir a añadir o editar

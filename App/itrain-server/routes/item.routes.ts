@@ -10,10 +10,6 @@ const itemRoutes = Router();
 
 itemRoutes.get('/:listid', async (req: any, res: Response) => {
 
-    // Paginación
-    let page = Number(req.query.page) || 1; // Si regresa undefined o NaN regresa a la página 1
-    let skip = page - 1;
-    skip = skip * 10
 
     const body = req.body;
     body.list = req.params.listid;
@@ -21,14 +17,11 @@ itemRoutes.get('/:listid', async (req: any, res: Response) => {
     const items = await Item
         .find(body)
         .sort({ _id: -1 })
-        .skip(skip)
-        .limit(10)
         .exec()
 
     // Respuesta
     res.json({
         ok: true.valueOf,
-        page,
         items
     });
 

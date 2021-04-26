@@ -1,7 +1,6 @@
 import { Component, Input, OnInit, } from '@angular/core';
 import { ListsService } from '../../../services/lists.service';
-import { IUser, IList } from '../../../interfaces/interfaces';
-import { UserService } from '../../../services/user.service';
+import { IList } from '../../../interfaces/interfaces';
 import { UiService } from 'src/app/services/ui.service';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
@@ -13,7 +12,6 @@ import { Router } from '@angular/router';
 })
 export class UnfinishedPage implements OnInit {
 
-  user: IUser = {};
   lists: IList[] = [];
   enabled = true;
 
@@ -26,59 +24,53 @@ export class UnfinishedPage implements OnInit {
 
   constructor(
     private listsService: ListsService,
-    private userService: UserService,
     private alertCtrl: AlertController,
     private uiService: UiService,
     private router: Router
   ) { }
 
-  ngOnInit(): void {
-    this.nexts();
+  ngOnInit() {
 
-    // this.userService.loadToken()
-    this.user = this.userService.getUser();
-    // console.log(this.user);
-
-
+    this.nextsItems();
 
     this.listsService.newList.subscribe(list => {
       this.lists.unshift(list)
       this.listId = list._id;
     })
 
-
   }
 
+  // Cargar las páginas
+  loadLists(event) {
 
-  // Refrescar listas
-  doRefresh(event) {
-
-    this.nexts(event, true);
+    this.nextsItems(event, true);
     this.enabled = true;
-    this.lists = [];
+    this.lists = []
 
   }
 
-  // Infinite scroll
-  nexts(event?, pull: boolean = false) {
+  // Infinite Scroll
+  nextsItems(event?, pull: boolean = false) {
 
-    // Cargamos las listas 
     this.listsService.getLists(pull) // getList de listService // Esto me devuelve las listas del usuario logeado
       .subscribe(resp => {
         console.log(resp);
         this.lists.push(...resp.lists); // Cargamos el array del lists
+        // Así puedo obtener el atributo que quiera ---------
+        // console.log(resp.lists[0]._id); // El id de la lista posicion 0 o la que sea
+        // console.log(resp.lists[0].user._id); // El email del usuario
+        //---------------------------------------------------
 
         if (event) {
           event.target.complete();
 
-          if (resp.lists.length === 0)
+          if (resp.lists.length === 0) {
             event.target.disabled = false;
+          }
         }
-
       });
 
   }
-
 
   // Crear nueva lista
   async createdList() {
@@ -95,7 +87,6 @@ export class UnfinishedPage implements OnInit {
     console.log('Mandamos el listid --> ' + this.listId);
 
     // this.router.navigateByUrl(`/tabs/tab1/agregar/${listaId}`)
-
 
   }
 

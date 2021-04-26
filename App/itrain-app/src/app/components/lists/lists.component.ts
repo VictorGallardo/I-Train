@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { IList } from '../../interfaces/interfaces';
 import { AlertController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-lists',
@@ -11,7 +12,11 @@ export class ListsComponent implements OnInit {
 
   @Input() lists: IList[] = []; // Aquí estoy recibiendo las listas que le paso del unfinished.page.html
 
-  constructor(private alertCtrl: AlertController) { }
+  constructor
+    (
+      private alertCtrl: AlertController,
+      private route: Router
+    ) { }
 
   ngOnInit() {
 
@@ -33,6 +38,10 @@ export class ListsComponent implements OnInit {
   // borrarLista(lista: Lista) {
   //   this.deseosService.borrarLista(lista);
   // }
+
+  goToItems(listId) {
+    this.route.navigateByUrl(`main/lists/items/${listId}`);
+  }
 
 
   async editList(list: IList) {

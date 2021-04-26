@@ -1,35 +1,31 @@
 <ion-header class="ion-no-border">
   <ion-toolbar>
-    <ion-title>unfinished</ion-title>
+    <ion-title>Listas sin terminar</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <!-- Estas listas hacen referencia a las que estoy reciviendo en el ts -->
-
-  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content
-      pullingText="Pull to refresh"
-      refreshingSpinner="bubbles"
-      refreshingText="Refreshing..."
-    >
-    </ion-refresher-content>
+  <ion-refresher
+    slot="fixed"
+    (ionRefresh)="loadLists($event)"
+    pullFactor="0.8"
+    pullMin="60"
+    pullMax="120"
+  >
+    <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
   <!-- Lists Component -->
+  <!-- Estas listas hacen referencia a las que estoy reciviendo en el ts -->
   <app-lists [lists]="lists"></app-lists>
 
-  <!-- Infinite-scroll -->
+  <!-- Infinite Scroll -->
   <ion-infinite-scroll
     [disabled]="!enabled"
-    threshold="100px"
-    position="bottom"
-    (ionInfinite)="nexts($event)"
+    threshold="25%"
+    (ionInfinite)="nextsItems($event)"
   >
-    <ion-infinite-scroll-content
-      loadingSpinner="bubbles"
-      loadingText="Loading more data..."
-    >
+    <ion-infinite-scroll-content loadingSpinner="bubbles">
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>
 

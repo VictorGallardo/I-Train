@@ -1,40 +1,40 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from '../../environments/environment.prod';
+import { environment } from '../../environments/environment';
 import { UserService } from './user.service';
 import { IRespList, IList } from '../interfaces/interfaces';
 
-
 const URL = environment.url;
-
 
 @Injectable({
   providedIn: 'root'
 })
 export class ListsService {
 
-  pageLists = 0;
   newList = new EventEmitter<IList>();
-
+  listPage = 0;
 
   constructor(
     private http: HttpClient,
     private userService: UserService
   ) { }
 
+
   // Obtener listas 
   getLists(pull: boolean = false) {
 
     if (pull) {
-      this.pageLists = 0;
+      this.listPage = 0;
     }
+    this.listPage++;
 
     const headers = new HttpHeaders({
       'x-token': this.userService.token // Traemos el token del userService
     });
-    this.pageLists++;
-    return this.http.get<IRespList>(`${URL}/lists/?page=${this.pageLists}`, { headers }) // Hay que pasarle el header aqui IMPORTANTE!!
+
+    return this.http.get<IRespList>(`${URL}/lists/?page=${this.listPage}`, { headers }); // Hay que pasarle el header aqui IMPORTANTE!!
   }
+
 
   // Crear listas
   createdList(list) {
