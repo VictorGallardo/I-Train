@@ -35,12 +35,8 @@ export class ListsComponent implements OnInit {
   // }
 
 
-  // borrarLista(lista: Lista) {
-  //   this.deseosService.borrarLista(lista);
-  // }
-
-  goToItems(listId) {
-    this.route.navigateByUrl(`main/lists/items/${listId}`);
+  goToItems(listId, listTitle) {
+    this.route.navigateByUrl(`main/lists/items/${listId}/${listTitle}`);
   }
 
 

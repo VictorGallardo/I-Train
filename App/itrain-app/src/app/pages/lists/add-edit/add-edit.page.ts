@@ -37,6 +37,7 @@ export class AddEditPage implements OnInit {
     ) { }
 
 
+
   ngOnInit() {
 
     this.listId = this.actvdRoute.snapshot.paramMap.get('listId');

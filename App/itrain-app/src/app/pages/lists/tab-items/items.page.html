@@ -1,13 +1,12 @@
 <ion-header class="ion-no-border">
-  <ion-toolbar>
-    <ion-title></ion-title>
+  <ion-toolbar class="ion-text-center">
+    <ion-title>{{listTitle}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <!-- Listas -->
   <app-list-items [items]="items"></app-list-items>
-  <!-- Estas listas hacen referencia a las que estoy reciviendo en el ts -->
 
   <ion-fab vertical="bottom" horizontal="center" slot="fixed">
     <ion-fab-button (click)="goAddEdit()">

@@ -21,6 +21,8 @@ export class UnfinishedPage implements OnInit {
   }
 
   listId: string;
+  listTitle: string;
+  listLength: number;
 
   constructor(
     private listsService: ListsService,
@@ -36,6 +38,7 @@ export class UnfinishedPage implements OnInit {
     this.listsService.newList.subscribe(list => {
       this.lists.unshift(list)
       this.listId = list._id;
+      this.listTitle = list.title;
     })
 
   }
@@ -55,7 +58,8 @@ export class UnfinishedPage implements OnInit {
     this.listsService.getLists(pull) // getList de listService // Esto me devuelve las listas del usuario logeado
       .subscribe(resp => {
         console.log(resp);
-        this.lists.push(...resp.lists); // Cargamos el array del lists
+        this.lists.push(...resp.lists);
+        // Cargamos el array del lists
         // Así puedo obtener el atributo que quiera ---------
         // console.log(resp.lists[0]._id); // El id de la lista posicion 0 o la que sea
         // console.log(resp.lists[0].user._id); // El email del usuario
@@ -83,7 +87,7 @@ export class UnfinishedPage implements OnInit {
       completed: false
     }
 
-    this.router.navigateByUrl(`main/lists/items/${this.listId}`);
+    this.router.navigateByUrl(`main/lists/items/${this.listId}/${this.listTitle}`);
     console.log('Mandamos el listid --> ' + this.listId);
 
     // this.router.navigateByUrl(`/tabs/tab1/agregar/${listaId}`)

@@ -11,7 +11,6 @@ const fileSystem = new FileSystem();
 // Obtener post paginados
 postRoutes.get('/', async (req: any, res: Response) => {
 
-
     let page = Number(req.query.page) || 1;
     let skip = page - 1;
     skip = skip * 10;

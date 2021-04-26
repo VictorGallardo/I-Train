@@ -7,21 +7,26 @@ const routes: Routes = [
     path: 'lists',
     component: ListsTabsPage,
     children: [
+
+      // Listas sin terminar
       {
-        path: 'unfinish', // Ejercicios sin terminar
-        loadChildren: () => import('../unfinished/unfinished.module').then((m) => m.UnfinishedPageModule)
+        path: 'unfinish',
+        loadChildren: () => import('../tab-unfinish/unfinished.module').then((m) => m.UnfinishedPageModule)
       },
+      // Listas terminadas
       {
-        path: 'finish', // Ejercicios terminados
-        loadChildren: () => import('../finished/finished.module').then((m) => m.FinishedPageModule)
+        path: 'finish',
+        loadChildren: () => import('../tab-finish/finished.module').then((m) => m.FinishedPageModule)
       },
+      // Items
+      {
+        path: 'items/:listId/:listTitle',
+        loadChildren: () => import('../tab-items/items.module').then((m) => m.ItemsPageModule)
+      },
+      // Items
       {
         path: 'items/:listId',
-        loadChildren: () => import('../items/items.module').then((m) => m.ItemsPageModule)
-      },
-      {
-        path: 'items',
-        loadChildren: () => import('../items/items.module').then((m) => m.ItemsPageModule)
+        loadChildren: () => import('../tab-items/items.module').then((m) => m.ItemsPageModule)
       },
       {
         path: '',

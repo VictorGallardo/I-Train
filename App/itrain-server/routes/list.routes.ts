@@ -70,20 +70,6 @@ listRoutes.post('/', [validateToken], (req: any, res: Response) => {
 });
 
 
-// listRoutes.get('/list/:userid/:listid', (req: any, res: Response) => {
-
-
-//     const userId = req.params.userid;
-//     const listId = req.params.listid;
-
-//     const body = req.body;
-//     body.user = req.user._id;
-//     const list = body.lists
-
-//     res.json({
-//         userId, listId, list
-//     })
-// });
 
 
 export default listRoutes;

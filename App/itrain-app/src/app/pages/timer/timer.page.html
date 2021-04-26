@@ -1,0 +1,59 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home" color="yellow"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Timer</ion-title>
+    <!-- (click)="goAddEdit(exercise.id)" -->
+    <ion-icon class="ion-padding" color="yellow" slot="end" name="build">
+    </ion-icon>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="ion-text-center">
+    <h2>Tiempo</h2>
+    <h1>{{time}}</h1>
+  </div>
+
+  <ion-card>
+    <ion-card-header class="ion-text-center">
+      <ion-card-subtitle>Caracteristicas del ejercicio</ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-list>
+      <ion-item>
+        <ion-label position="stacked">Duración</ion-label>
+        <ion-label>{{time}}</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Repeticiones</ion-label>
+        <ion-label>Repes</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Descanso</ion-label>
+        <ion-label>descanso</ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title color="oranje" class="ion-text-center"
+        >Descripción</ion-card-title
+      >
+    </ion-card-header>
+    <ion-card-content> descripcion</ion-card-content>
+  </ion-card>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <!-- (click)="startTimer()" -->
+    <!-- *ngIf="state === 'stop'" -->
+    <ion-button color="bluelight" expand="block"> Comenzar </ion-button>
+    <!-- *ngIf="state === 'start'"  -->
+    <!-- (click)="stopTimer()" -->
+    <ion-button color="yellow" expand="block"> Stop </ion-button>
+  </ion-toolbar>
+</ion-footer>

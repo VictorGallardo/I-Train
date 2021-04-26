@@ -18,7 +18,7 @@ export interface IRespList {
 // Respuesta de los items
 export interface IRespItem {
     ok: boolean;
-    page: number;
+    // page: number;
     items: IItem[];
 }
 
@@ -63,7 +63,7 @@ export interface IItem {
     repeats?: number;
     restReps?: number;
     totalTime?: number;
-    list?: string;
+    list?: IList;
 
 }
 

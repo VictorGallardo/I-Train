@@ -13,7 +13,7 @@ import { UserService } from '../../../services/user.service';
 
 export class Tab3Page implements OnInit {
 
-  user: IUser = {}; // Este usuario está en privado para evitar que pueda ser leido desde fuera (no actualizado antes de guardar)
+  user: IUser = {};
 
   constructor(
 

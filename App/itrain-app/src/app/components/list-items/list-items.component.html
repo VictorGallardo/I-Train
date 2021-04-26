@@ -9,10 +9,10 @@
       *ngFor="let item of items; let i = index"
       class="animated fadeInDown"
     >
-      <ion-item>
+      <ion-item (click)="goToTimer(item._id)">
         <!-- [(ngModel)]="item.completed" -->
         <!-- (ionChange)="cambioCheck()" -->
-        <ion-checkbox slot="start"></ion-checkbox>
+        <!-- <ion-checkbox slot="start"></ion-checkbox> -->
         <ion-label>{{ item.title }}</ion-label>
       </ion-item>
 
