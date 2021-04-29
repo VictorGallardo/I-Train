@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="home" color="yellow"></ion-back-button>
+      <ion-back-button defaultHref="/" color="yellow"></ion-back-button>
     </ion-buttons>
     <ion-title>Timer</ion-title>
     <!-- (click)="goAddEdit(exercise.id)" -->
@@ -10,31 +10,84 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <div class="ion-text-center">
-    <h2>Tiempo</h2>
-    <h1>{{time}}</h1>
-  </div>
+<ion-content class="ion-text-center">
+  <h3>{{item.title}}</h3>
 
-  <ion-card>
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col class="ion-text-center">
+        <svg
+          id="progress-circle"
+          width="50vh"
+          height="50vh"
+          viewBox="0 0 180 180"
+        >
+          <linearGradient id="linearColors1" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#f5ce8a"></stop>
+            <stop offset="100%" stop-color="#86b7a9"></stop>
+          </linearGradient>
+          <circle
+            cx="50%"
+            cy="50%"
+            [attr.r]="circleR"
+            fill="none"
+            stroke="#ffeed0"
+            stroke-width="12"
+          />
+          <circle
+            cx="50%"
+            cy="50%"
+            [attr.r]="circleR"
+            fill="none"
+            stroke="url(#linearColors1)"
+            stroke-width="12"
+            stroke-linecap="round"
+            [attr.stroke-dasharray]="circleDasharray"
+            [attr.stroke-dashoffset]="percentageOffset(percent | async)"
+          />
+          <text x="50%" y="55%" class="timer-text">{{ time | async }}</text>
+        </svg>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-card class="ion-padding">
     <ion-card-header class="ion-text-center">
       <ion-card-subtitle>Caracteristicas del ejercicio</ion-card-subtitle>
     </ion-card-header>
 
-    <ion-list>
-      <ion-item>
-        <ion-label position="stacked">Duración</ion-label>
-        <ion-label>{{time}}</ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-label position="stacked">Repeticiones</ion-label>
-        <ion-label>Repes</ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-label position="stacked">Descanso</ion-label>
-        <ion-label>descanso</ion-label>
-      </ion-item>
-    </ion-list>
+    <ion-grid fixed>
+      <ion-row>
+        <ion-col size="6">
+          <ion-item>
+            <ion-label position="stacked">Preparación</ion-label>
+            <ion-label position="stacked">{{item.preparation}}</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">Series</ion-label>
+            <ion-label position="stacked">{{item.sets}}</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">Descanso Series</ion-label>
+            <ion-label position="stacked">{{item.restSets}}</ion-label>
+          </ion-item>
+        </ion-col>
+        <ion-col size="6">
+          <ion-item>
+            <ion-label position="stacked">Tiempo</ion-label>
+            <ion-label position="stacked">{{item.time}}</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">Repeticiones</ion-label>
+            <ion-label position="stacked">{{item.repeats}}</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">Descanso Reps.</ion-label>
+            <ion-label position="stacked">{{item.restReps}}</ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-list> </ion-list>
   </ion-card>
 
   <ion-card>
@@ -43,17 +96,52 @@
         >Descripción</ion-card-title
       >
     </ion-card-header>
-    <ion-card-content> descripcion</ion-card-content>
+    <ion-card-content>{{item.description}}</ion-card-content>
   </ion-card>
 </ion-content>
 
 <ion-footer>
   <ion-toolbar>
+    <ion-grid fixed>
+      <ion-row>
+        <ion-col size="4">
+          <ion-button color="itrain-blue" expand="block">
+            <ion-icon color="itrain-darkcream" name="reload"></ion-icon>
+          </ion-button>
+        </ion-col>
+        <ion-col size="4">
+          <ion-button
+            *ngIf="state === 'stop'"
+            (click)="startPreparation(this.preparation)"
+            color="itrain-darkyellow"
+            expand="block"
+          >
+            <ion-icon color="itrain-darkcream" name="play"></ion-icon>
+          </ion-button>
+
+          <ion-button
+            *ngIf="state === 'start'"
+            (click)="stopTimer()"
+            color="itrain-darkyellow"
+            expand="block"
+          >
+            <ion-icon
+              *ngIf="state === 'start'"
+              color="itrain-darkcream"
+              name="pause"
+            ></ion-icon>
+          </ion-button>
+        </ion-col>
+        <ion-col size="4">
+          <ion-button color="itrain-orange" expand="block">
+            <ion-icon color="itrain-darkcream" name="stop"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
     <!-- (click)="startTimer()" -->
     <!-- *ngIf="state === 'stop'" -->
-    <ion-button color="bluelight" expand="block"> Comenzar </ion-button>
     <!-- *ngIf="state === 'start'"  -->
     <!-- (click)="stopTimer()" -->
-    <ion-button color="yellow" expand="block"> Stop </ion-button>
   </ion-toolbar>
 </ion-footer>

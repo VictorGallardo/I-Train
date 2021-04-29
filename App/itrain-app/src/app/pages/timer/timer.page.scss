@@ -1,7 +1,20 @@
-h1 {
-  font-size: 6em;
-}
-
 ion-icon {
   font-size: 1.5em;
+}
+h3 {
+  margin-top: 30px;
+}
+
+#progress-circle {
+  margin-top: 30px;
+  transform: rotate(-90deg);
+}
+
+.timer-text {
+  transform: rotate(90deg);
+  transform-origin: center;
+  font-size: 36px;
+  text-anchor: middle;
+  font-weight: 600;
+  fill: #ffeed0;
 }

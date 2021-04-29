@@ -12,7 +12,7 @@ itemRoutes.get('/search/:itemid', async (req: any, res: Response) => {
     body._id = req.params.itemid;
     const items = await Item
 
-        .findById(body).exec();              // Ejecuta
+        .find(body).exec();              // Ejecuta
 
     // Respuesta
     res.json({

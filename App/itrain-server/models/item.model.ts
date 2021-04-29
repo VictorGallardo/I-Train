@@ -30,42 +30,36 @@ const itemSchema = new Schema({
     // Tiempo de preparación 
     preparation: {
         type: Number,
-        default: 0
     },
 
     // Número de series
     sets: {
         type: Number,
-        default: 0
     },
 
     // Tiempo del ejercicio
     time: {
         type: Number,
-        default: 0
     },
 
     // Descanso entre series
     restSets: {
         type: Number,
-        default: 0
     },
 
     // Número de repeticiones
     repeats: {
         type: Number,
-        default: 0
     },
 
     // Descanso entre repeticiones
     restReps: {
         type: Number,
-        default: 0
     },
 
     // Tiempo total (lo que dura el ejercicio completo)
     totalTime: {
-        type: Number, default: 0
+        type: Number,
     },
 
     list: {
