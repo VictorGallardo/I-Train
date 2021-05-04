@@ -49,7 +49,7 @@ Diario de trabajo **Proyecto Fin de Ciclo**, en el se anotarán los avances prod
   - Creación de esquema, modelo y ruta para ejercicios (items).
   - Método GET para obtener los ejercicios creados.
 
-## :calendar: Semana **3** ( 26/04 - 2/05 )
+## :calendar: Semana **3** ( 26/04 - 02/05 )
 
 - Proyecto **Ionic app**.
 
@@ -60,5 +60,5 @@ Diario de trabajo **Proyecto Fin de Ciclo**, en el se anotarán los avances prod
 - Proyecto **Backend Server**
 
   - Métodos DELETE para eliminar items y listas.
-  - Métod DELETE para eliminar todos los items pertenecientes a una lista.
+  - Método DELETE para eliminar todos los items de una lista.
   - Métodos POST para editar items y listas.
