@@ -23,19 +23,23 @@ const routes: Routes = [
   },
   // Añadir items
   {
-    path: 'add-edit/:listId',
+    path: 'add/:listId',
     loadChildren: () => import('./pages/lists/add-edit/add-edit.module').then((m) => m.AddEditPageModule),
 
   },
   // Añadir items
   {
-    path: 'add-edit',
+    path: 'edit/:listId/:itemId',
     loadChildren: () => import('./pages/lists/add-edit/add-edit.module').then((m) => m.AddEditPageModule),
 
   },
   {
     path: 'timer/:itemId',
     loadChildren: () => import('./pages/timer/timer.module').then(m => m.TimerPageModule)
+  },
+  {
+    path: 'calendar',
+    loadChildren: () => import('./pages/calendar/calendar.module').then(m => m.CalendarPageModule)
   },
 
   {
@@ -44,6 +48,7 @@ const routes: Routes = [
     redirectTo: 'main/lists/unfinish',
 
   },
+
 
 
 

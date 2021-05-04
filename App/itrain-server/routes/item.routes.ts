@@ -74,4 +74,92 @@ itemRoutes.post('/:listid', (req: any, res: Response) => {
 
 });
 
+// Metodo para borrar items por su ID
+itemRoutes.delete('/delete/:itemid', (req: any, res: Response) => {
+
+
+    Item.findByIdAndRemove(req.params.itemid, req.body, (err, itemDB) => {
+
+        if (err) throw err;
+
+        if (!itemDB) {
+            return res.json({
+                ok: false,
+                message: 'No existe un item con ese ID'
+            });
+        }
+
+        res.json({
+            ok: true,
+            item: 'Item borrado con éxito'
+        });
+
+
+    });
+
+});
+
+
+
+// Método DELETE para BORRAR los items de una lista
+
+itemRoutes.delete('/delete/items/:listid', async (req: any, res: Response) => {
+
+    const body = req.body;
+    body.list = req.params.listid;
+
+    const items = await Item
+        .find(body)
+        .remove()
+        .exec()
+
+    // Respuesta
+    res.json({
+        ok: true,
+        // page,
+        items
+    });
+
+});
+
+
+
+// Actualizar items
+itemRoutes.post('/update/:listid/:itemid', (req: any, res: Response) => {
+
+    const item = {
+        title: req.body.title || req.item.title,
+        description: req.body.description || req.item.description,
+        preparation: req.body.preparation || req.item.preparation,
+        sets: req.body.sets || req.item.sets,
+        time: req.body.time || req.item.time,
+        restSets: req.body.restSets || req.item.restSets,
+        repeats: req.body.repeats || req.item.repeats,
+        restReps: req.body.restReps || req.item.restReps,
+        totalTime: req.body.totalTime,
+        list: req.params.listid
+    }
+
+    Item.findByIdAndUpdate(req.params.itemid, item, { new: true }, (err, itemDB) => {
+
+        if (err) throw err;
+
+        if (!itemDB) {
+            return res.json({
+                ok: false,
+                message: 'No existe un item con ese ID'
+            });
+        }
+
+        res.json({
+            ok: true,
+            item: 'Item actualizadocon éxito'
+        });
+
+
+    });
+
+});
+
+
 export default itemRoutes;

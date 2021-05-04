@@ -2,6 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { IItem } from '../../interfaces/interfaces';
 import { Router } from '@angular/router';
+import { ItemsService } from '../../services/items.service';
+import { UiService } from '../../services/ui.service';
 
 @Component({
   selector: 'app-list-items',
@@ -13,8 +15,10 @@ export class ListItemsComponent implements OnInit {
   @Input() items: IItem[] = []; // Aquí estoy recibiendo las listas que le paso del unfinished.page.html
 
   constructor(
+    private itemsService: ItemsService,
     private alertCtrl: AlertController,
-    private route: Router
+    private uiService: UiService,
+    private route: Router,
   ) { }
 
   ngOnInit() {
@@ -25,5 +29,46 @@ export class ListItemsComponent implements OnInit {
 
   goToTimer(itemId) {
     this.route.navigateByUrl(`timer/${itemId}`);
+  }
+
+  goToAddEdit(listId, itemId) {
+    this.route.navigateByUrl(`edit/${listId}/${itemId}`)
+  }
+
+
+
+  deleteItem(itemId: string, index: number) {
+    this.itemsService.deleteItem(itemId);
+    this.items.splice(index, 1);
+
+
+  }
+
+  // Alert para crear lista
+  async deleteItemAlert(itemId: string, index: number) {
+
+    const alert = await this.alertCtrl.create({
+      header: 'Eliminar Item',
+      message: '¿ Está seguro que desea eliminar este item ?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancelar');
+          }
+        },
+        {
+          text: 'Borrar',
+          handler: () => {
+
+            this.deleteItem(itemId, index)
+            this.uiService.presentToast('Item eliminado correctamente.');
+
+          }
+        }
+      ]
+    });
+    await alert.present();
   }
 }

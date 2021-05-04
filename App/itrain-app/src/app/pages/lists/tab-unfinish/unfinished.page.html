@@ -1,5 +1,10 @@
 <ion-header class="ion-no-border">
   <ion-toolbar>
+    <!-- Menu -->
+    <ion-buttons slot="start">
+      <ion-menu-button menu="first"></ion-menu-button>
+    </ion-buttons>
+    <!-- Título -->
     <ion-title>Listas sin terminar</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -30,8 +35,8 @@
   </ion-infinite-scroll>
 
   <ion-fab vertical="bottom" horizontal="center" slot="fixed">
-    <ion-fab-button (click)="addList()">
-      <ion-icon name="add"></ion-icon>
+    <ion-fab-button color="itrain-yellow" (click)="addList()">
+      <ion-icon color="itrain-cream" size="large" name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 </ion-content>

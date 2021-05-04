@@ -1,0 +1,64 @@
+<ion-menu side="start" menuId="first" contentId="main">
+  <ion-header class="ion-no-border">
+    <ion-toolbar>
+      <ion-title>I-Train Menu</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <!-- <ion-item>
+        <ion-avatar slot="start">
+          <img src="/assets/avatars/{{ user.avatar }}" />
+        </ion-avatar>
+        <ion-label>{{ user.name }}</ion-label>
+      </ion-item> -->
+      <ion-menu-toggle>
+        <ion-item lines="none" [routerLink]="'/main/lists/unfinish'">
+          <ion-icon
+            color="itrain-blue"
+            slot="start"
+            name="clipboard-outline"
+          ></ion-icon>
+          Entrenamientos
+        </ion-item>
+        <ion-item [routerLink]="'/calendar'" lines="none">
+          <ion-icon
+            color="itrain-blue"
+            slot="start"
+            name="calendar-number-outline"
+          ></ion-icon>
+          Calendario
+        </ion-item>
+        <ion-item [routerLink]="'/posts/tabs/tab3'" lines="none">
+          <ion-icon
+            color="itrain-blue"
+            slot="start"
+            name="person-outline"
+          ></ion-icon>
+          Perfil
+        </ion-item>
+        <ion-item [routerLink]="'/posts/tabs/tab1'" lines="none">
+          <ion-icon
+            slot="start"
+            color="itrain-blue"
+            name="camera-outline"
+          ></ion-icon>
+          Fotos
+        </ion-item>
+        <ion-item [routerLink]="'/posts/tabs/tab1'" lines="none">
+          <ion-icon
+            slot="start"
+            color="itrain-blue"
+            name="log-out-outline"
+          ></ion-icon>
+          Salir
+        </ion-item>
+      </ion-menu-toggle>
+    </ion-list>
+  </ion-content>
+  <ion-footer>
+    <ion-toolbar>
+      <ion-title>Footer</ion-title>
+    </ion-toolbar>
+  </ion-footer>
+</ion-menu>

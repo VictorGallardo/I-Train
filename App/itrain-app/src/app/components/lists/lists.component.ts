@@ -2,6 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { IList } from '../../interfaces/interfaces';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { ListsService } from '../../services/lists.service';
+import { ItemsService } from '../../services/items.service';
 
 @Component({
   selector: 'app-lists',
@@ -12,9 +14,13 @@ export class ListsComponent implements OnInit {
 
   @Input() lists: IList[] = []; // Aquí estoy recibiendo las listas que le paso del unfinished.page.html
 
+  list: IList = {};
+
   constructor
     (
       private alertCtrl: AlertController,
+      private listsService: ListsService,
+      private itemsService: ItemsService,
       private route: Router
     ) { }
 
@@ -39,8 +45,19 @@ export class ListsComponent implements OnInit {
     this.route.navigateByUrl(`main/lists/items/${listId}/${listTitle}`);
   }
 
+  // Eliminar Lista
+  deleteList(listId, index) {
 
-  async editList(list: IList) {
+    this.listsService.deleteList(listId);
+    this.lists.splice(index, 1);
+    this.itemsService.deleteItemsList(listId);
+    console.log('Lista e items de esa lista eliminados');
+
+
+  }
+
+
+  async editList(listId, list) {
 
     const alert = await this.alertCtrl.create({
       header: 'Editar lista',
@@ -64,10 +81,9 @@ export class ListsComponent implements OnInit {
         {
           text: 'Guardar',
           handler: (data) => {
-            if (data.titulo.length === 0) {
-              return;
-            }
-            // Aqui va la lógica de actualizar lista
+            if (data.titulo.length === 0) { return; }
+
+            this.listsService.updateList(listId, list)
 
           }
         }

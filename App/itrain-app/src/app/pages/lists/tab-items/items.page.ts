@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MenuController } from '@ionic/angular';
 import { IItem } from '../../../interfaces/interfaces';
 import { ItemsService } from '../../../services/items.service';
 
@@ -48,10 +49,9 @@ export class ItemsPage implements OnInit {
   // Ir a añadir o editar
 
   goAddEdit() {
-    this.router.navigateByUrl(`/add-edit/${this.listId}`);
+    this.router.navigateByUrl(`/add/${this.listId}`);
     console.log('Al añadir item tenemos listId --> ' + this.listId);
   }
-
 
 
 

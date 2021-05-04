@@ -1,33 +1,39 @@
 <ion-header class="ion-no-border">
+  <ion-toolbar>
+    <!-- Menu -->
+    <ion-buttons slot="start">
+      <ion-menu-button menu="first"></ion-menu-button>
+    </ion-buttons>
 
-    <ion-toolbar>
-
-        <ion-buttons slot="start">
-            <ion-icon slot="icon-only" name="menu"></ion-icon>
-        </ion-buttons>
-
-        <ion-title>
-            Bloques
-        </ion-title>
-    </ion-toolbar>
+    <ion-title> Bloques </ion-title>
+  </ion-toolbar>
 </ion-header>
 
-
 <ion-content color="light">
+  <!-- Refresher -->
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingText="Pull to refresh"
+      refreshingSpinner="bubbles"
+      refreshingText="Refreshing..."
+    >
+    </ion-refresher-content>
+  </ion-refresher>
 
-    <!-- Refresher -->
-    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
-        <ion-refresher-content pullingText="Pull to refresh" refreshingSpinner="bubbles" refreshingText="Refreshing...">
-        </ion-refresher-content>
-    </ion-refresher>
+  <!-- POST Component -->
+  <app-posts [posts]="posts"></app-posts>
 
-    <!-- POST Component -->
-    <app-posts [posts]="posts"></app-posts>
-
-    <!-- Infinite-scroll -->
-    <ion-infinite-scroll [disabled]="!enabled" threshold="100px" position="bottom" (ionInfinite)="nexts($event)">
-        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
-        </ion-infinite-scroll-content>
-    </ion-infinite-scroll>
-
+  <!-- Infinite-scroll -->
+  <ion-infinite-scroll
+    [disabled]="!enabled"
+    threshold="100px"
+    position="bottom"
+    (ionInfinite)="nexts($event)"
+  >
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more data..."
+    >
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

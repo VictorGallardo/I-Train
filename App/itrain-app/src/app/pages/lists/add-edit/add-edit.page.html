@@ -38,22 +38,17 @@
           name="description"
           type="text"
           clearInput
+          required
           placeholder="Descripción"
         ></ion-input>
         <ion-icon color="itrain-blue" slot="end" name="clipboard"></ion-icon>
       </ion-item>
 
-      <ion-item>
+      <ion-item (click)="pickerPreparation()">
         <ion-label>Preparación</ion-label>
-        <ion-input
-          [(ngModel)]="item.preparation"
-          name="preparation"
-          type="number"
-          clearInput
-          slot="end"
-          placeholder="00:00"
+        <ion-label slot="end" required
+          >{{stringPreparationMin + dots + stringPreparationSec}}</ion-label
         >
-        </ion-input>
         <ion-icon color="itrain-blue" slot="end" name="timer"></ion-icon>
       </ion-item>
 
@@ -71,31 +66,19 @@
         <ion-icon color="itrain-blue" slot="end" name="repeat"></ion-icon>
       </ion-item>
 
-      <ion-item>
+      <ion-item (click)="pickerRestSSets()">
         <ion-label>Descanso Series</ion-label>
-        <ion-input
-          [(ngModel)]="item.restSets"
-          name="restSets"
-          type="number"
-          clearInput
-          slot="end"
-          placeholder="00:00"
+        <ion-label slot="end"
+          >{{stringRestSetsMin + dots + stringRestSetsSec}}</ion-label
         >
-        </ion-input>
         <ion-icon color="itrain-blue" slot="end" name="hand-right"></ion-icon>
       </ion-item>
 
-      <ion-item>
-        <ion-label>Tiempo</ion-label>
-        <ion-input
-          [(ngModel)]="item.time"
-          name="time"
-          type="number"
-          clearInput
-          slot="end"
-          placeholder="00:00"
+      <ion-item (click)="pickerTime()">
+        <ion-label>Time</ion-label>
+        <ion-label slot="end"
+          >{{stringTimeMin + dots + stringTimeSec}}</ion-label
         >
-        </ion-input>
         <ion-icon color="itrain-blue" slot="end" name="timer"></ion-icon>
       </ion-item>
 
@@ -113,35 +96,46 @@
         <ion-icon color="itrain-blue" slot="end" name="repeat"></ion-icon>
       </ion-item>
 
-      <ion-item>
+      <ion-item (click)="pickerRestRep()">
         <ion-label>Descanso Reps.</ion-label>
-        <ion-input
-          [(ngModel)]="item.restReps"
-          name="restReps"
-          type="number"
-          clearInput
-          slot="end"
-          placeholder="00:00"
+        <ion-label slot="end"
+          >{{stringRestRepMin + dots + stringRestRepSec}}</ion-label
         >
-        </ion-input>
         <ion-icon color="itrain-blue" slot="end" name="hand-right"></ion-icon>
       </ion-item>
 
       <!-- Botón guardar -->
       <ion-button
+        *ngIf="buttonStatus === 'create'"
+        type="submit"
+        [disabled]="
+          (item.title.length &&
+          item.description.length &&
+          item.preparation && 
+          item.sets && 
+          item.restSets && 
+          item.restReps && 
+          item.time &&
+          item.repeats && 
+          item.restReps) < 1"
+        class="ion-margin"
+        color="itrain-yellow"
+        expand="block"
+      >
+        <ion-icon slot="end" name="folder-open"></ion-icon>
+        Guardar
+      </ion-button>
+
+      <ion-button
+        *ngIf="buttonStatus === 'update'"
         type="submit"
         [disabled]="item.title.length < 1"
         class="ion-margin"
         color="itrain-yellow"
+        expand="block"
       >
-        <ion-icon slot="start" name="folder-open"></ion-icon>
-        Guardar
-      </ion-button>
-
-      <!-- Botón borrar -->
-      <ion-button class="ion-margin" color="itrain-yellow">
-        <ion-icon slot="start" name="trash"></ion-icon>
-        Borrar
+        <ion-icon slot="end" name="folder-open"></ion-icon>
+        Actualizar
       </ion-button>
     </form>
   </ion-card>

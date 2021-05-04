@@ -1,5 +1,10 @@
 <ion-header class="ion-no-border">
   <ion-toolbar class="ion-text-center">
+    <!-- Menu -->
+    <ion-buttons slot="start">
+      <ion-menu-button menu="first"></ion-menu-button>
+    </ion-buttons>
+    <!-- Título -->
     <ion-title>{{listTitle}}</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,8 +14,8 @@
   <app-list-items [items]="items"></app-list-items>
 
   <ion-fab vertical="bottom" horizontal="center" slot="fixed">
-    <ion-fab-button (click)="goAddEdit()">
-      <ion-icon name="add"></ion-icon>
+    <ion-fab-button color="itrain-yellow" (click)="goAddEdit()">
+      <ion-icon size="large" color="itrain-cream" name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 </ion-content>

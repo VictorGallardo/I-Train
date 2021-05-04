@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ItemsService } from '../../services/items.service';
 import { IItem } from '../../interfaces/interfaces';
-import { BehaviorSubject, Observable, Subscriber, Subscription, } from 'rxjs';
-import { CountdownModule } from 'ngx-countdown';
+import { BehaviorSubject } from 'rxjs';
+import { ModalController } from '@ionic/angular';
+import { TimerEndPage } from '../../modals/timer-end/timer-end.page';
 
 const circleR = 80;
 const circleDasharray = 2 * Math.PI * circleR;
+
 
 @Component({
   selector: 'app-timer',
@@ -27,36 +29,43 @@ export class TimerPage implements OnInit {
     totalTime: null,
   }
 
-  cRepeats: number;
-  timeEx: number;
-  repCont: number;
-  preparation: number;
-  restReps: number;
-  restSets: number;
-
   itemId: string;
 
-  time: BehaviorSubject<string> = new BehaviorSubject('00:00');
   percent: BehaviorSubject<number> = new BehaviorSubject(100);
+  time: BehaviorSubject<string> = new BehaviorSubject('00:00');
+
   state: 'start' | 'stop' = 'stop';
-  timer: number;
+  circleDasharray = circleDasharray;
+  circleR = circleR;
+  audio = new Audio();
+
+  timeEx: number;
+  restReps: number;
+  restSets: number;
+  displayStage: string = 'Preparación';
+  displayColor: string;
+
+
+  preparation: number;
+  preparationMin: number;
+  preparationSec: number;
+
   interval;
+
+  timer: number;
 
   startDuration = 1;
 
-  circleR = circleR;
-  circleDasharray = circleDasharray;
-  displayTime: number;
   counterPreparation: number = 1
-  counterTimeEx: number;
   counterRestReps: number;
-
-  subsPreparation: Subscription;
-
+  counterRestSets: number;
+  counterTimeEx: number;
+  counterSets: number
 
   constructor(
     private actvRoute: ActivatedRoute,
     private itemsService: ItemsService,
+    private modalCtrl: ModalController
   ) { }
 
 
@@ -70,23 +79,25 @@ export class TimerPage implements OnInit {
         console.log(resp);
         const load = this.item = resp.items[0];
         if (load) {
-          this.cRepeats = this.item.repeats;
-          this.timeEx = this.item.time;
-          this.repCont = this.item.repeats;
-          this.preparation = this.item.preparation;
-          this.restReps = this.item.restReps;
-          this.restSets = this.item.restSets;
-          this.displayTime = this.preparation;
-          this.counterTimeEx = this.item.repeats;
-          this.counterRestReps = this.item.repeats - 1;
-
+          this.updateCountersAndDuration()
         }
       });
   }
 
-  // swapDuration() {
-  //   this.startDuration = this.startDuration === 1 ? 0.5 : 1;
-  // }
+  updateCountersAndDuration() {
+    // Duration
+    this.preparation = this.item.preparation;
+    this.timeEx = this.item.time;
+    this.restReps = this.item.restReps;
+    this.restSets = this.item.restSets;
+
+    // Counters
+    this.counterSets = this.item.sets;
+    this.counterTimeEx = this.item.repeats * this.counterSets;
+    this.counterRestReps = this.item.repeats - 1;
+  }
+
+  // Actualiza la duración
 
   updateTimeDisplay(durationPercent: number) {
     let minutes: any = this.timer / 60;
@@ -101,34 +112,15 @@ export class TimerPage implements OnInit {
   }
 
 
-  stopTimer() {
-    clearInterval(this.interval);
-    this.time.next('00:00');
-    this.state = 'stop';
-  }
-
-  playAudio01() {
-    let audio = new Audio();
-    audio.src = "../../assets/audio/audio01.wav";
-    audio.load();
-    audio.play();
-  }
-  playAudio02() {
-    let audio = new Audio();
-    audio.src = "../../assets/audio/audio02.wav";
-    audio.load();
-    audio.play();
-  }
-
-
-
-
   // Preparación ------------------------------------------------------------------
 
   startPreparation(duration: number) {
+    this.displayColor = 'restOut';
+    console.log('Entramos en preparación');
+    this.displayStage = 'Preparación'
     this.state = 'start';
     clearInterval(this.interval)
-    this.timer = duration % 60;
+    this.timer = duration;
     this.durationPreparation();
 
     this.interval = setInterval(() => {
@@ -139,12 +131,14 @@ export class TimerPage implements OnInit {
   durationPreparation() {
     this.updateTimeDisplay(this.preparation)
     --this.timer;
-    if (this.timer < 2 && this.timer > -1) {
-      this.playAudio01()
+
+    if (this.timer < 2 && this.timer >= -1) {
+      this.playAudio("../../assets/audio/audio02.wav")
     }
-    if (this.timer < 0) {
-      this.playAudio02()
+    if (this.timer < -1) {
+      this.playAudio("../../assets/audio/audio04.wav")
     }
+    //_________________________________________
     if (this.timer < -1) {
       this.startExercise(this.timeEx)
 
@@ -155,9 +149,12 @@ export class TimerPage implements OnInit {
   // Ejercicio ---------------------------------------------------------------------
 
   startExercise(duration: number) {
+    console.log('Entramos en Ejercicio');
+    this.displayColor = 'Rest';
     this.state = 'start';
+    this.displayStage = 'Ejercicio'
     clearInterval(this.interval)
-    this.timer = duration % 60;
+    this.timer = duration;
     this.durationExercise();
 
     this.interval = setInterval(() => {
@@ -167,11 +164,23 @@ export class TimerPage implements OnInit {
   durationExercise() {
     this.updateTimeDisplay(this.timeEx)
     --this.timer;
+    if (this.timer < 2 && this.timer >= -1) {
+      this.playAudio("../../assets/audio/audio02.wav")
+    }
+    if (this.timer < -1) {
+      this.playAudio("../../assets/audio/audio05.wav")
+    }
     if (this.timer < -1) {
       this.counterTimeEx--;
       this.startRestReps(this.restReps)
-      if (this.counterTimeEx === 0) {
-        this.startRestSets(this.restSets)
+      if (this.counterTimeEx === this.counterSets) {
+        this.startRestSets(this.restSets)             // Empieza el descanso entre Series
+        if (this.counterSets === 1) {
+          this.stopTimer()
+          this.updateCountersAndDuration();
+          this.modalEnd()
+
+        }
       }
     }
   }
@@ -180,9 +189,12 @@ export class TimerPage implements OnInit {
   // Descanso Repeticion -----------------------------------------------------------
 
   startRestReps(duration: number) {
+    console.log('Entramos en descanso repeticiones');
+    this.displayColor = 'Ex';
     this.state = 'start';
+    this.displayStage = 'Descanso'
     clearInterval(this.interval)
-    this.timer = duration % 60;
+    this.timer = duration;
     this.durationRestReps();
     this.interval = setInterval(() => {
       this.durationRestReps();
@@ -191,17 +203,28 @@ export class TimerPage implements OnInit {
   durationRestReps() {
     this.updateTimeDisplay(this.restReps)
     --this.timer;
+    if (this.timer < 2 && this.timer >= -1) {
+      this.playAudio("../../assets/audio/audio02.wav")
+    }
+    if (this.timer < -1) {
+      this.playAudio("../../assets/audio/audio04.wav")
+    }
     if (this.timer < -1) {
       this.counterRestReps--;
-      this.startExercise(this.timeEx) // Aquí en teoría debemos llar otra vez al ejercicio
+      this.startExercise(this.timeEx)
     }
   }
   // --------------------------------------------------------------------------------
 
+  // Descanso Series ----------------------------------------------------------------
+
   startRestSets(duration: number) {
+    console.log('Entramos en descanso series');
+    this.displayColor = 'restOut';
     this.state = 'start';
+    this.displayStage = 'Descanso Serie'
     clearInterval(this.interval)
-    this.timer = duration % 60;
+    this.timer = duration;
     this.durationRestSets();
     this.interval = setInterval(() => {
       this.durationRestSets();
@@ -210,12 +233,36 @@ export class TimerPage implements OnInit {
   durationRestSets() {
     this.updateTimeDisplay(this.restSets)
     --this.timer;
+    if (this.timer < 2 && this.timer >= -1) {
+      this.playAudio("../../assets/audio/audio02.wav")
+    }
     if (this.timer < -1) {
-      this.counterRestReps--;
-      this.startExercise(this.timeEx) // Aquí en teoría debemos llar otra vez al ejercicio
+      this.playAudio("../../assets/audio/audio04.wav")
+    }
+    if (this.timer < -1) {
+      this.counterSets--;
+      this.counterTimeEx++;
+      this.startExercise(this.timeEx)
     }
   }
+  // --------------------------------------------------------------------------------
 
+
+  async modalEnd() {
+    const modal = await this.modalCtrl.create({
+      component: TimerEndPage,
+      cssClass: 'my-custom-class'
+    });
+    return await modal.present();
+  }
+
+
+  playAudio(url: string) {
+    let audio = new Audio();
+    audio.src = url;
+    audio.load();
+    audio.play();
+  }
 
 
   percentageOffset(percent) {
@@ -223,26 +270,12 @@ export class TimerPage implements OnInit {
     return circleDasharray * (1 - percentFloat)
   }
 
-  // changeDuration(changeDuration: number) {
-
-  //   while (this.counterPreparation > 0) {
-  //     this.counterPreparation--;
-  //     console.log('Entro en preparacion');
-  //     if (this.counterPreparation === 0) {
-  //       this.displayTime = this.timeEx;
-  //     }
-  //   }
-
-  //   while (changeDuration > 0) {
-  //     console.log('entramos en descanso');
-  //     this.counterTimeEx--;
-  //     this.startTimer(this.restReps);
-  //     if (this.counterTimeEx === 0) {
-  //     }
-  //   }
-  // }
-
-
+  stopTimer() {
+    clearInterval(this.interval);
+    this.time.next('00:00');
+    this.updateCountersAndDuration();
+    this.state = 'stop';
+  }
 
 
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { IonSlides, NavController } from '@ionic/angular';
+import { IonSlides, MenuController, NavController } from '@ionic/angular';
 import { UserService } from '../../services/user.service';
 import { UiService } from '../../services/ui.service';
 import { IUser } from '../../interfaces/interfaces';
@@ -33,13 +33,18 @@ export class LoginPage implements OnInit {
     (
       private userService: UserService,
       private navCtrl: NavController,
-      private uiService: UiService
+      private uiService: UiService,
+      private menuCtrl: MenuController
     ) { }
 
 
   ngOnInit() {
     this.slides.lockSwipes(true);
 
+  }
+
+  ionViewWillEnter() {
+    this.menuCtrl.enable(false);
   }
 
   // Login

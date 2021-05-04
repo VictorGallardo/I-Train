@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 
 // My imports
 import { HttpClientModule } from '@angular/common/http'
+import { ComponentsModule } from './components/components.module';
 
 @NgModule({
 
@@ -16,7 +17,8 @@ import { HttpClientModule } from '@angular/common/http'
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ComponentsModule,
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],

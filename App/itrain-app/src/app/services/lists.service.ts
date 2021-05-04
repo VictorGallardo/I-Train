@@ -53,12 +53,49 @@ export class ListsService {
 
     });
 
+  }
 
+  // Borrar listas
+
+  deleteList(listId) {
+    return new Promise(resolve => {
+      this.http.delete(`${URL}/lists/delete/${listId}`)
+        .subscribe(resp => {
+
+          if (resp['ok']) {
+            resolve(true);
+            console.log('Lista eliminada correctamente');
+            console.log(resp)
+          } else {
+            resolve(false);
+            console.error('Error al eliminar lista');
+
+          }
+        });
+    });
+  }
+
+  // Actualizar listas
+
+  updateList(listId, list: IList) {
+    return new Promise(resolve => {
+      this.http.post(`${URL}/lists/update/${listId}`, list)
+        .subscribe(resp => {
+
+          if (resp['ok']) {
+            resolve(true);
+            console.log('Item actualizado correctamente');
+            console.log(resp)
+          } else {
+            resolve(false);
+            console.error('Error al actualizar item');
+
+          }
+        });
+    });
 
   }
 
-
-  // Añadir listas
 
 
 }

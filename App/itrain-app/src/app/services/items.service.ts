@@ -29,7 +29,7 @@ export class ItemsService {
   }
 
   // Crear Item
-  createdItem(item, listId) {
+  async createdItem(item, listId) {
 
     return new Promise(resolve => {
 
@@ -47,6 +47,65 @@ export class ItemsService {
 
   }
 
+  // Actualizar Item
+  async updateItem(listId, itemId, item: IItem) {
+
+    return new Promise(resolve => {
+      this.http.post(`${URL}/items/update/${listId}/${itemId}`, item)
+        .subscribe(resp => {
+
+          if (resp['ok']) {
+            resolve(true);
+            console.log('Item actualizado correctamente');
+            console.log(resp)
+          } else {
+            resolve(false);
+            console.error('Error al actualizar item');
+
+          }
+        });
+    });
+
+  }
+
+  // Eliminar Item
+  async deleteItem(itemId: string) {
+    return new Promise(resolve => {
+      this.http.delete(`${URL}/items/delete/${itemId}`)
+        .subscribe(resp => {
+
+          if (resp['ok']) {
+            resolve(true);
+            console.log('Item eliminado correctamente');
+            console.log(resp)
+          } else {
+            resolve(false);
+            console.error('Error al eliminar item');
+
+          }
+        });
+    });
+  }
+
+  // Eliminar Items cuando se borra una lista
+
+  async deleteItemsList(listId) {
+    return new Promise(resolve => {
+      this.http.delete(`${URL}/items/delete/items/${listId}`)
+        .subscribe(resp => {
+
+          if (resp['ok']) {
+            resolve(true);
+            console.log('Items eliminados correctamente');
+            console.log(resp)
+          } else {
+            resolve(false);
+            console.error('Error al eliminar items');
+
+          }
+        });
+    });
+  }
 
 
   // ---------------------------------------------------------------------------------------

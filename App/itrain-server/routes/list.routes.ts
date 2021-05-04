@@ -1,6 +1,7 @@
 import { Router, Response } from 'express'
 import { validateToken } from '../middlewares/authentication';
 import { List } from '../models/list.model';
+import { Item } from '../models/item.model';
 
 
 const listRoutes = Router();
@@ -69,7 +70,62 @@ listRoutes.post('/', [validateToken], (req: any, res: Response) => {
     });
 });
 
+// Actualizar listas
+listRoutes.post('/update/:listid', (req: any, res: Response) => {
 
+    const list = {
+        title: req.body.title || req.item.title,
+    }
+
+    List.findByIdAndUpdate(req.params.listid, list, { new: true }, (err, listDB) => {
+
+        if (err) throw err;
+
+        if (!listDB) {
+            return res.json({
+                ok: false,
+                message: 'No existe una lista con ese ID'
+            });
+        }
+
+        res.json({
+            ok: true,
+            item: 'Lista actualizadocon éxito'
+        });
+
+
+    });
+
+});
+
+// Borrar Listas por su ID
+listRoutes.delete('/delete/:listid', (req: any, res: Response) => {
+
+
+    List.findByIdAndRemove(req.params.listid, req.body, (err, listDB) => {
+
+
+
+        if (err) throw err;
+
+        if (!listDB) {
+            return res.json({
+                ok: false,
+                message: 'No existe una lista con ese ID'
+            });
+        }
+
+        res.json({
+            ok: true,
+            item: 'Lista borrada con éxito'
+        });
+
+
+    });
+
+
+
+});
 
 
 export default listRoutes;

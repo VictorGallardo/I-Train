@@ -2,7 +2,7 @@ import { Component, Input, OnInit, } from '@angular/core';
 import { ListsService } from '../../../services/lists.service';
 import { IList } from '../../../interfaces/interfaces';
 import { UiService } from 'src/app/services/ui.service';
-import { AlertController } from '@ionic/angular';
+import { AlertController, MenuController } from '@ionic/angular';
 import { Router } from '@angular/router';
 
 @Component({
@@ -42,6 +42,7 @@ export class UnfinishedPage implements OnInit {
     })
 
   }
+
 
   // Cargar las páginas
   loadLists(event) {

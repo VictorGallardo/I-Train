@@ -1,9 +1,9 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar class="ion-text-center">
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/" color="yellow"></ion-back-button>
     </ion-buttons>
-    <ion-title>Timer</ion-title>
+    <ion-title>{{item.title}}</ion-title>
     <!-- (click)="goAddEdit(exercise.id)" -->
     <ion-icon class="ion-padding" color="yellow" slot="end" name="build">
     </ion-icon>
@@ -11,7 +11,7 @@
 </ion-header>
 
 <ion-content class="ion-text-center">
-  <h3>{{item.title}}</h3>
+  <h3>{{displayStage}}</h3>
 
   <ion-grid fixed>
     <ion-row>
@@ -23,15 +23,43 @@
           viewBox="0 0 180 180"
         >
           <linearGradient id="linearColors1" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stop-color="#f5ce8a"></stop>
-            <stop offset="100%" stop-color="#86b7a9"></stop>
+            <stop
+              *ngIf="displayColor === 'restOut'"
+              offset="0%"
+              stop-color="#4DD3E3"
+            ></stop>
+            <stop
+              *ngIf="displayColor === 'restOut'"
+              offset="100%"
+              stop-color="#7DCFFF"
+            ></stop>
+            <stop
+              *ngIf="displayColor === 'Ex'"
+              offset="0%"
+              stop-color="#ff9368"
+            ></stop>
+            <stop
+              *ngIf="displayColor === 'Ex'"
+              offset="100%"
+              stop-color="#FF412C"
+            ></stop>
+            <stop
+              *ngIf="displayColor === 'Rest'"
+              offset="0%"
+              stop-color="#A4FCE5"
+            ></stop>
+            <stop
+              *ngIf="displayColor === 'Rest'"
+              offset="100%"
+              stop-color="#85FF8B"
+            ></stop>
           </linearGradient>
           <circle
             cx="50%"
             cy="50%"
             [attr.r]="circleR"
             fill="none"
-            stroke="#ffeed0"
+            stroke="#fff"
             stroke-width="12"
           />
           <circle
@@ -45,7 +73,7 @@
             [attr.stroke-dasharray]="circleDasharray"
             [attr.stroke-dashoffset]="percentageOffset(percent | async)"
           />
-          <text x="50%" y="55%" class="timer-text">{{ time | async }}</text>
+          <text x="50%" y="57%" class="timer-text">{{ time | async }}</text>
         </svg>
       </ion-col>
     </ion-row>
@@ -133,7 +161,11 @@
           </ion-button>
         </ion-col>
         <ion-col size="4">
-          <ion-button color="itrain-orange" expand="block">
+          <ion-button
+            (click)="stopTimer()"
+            color="itrain-orange"
+            expand="block"
+          >
             <ion-icon color="itrain-darkcream" name="stop"></ion-icon>
           </ion-button>
         </ion-col>
