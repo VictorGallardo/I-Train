@@ -28,6 +28,11 @@ const routes: Routes = [
         path: 'items/:listId',
         loadChildren: () => import('../tab-items/items.module').then((m) => m.ItemsPageModule)
       },
+      // Calendar
+      {
+        path: 'calendar',
+        loadChildren: () => import('../tab-calendar/calendar.module').then((m) => m.CalendarPageModule)
+      },
       {
         path: '',
         redirectTo: '/lists/unfinish',

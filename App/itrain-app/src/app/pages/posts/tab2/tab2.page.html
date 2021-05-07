@@ -1,6 +1,6 @@
 <ion-header class="ion-no-border">
   <ion-toolbar>
-    <ion-title> Nuevo Post </ion-title>
+    <ion-title> Nueva imagen </ion-title>
 
     <!-- Botón de compartir -->
     <ion-buttons slot="end">
@@ -10,7 +10,7 @@
         (click)="crearPost()"
         color="primary"
       >
-        Compartir
+        Subir imagen
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -19,23 +19,15 @@
 <ion-content class="ion-padding">
   <ion-list>
     <ion-item>
-      <ion-label position="floating">Mensaje</ion-label>
+      <ion-label position="floating">Título</ion-label>
       <ion-textarea [(ngModel)]="post.message"></ion-textarea>
     </ion-item>
-
-    <ion-list>
-      <ion-item>
-        <ion-label>Posición actual</ion-label>
-        <ion-spinner name="lines-small"></ion-spinner>
-        <ion-toggle slot="end"></ion-toggle>
-      </ion-item>
-    </ion-list>
   </ion-list>
 
   <ion-row>
     <!-- Cámara -->
     <ion-col size="6">
-      <ion-button expand="full" shape="round" (click)="takePhoto()">
+      <ion-button expand="block" (click)="takePhoto()">
         <ion-icon slot="start" name="camera"></ion-icon>
         Cámara
       </ion-button>
@@ -43,7 +35,7 @@
 
     <!-- Galería -->
     <ion-col size="6">
-      <ion-button expand="full" shape="round" (click)="addPhoto()">
+      <ion-button expand="block" (click)="addPhoto()">
         <ion-icon slot="start" name="images"></ion-icon>
         Galería
       </ion-button>

@@ -1,6 +1,7 @@
 
 // Interfaces
 
+
 // Respuesta de los posts
 export interface IRespPost {
     ok: boolean;
@@ -20,6 +21,11 @@ export interface IRespItem {
     ok: boolean;
     // page: number;
     items: IItem[];
+}
+
+export interface IRespEvent {
+    ok: boolean;
+    events: IEvent[];
 }
 
 export interface IUser {
@@ -64,6 +70,18 @@ export interface IItem {
     restReps?: number;
     totalTime?: number;
     list?: IList;
+
+}
+
+export interface IEvent {
+
+    id?: number;
+    title?: string;
+    description?: string;
+    startTime?: Date;
+    endTime?: Date;
+    allDay?: boolean;
+
 
 }
 

@@ -6,12 +6,6 @@
   </ion-header>
   <ion-content>
     <ion-list>
-      <!-- <ion-item>
-        <ion-avatar slot="start">
-          <img src="/assets/avatars/{{ user.avatar }}" />
-        </ion-avatar>
-        <ion-label>{{ user.name }}</ion-label>
-      </ion-item> -->
       <ion-menu-toggle>
         <ion-item lines="none" [routerLink]="'/main/lists/unfinish'">
           <ion-icon
@@ -21,7 +15,7 @@
           ></ion-icon>
           Entrenamientos
         </ion-item>
-        <ion-item [routerLink]="'/calendar'" lines="none">
+        <ion-item [routerLink]="'/main/lists/calendar'" lines="none">
           <ion-icon
             color="itrain-blue"
             slot="start"
@@ -45,7 +39,7 @@
           ></ion-icon>
           Fotos
         </ion-item>
-        <ion-item [routerLink]="'/posts/tabs/tab1'" lines="none">
+        <ion-item (click)="logout()" lines="none">
           <ion-icon
             slot="start"
             color="itrain-blue"

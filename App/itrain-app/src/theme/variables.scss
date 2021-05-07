@@ -6,7 +6,7 @@
 :root {
   // My app theme -------------------------------------
   //
-  --ion-background-color: #363537;
+  --ion-background-color: #282729;
   // Color texto
   --ion-text-color: #e9d5b6;
 
@@ -14,7 +14,7 @@
   /** primary **/
   --ion-color-primary: #78af9f;
   --ion-color-primary-rgb: 120, 175, 159;
-  --ion-color-primary-contrast: #000000;
+  --ion-color-primary-contrast: #f1daaf;
   --ion-color-primary-contrast-rgb: 0, 0, 0;
   --ion-color-primary-shade: #6a9a8c;
   --ion-color-primary-tint: #86b7a9;
@@ -228,6 +228,25 @@
   --ion-color-contrast-rgb: var(--ion-color-itrain-dark-contrast-rgb);
   --ion-color-shade: var(--ion-color-itrain-dark-shade);
   --ion-color-tint: var(--ion-color-itrain-dark-tint);
+}
+
+// Itrain dark ligth
+:root {
+  --ion-color-itrain-darkligth: #515051;
+  --ion-color-itrain-darkligth-rgb: 81, 80, 81;
+  --ion-color-itrain-darkligth-contrast: #ffffff;
+  --ion-color-itrain-darkligth-contrast-rgb: 255, 255, 255;
+  --ion-color-itrain-darkligth-shade: #474647;
+  --ion-color-itrain-darkligth-tint: #626262;
+}
+
+.ion-color-itrain-darkligth {
+  --ion-color-base: var(--ion-color-itrain-darkligth);
+  --ion-color-base-rgb: var(--ion-color-itrain-darkligth-rgb);
+  --ion-color-contrast: var(--ion-color-itrain-darkligth-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-itrain-darkligth-contrast-rgb);
+  --ion-color-shade: var(--ion-color-itrain-darkligth-shade);
+  --ion-color-tint: var(--ion-color-itrain-darkligth-tint);
 }
 
 // Amarillo i-train

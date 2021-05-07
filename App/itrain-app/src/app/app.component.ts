@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Plugins } from '@capacitor/core'
 import { UserService } from './services/user.service';
-import { IUser } from './interfaces/interfaces';
+import { MenuController } from '@ionic/angular';
 
 const { SplashScreen, StatusBar } = Plugins;
 
@@ -12,9 +12,11 @@ const { SplashScreen, StatusBar } = Plugins;
 })
 export class AppComponent {
 
-  constructor(private userService: UserService) {
+  constructor() {
+
     this.initializeApp();
   }
+
 
   initializeApp() {
 

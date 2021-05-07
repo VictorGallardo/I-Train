@@ -9,6 +9,7 @@ import userRoutes from './routes/user.routes';
 import fileUpload from 'express-fileupload';
 import listRoutes from './routes/list.routes';
 import itemRoutes from './routes/item.routes';
+import eventRoutes from "./routes/event.routes";
 
 const server = new Server();
 
@@ -31,6 +32,7 @@ server.app.use('/user', userRoutes);
 server.app.use('/posts', postRoutes);
 server.app.use('/lists', listRoutes);
 server.app.use('/items', itemRoutes);
+server.app.use('/events', eventRoutes);
 
 
 // Conexión DB

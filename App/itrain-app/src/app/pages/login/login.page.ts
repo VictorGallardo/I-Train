@@ -34,8 +34,8 @@ export class LoginPage implements OnInit {
       private userService: UserService,
       private navCtrl: NavController,
       private uiService: UiService,
-      private menuCtrl: MenuController
-    ) { }
+    // private menuCtrl: MenuController
+  ) { }
 
 
   ngOnInit() {
@@ -43,9 +43,9 @@ export class LoginPage implements OnInit {
 
   }
 
-  ionViewWillEnter() {
-    this.menuCtrl.enable(false);
-  }
+  // ionViewWillEnter() {
+  //   this.menuCtrl.enable(false, 'first');
+  // }
 
   // Login
   async login(formLogin: NgForm) {

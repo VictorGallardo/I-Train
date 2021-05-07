@@ -1,0 +1,76 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <!-- Menu -->
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false" menu="first"></ion-menu-button>
+    </ion-buttons>
+    <!-- Título -->
+    <ion-title class="ion-text-center"> Calendario </ion-title>
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon name="information-circle-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-segment [(ngModel)]="calendar.mode">
+    <ion-segment-button value="month">
+      <ion-label>Mes</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="week">
+      <ion-label>Semana</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="day">
+      <ion-label>Dia</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <!-- <ion-row>
+    <ion-col size="12">
+      <ion-button (click)="removeEvents()" expand="block" fill="outline">
+        Remove all events
+      </ion-button>
+    </ion-col>
+  </ion-row> -->
+
+  <ion-row>
+    <ion-col size="12" class="ion-text-center">
+      <h2>{{ viewTitle }}</h2>
+    </ion-col>
+  </ion-row>
+
+  <!-- (onRangeChanged)="reloadSource(startTime, endTime)" -->
+  <calendar
+    [eventSource]="eventSource"
+    [calendarMode]="calendar.mode"
+    [currentDate]="calendar.currentDate"
+    (onCurrentDateChanged)="onCurrentDateChanged($event)"
+    (onEventSelected)="onEventSelected($event)"
+    (onTitleChanged)="onViewTitleChanged($event)"
+    (onTimeSelected)="onTimeSelected($event)"
+    [step]="30"
+    startingDayWeek="1"
+  >
+  </calendar>
+
+  <ng-template #template let-view="view" let-row="row" let-col="col">
+    <div [class.with-event]="view.dates[row*7+col].events.length">
+      {{view.dates[row*7+col].label}}
+      <div class="indicator-container">
+        <div
+          class="event-indicator"
+          *ngFor="let e of view.dates[row*7+col].events"
+        ></div>
+      </div>
+    </div>
+  </ng-template>
+
+  <!-- Fab button -->
+  <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+    <ion-fab-button color="itrain-darkyellow" (click)="addNewEvent()">
+      <ion-icon color="itrain-cream" size="large" name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

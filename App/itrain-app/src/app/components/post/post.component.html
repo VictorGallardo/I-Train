@@ -17,7 +17,7 @@
     <ion-slide
       *ngFor="let img of post.imgs"
       class="image-slide"
-      [style]="(img | image: post.user._id) | domSanitizer"
+      [style]="img | image: post.user._id | domSanitizer"
     ></ion-slide>
   </ion-slides>
   <!-- ---------------------------------------------------------------------->
@@ -28,15 +28,15 @@
     <!-- El post.imgs[0] para mostrar solo una foto, la primera del array --->
     <ion-slide
       class="image-slide"
-      [style]="(post.imgs[0] | image: post.user._id) | domSanitizer"
+      [style]="post.imgs[0] | image: post.user._id | domSanitizer"
     ></ion-slide>
   </ion-slides>
   <!-------------------------------------------------------------------------->
 
-  <ion-item lines="none">
+  <!-- <ion-item lines="none">
     <ion-icon slot="start" name="heart-outline"></ion-icon>
     <ion-icon slot="end" name="bookmark"></ion-icon>
-  </ion-item>
+  </ion-item> -->
 
   <ion-item lines="none">
     <ion-label text-wrap>

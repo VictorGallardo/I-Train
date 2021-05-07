@@ -37,17 +37,16 @@ const routes: Routes = [
     path: 'timer/:itemId',
     loadChildren: () => import('./pages/timer/timer.module').then(m => m.TimerPageModule)
   },
-  {
-    path: 'calendar',
-    loadChildren: () => import('./pages/calendar/calendar.module').then(m => m.CalendarPageModule)
-  },
-
+  // {
+  //   path: 'calendar',
+  //   loadChildren: () => import('./pages/calendar/calendar.module').then(m => m.CalendarPageModule)
+  // },
   {
     path: '',
     pathMatch: 'full',
     redirectTo: 'main/lists/unfinish',
 
-  },
+  }
 
 
 
