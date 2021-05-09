@@ -1,0 +1,39 @@
+<mat-nav-list>
+  <div class="profile">
+    <div class="nav">
+      <h2>{{ loginUser.email }}</h2>
+      <!-- <h4>{{ user.email }}</h4> -->
+    </div>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <h2 matSubheader>Páginas</h2>
+
+  <a mat-list-item routerLinkActive="list-item-active" routerLink="dashboard"
+    >Dashboard</a
+  >
+  <a mat-list-item routerLinkActive="list-item-active" routerLink="users"
+    >Usuarios</a
+  >
+  <a mat-list-item routerLinkActive="list-item-active" routerLink="lists"
+    >Listas</a
+  >
+  <a mat-list-item routerLinkActive="list-item-active" routerLink="items"
+    >Items</a
+  >
+
+  <mat-divider></mat-divider>
+
+  <h2 matSubheader>Tools</h2>
+
+  <a mat-list-item routerLinkActive="list-item-active" routerLink="/contacts">
+    <mat-icon>import_contacts</mat-icon>
+    Contacts
+  </a>
+
+  <a mat-list-item routerLinkActive="list-item-active" routerLink="/contacts">
+    <mat-icon>contact_phone</mat-icon>
+    Leads
+  </a>
+</mat-nav-list>

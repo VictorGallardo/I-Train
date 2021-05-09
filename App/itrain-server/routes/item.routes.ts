@@ -23,6 +23,25 @@ itemRoutes.get('/search/:itemid', async (req: any, res: Response) => {
 });
 
 
+// Obtener todos los items 
+
+itemRoutes.get('/all', async (req: any, res: Response) => {
+
+    const items = await Item
+        .find()           // Busca por id user
+        .sort({ _id: -1 })    // Ordena
+        .exec()               // Ejecuta
+
+    // Respuesta    
+    res.json({
+        ok: true,
+        items: items,
+
+    });
+
+});
+
+
 // Método GET para Obtener los items de una lista
 
 itemRoutes.get('/:listid', async (req: any, res: Response) => {

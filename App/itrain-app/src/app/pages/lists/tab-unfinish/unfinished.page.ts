@@ -2,7 +2,7 @@ import { Component, Input, OnInit, } from '@angular/core';
 import { ListsService } from '../../../services/lists.service';
 import { IList } from '../../../interfaces/interfaces';
 import { UiService } from 'src/app/services/ui.service';
-import { AlertController, MenuController } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 
 @Component({
@@ -39,7 +39,7 @@ export class UnfinishedPage implements OnInit {
       this.lists.unshift(list)
       this.listId = list._id;
       this.listTitle = list.title;
-    })
+    });
 
   }
 
@@ -54,17 +54,12 @@ export class UnfinishedPage implements OnInit {
   }
 
   // Infinite Scroll
-  nextsItems(event?, pull: boolean = false) {
+  nextsItems(event?, pull: boolean = true) {
 
     this.listsService.getLists(pull) // getList de listService // Esto me devuelve las listas del usuario logeado
       .subscribe(resp => {
         console.log(resp);
         this.lists.push(...resp.lists);
-        // Cargamos el array del lists
-        // Así puedo obtener el atributo que quiera ---------
-        // console.log(resp.lists[0]._id); // El id de la lista posicion 0 o la que sea
-        // console.log(resp.lists[0].user._id); // El email del usuario
-        //---------------------------------------------------
 
         if (event) {
           event.target.complete();

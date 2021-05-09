@@ -17,7 +17,6 @@ listRoutes.get('/', [validateToken], async (req: any, res: Response) => {
 
     const body = req.body;
     body.user = req.user._id;
-    const idList = req.body._id
 
     const lists = await List
         .find(body)           // Busca por id user
@@ -31,7 +30,25 @@ listRoutes.get('/', [validateToken], async (req: any, res: Response) => {
         ok: true,
         page,
         lists,
-        idList
+
+    });
+
+});
+
+
+// Obtener todas las listas 
+
+listRoutes.get('/all', async (req: any, res: Response) => {
+
+    const lists = await List
+        .find()           // Busca por id user
+        .sort({ _id: -1 })    // Ordena
+        .exec()               // Ejecuta
+
+    // Respuesta    
+    res.json({
+        ok: true,
+        lists: lists,
 
     });
 
@@ -101,10 +118,7 @@ listRoutes.post('/update/:listid', (req: any, res: Response) => {
 // Borrar Listas por su ID
 listRoutes.delete('/delete/:listid', (req: any, res: Response) => {
 
-
     List.findByIdAndRemove(req.params.listid, req.body, (err, listDB) => {
-
-
 
         if (err) throw err;
 
@@ -122,8 +136,6 @@ listRoutes.delete('/delete/:listid', (req: any, res: Response) => {
 
 
     });
-
-
 
 });
 

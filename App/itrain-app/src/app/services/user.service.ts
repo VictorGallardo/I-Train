@@ -52,6 +52,7 @@ export class UserService {
 
   logout() {
 
+
     this.token = null; // Primero limpiamos el TOKEN.
     this.user = null;  // Limpiamos también el usuario.
     Storage.clear();   // Limpiamos el storage donde almacenamos el token.

@@ -20,8 +20,8 @@ export class ListsService {
   ) { }
 
 
-  // Obtener listas 
-  getLists(pull: boolean = false) {
+  // Obtener listas
+  getLists(pull: boolean = true) {
 
     if (pull) {
       this.listPage = 0;

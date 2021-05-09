@@ -20,10 +20,10 @@ export class LoginPage implements OnInit {
   }
 
   registerUser: IUser = {
-    email: 'test@gmail.com',
-    password: '123456',
-    name: 'Test',
-    avatar: 'av-1.png'
+    email: '',
+    password: '',
+    name: '',
+    avatar: ''
   }
 
   slideNgIf: number = 0;

@@ -38,7 +38,9 @@ userRoutes.post('/login', (req: Request, res: Response) => {
 
             res.json({
                 ok: true,
-                token: tokenUser
+                id: userDB._id,
+                token: tokenUser,
+                user: userDB
             });
 
         } else {
@@ -133,6 +135,25 @@ userRoutes.get('/', [validateToken], (req: any, res: Response) => {
         ok: true,
         user
     });
+});
+
+
+// Obtener todos los usuarios 
+
+userRoutes.get('/all', async (req: any, res: Response) => {
+
+    const users = await User
+        .find()           // Busca por id user
+        .sort({ _id: -1 })    // Ordena
+        .exec()               // Ejecuta
+
+    // Respuesta    
+    res.json({
+        ok: true,
+        users,
+
+    });
+
 });
 
 
