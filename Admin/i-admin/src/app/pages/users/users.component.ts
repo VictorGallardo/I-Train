@@ -22,7 +22,7 @@ export class UsersComponent implements OnInit {
 
   dataSource: MatTableDataSource<IUser>;
   users: IUser[] = [];
-  columns: string[] = ['id', 'email', 'name', 'role'];
+  columns: string[] = ['num', 'id', 'email', 'name', 'role'];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;

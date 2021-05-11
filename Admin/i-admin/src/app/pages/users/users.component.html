@@ -10,6 +10,11 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
       <td mat-cell *matCellDef="let user">{{ position }}</td>
     </ng-container> -->
+    <!-- Id -->
+    <ng-container matColumnDef="num">
+      <th mat-header-cell *matHeaderCellDef>Num.</th>
+      <td mat-cell *matCellDef="let i = index">{{ i }}</td>
+    </ng-container>
 
     <!-- Id -->
     <ng-container matColumnDef="id">

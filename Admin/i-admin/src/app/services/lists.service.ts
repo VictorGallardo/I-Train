@@ -1,7 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { AuthService } from './auth.service';
 import { IRespList } from '../interfaces/interfaces';
 
 const URL = environment.url;
@@ -12,21 +11,12 @@ const URL = environment.url;
 export class ListsService {
 
 
+  constructor(private http: HttpClient) { }
 
-  constructor(
-    private http: HttpClient,
-    private authService: AuthService) { }
+  // Obtener todas las listas
 
-
-
-  // Obtener listas
-  getLists() {
-
-
-    const headers = new HttpHeaders({
-      'x-token': this.authService.token // Traemos el token del userService
-    });
-
-    return this.http.get<IRespList>(`${URL}/lists/`, { headers }); // Hay que pasarle el header aqui IMPORTANTE!!
+  getAllLists() {
+    return this.http.get<IRespList>(`${URL}/lists/all`)
   }
+
 }

@@ -12,8 +12,6 @@ export class UsersService {
 
   constructor(private http: HttpClient) { }
 
-
-
   // Obtener todos los Usuarios
 
   getAllUsers() {
