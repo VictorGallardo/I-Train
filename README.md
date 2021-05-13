@@ -1,6 +1,8 @@
 ![](images/cabecera.png)
 
-Video :movie_camera: [Primera version I-Train 1.1.0 ](https://drive.google.com/file/d/1rrB4uA3F1u-7I0r0mJRuVqMvU_hUDgvz/view?usp=sharing) :movie_camera:
+### Video 
+
+:movie_camera:  [Primera version I-Train 1.1.0 ](https://drive.google.com/file/d/1rrB4uA3F1u-7I0r0mJRuVqMvU_hUDgvz/view?usp=sharing)  :movie_camera:
 
 # Contenido
 
