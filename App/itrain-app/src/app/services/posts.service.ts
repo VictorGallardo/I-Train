@@ -33,7 +33,7 @@ export class PostsService {
 
   // Obtener post
 
-  getPosts(pull: boolean = false) {
+  getPosts(pull: boolean = true) {
 
     if (pull) {
       this.pagePosts = 0;
@@ -60,7 +60,7 @@ export class PostsService {
           console.log(resp);
           // Esto emite el nuevo post mediante el eventEmiter ----------------
           this.newPost.emit(resp['post']);
-          // En tab1.ts creo una subscripción que estara pendiente cada vez que se reciba un mensaje 
+          // En tab1.ts creo una subscripción que estara pendiente cada vez que se reciba un mensaje
           // -----------------------------------------------------------------
           resolve(true); // Resuelvo con true cuando ya se hizo la emisión
 

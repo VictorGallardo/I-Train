@@ -2,9 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ItemsService } from '../../services/items.service';
 import { IItem } from '../../interfaces/interfaces';
-import { BehaviorSubject } from 'rxjs';
-import { ModalController } from '@ionic/angular';
+import { BehaviorSubject, Subscription } from 'rxjs';
+import { ModalController, PopoverController, NavController, AlertController } from '@ionic/angular';
 import { TimerEndPage } from '../../modals/timer-end/timer-end.page';
+import { ConfigPopoverComponent } from 'src/app/components/config-popover/config-popover.component';
+import { Platform } from '@ionic/angular';
+import { BackButtonService } from '../../services/back-button.service';
+import { Plugins } from '@capacitor/core';
+import { UiService } from '../../services/ui.service';
+
+const { App } = Plugins;
+
 
 const circleR = 80;
 const circleDasharray = 2 * Math.PI * circleR;
@@ -29,6 +37,8 @@ export class TimerPage implements OnInit {
     totalTime: null,
   }
 
+  itemArray: IItem[] = [];
+
   itemId: string;
 
   percent: BehaviorSubject<number> = new BehaviorSubject(100);
@@ -44,7 +54,9 @@ export class TimerPage implements OnInit {
   restSets: number;
   displayStage: string = 'Preparación';
   displayColor: string;
-
+  onlyDigits: boolean = false;
+  noFeatures: boolean = false;
+  mute: boolean = false;
 
   preparation: number;
   preparationMin: number;
@@ -63,11 +75,28 @@ export class TimerPage implements OnInit {
   counterSets: number
 
   constructor(
-    private actvRoute: ActivatedRoute,
+    public popoverCtrl: PopoverController,
     private itemsService: ItemsService,
-    private modalCtrl: ModalController
+    public modalCtrl: ModalController,
+    private actvRoute: ActivatedRoute,
+    public platform: Platform,
+    private backButton: BackButtonService,
+    private navCtrl: NavController,
+    private uiService: UiService,
+    private alertCtrl: AlertController
+
   ) { }
 
+
+  // Cerrar la sesión
+
+  closeSesion() {
+
+    this.uiService.alertClose("¿Terminar la sesión?", async () => {
+      await this.navCtrl.navigateBack('/', { animated: true });
+    });
+
+  }
 
   ngOnInit() {
 
@@ -76,13 +105,16 @@ export class TimerPage implements OnInit {
 
     this.itemsService.getItemById(this.itemId)
       .subscribe(resp => {
-        console.log(resp);
-        const load = this.item = resp.items[0];
+        // Lo añado a un array por si hay retraso en la respuesta
+        this.itemArray.push(...resp.items)
+        const load = this.item = this.itemArray[0];
         if (load) {
           this.updateCountersAndDuration()
         }
       });
   }
+
+
 
   updateCountersAndDuration() {
     // Duration
@@ -96,6 +128,27 @@ export class TimerPage implements OnInit {
     this.counterTimeEx = this.item.repeats * this.counterSets;
     this.counterRestReps = this.item.repeats - 1;
   }
+
+
+  // Popover de configuracion
+  async openConfigPopover(ev: any) {
+    const popover = await this.popoverCtrl.create({
+      component: ConfigPopoverComponent,
+      event: ev,
+      translucent: true
+    });
+    await popover.present();
+
+    const { data } = await popover.onWillDismiss();
+
+    if (data) {
+      if (data.value === 1) this.mute = true;
+      if (data.value === 2) this.onlyDigits = true;
+      if (data.value === 3) this.noFeatures = true;
+    }
+
+  }
+
 
   // Actualiza la duración
 
@@ -248,6 +301,7 @@ export class TimerPage implements OnInit {
   // --------------------------------------------------------------------------------
 
 
+  // Muestra el modal de final del ejercicio
   async modalEnd() {
     const modal = await this.modalCtrl.create({
       component: TimerEndPage,
@@ -257,6 +311,7 @@ export class TimerPage implements OnInit {
   }
 
 
+  // Play audio
   playAudio(url: string) {
     let audio = new Audio();
     audio.src = url;
@@ -265,11 +320,13 @@ export class TimerPage implements OnInit {
   }
 
 
+  // Porcentage
   percentageOffset(percent) {
     const percentFloat = percent / 100;
     return circleDasharray * (1 - percentFloat)
   }
 
+  // Stop timer
   stopTimer() {
     clearInterval(this.interval);
     this.time.next('00:00');
@@ -278,37 +335,6 @@ export class TimerPage implements OnInit {
   }
 
 
+
+  // -------------------------------------------------------------------------------------
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

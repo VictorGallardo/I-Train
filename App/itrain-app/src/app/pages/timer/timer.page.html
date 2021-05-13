@@ -1,11 +1,22 @@
 <ion-header>
   <ion-toolbar class="ion-text-center">
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/" color="yellow"></ion-back-button>
-    </ion-buttons>
+    <ion-icon
+      name="exit-outline"
+      (click)="closeSesion()"
+      color="yellow"
+      class="ion-padding"
+      slot="start"
+    ></ion-icon>
+
     <ion-title>{{item.title}}</ion-title>
     <!-- (click)="goAddEdit(exercise.id)" -->
-    <ion-icon class="ion-padding" color="yellow" slot="end" name="build">
+    <ion-icon
+      (click)="openConfigPopover($event)"
+      class="ion-padding"
+      color="yellow"
+      slot="end"
+      name="build"
+    >
     </ion-icon>
   </ion-toolbar>
 </ion-header>
@@ -18,8 +29,8 @@
       <ion-col class="ion-text-center">
         <svg
           id="progress-circle"
-          width="50vh"
-          height="50vh"
+          width="40vh"
+          height="40vh"
           viewBox="0 0 180 180"
         >
           <linearGradient id="linearColors1" x1="0" y1="0" x2="1" y2="1">
@@ -78,7 +89,7 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <ion-card class="ion-padding">
+  <ion-card *ngIf="!noFeatures" class="ion-padding">
     <ion-card-header class="ion-text-center">
       <ion-card-subtitle>Caracteristicas del ejercicio</ion-card-subtitle>
     </ion-card-header>

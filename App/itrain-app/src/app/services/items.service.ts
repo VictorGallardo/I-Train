@@ -38,7 +38,7 @@ export class ItemsService {
         .subscribe(resp => {
 
           this.newItem.emit(resp['item']); // Emite el item para cargarlo el primero
-          resolve(true); // Ya se hizo 
+          resolve(true); // Ya se hizo
 
 
         });
@@ -48,7 +48,7 @@ export class ItemsService {
   }
 
   // Actualizar Item
-  async updateItem(listId, itemId, item: IItem) {
+  async updateItem(listId: string, itemId: string, item: IItem) {
 
     return new Promise(resolve => {
       this.http.post(`${URL}/items/update/${listId}/${itemId}`, item)

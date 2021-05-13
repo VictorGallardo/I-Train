@@ -4,21 +4,19 @@
     <ion-buttons slot="start">
       <ion-menu-button menu="first"></ion-menu-button>
     </ion-buttons>
+    <ion-title class="ion-text-center">Actualizar perfil</ion-title>
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon name="information-circle-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-row class="top-20">
+  <ion-row class="top-40">
     <ion-col size="12" class="ion-text-center">
       <img src="assets/avatars/{{user.avatar}}" class="img-avatar" />
-    </ion-col>
-  </ion-row>
-
-  <ion-row class="top-20">
-    <ion-col size="12" class="ion-text-center">
-      <ion-label>
-        <h1>Actualizar perfil</h1>
-      </ion-label>
     </ion-col>
   </ion-row>
 
@@ -34,7 +32,7 @@
           #formUpdate es el nombre del formulario
           pasamos el formulario como argumento -->
 
-  <form (ngSubmit)="update( formUpdate )" #formUpdate="ngForm">
+  <form class="top-40" (ngSubmit)="update( formUpdate )" #formUpdate="ngForm">
     <ion-row>
       <ion-col>
         <ion-list>
@@ -64,7 +62,11 @@
     <ion-row>
       <ion-col class="ion-text-center">
         <!-- Este botón dispara el submit => ( ngSubmit ) = "update( formUpdate )" #formUpdate-->
-        <ion-button type="submit" color="primary" shape="round">
+        <ion-button type="submit" color="primary">
+          <ion-icon
+            class="ion-margin-end"
+            name="checkmark-circle-outline"
+          ></ion-icon>
           Actualizar
         </ion-button>
       </ion-col>

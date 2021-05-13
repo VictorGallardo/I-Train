@@ -9,6 +9,7 @@ import { ListsComponent } from './lists/lists.component';
 import { ListItemsComponent } from './list-items/list-items.component';
 import { MenuComponent } from './menu/menu.component';
 import { RouterModule } from '@angular/router';
+import { ConfigPopoverComponent } from './config-popover/config-popover.component';
 
 
 @NgModule({
@@ -19,15 +20,17 @@ import { RouterModule } from '@angular/router';
     ListsComponent,
     PostComponent,
     PostsComponent,
-    MenuComponent
+    MenuComponent,
+    ConfigPopoverComponent
   ],
-  // Exporto mis componentes para poder usarlos 
+  // Exporto mis componentes para poder usarlos
   exports: [
     AvatarSelectComponent,
     ListItemsComponent,
     ListsComponent,
     PostsComponent,
-    MenuComponent
+    MenuComponent,
+    ConfigPopoverComponent
   ],
   // Importaciones de componentes que quiero usar en mis componentes
   imports: [

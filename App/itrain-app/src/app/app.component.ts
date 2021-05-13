@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { Plugins } from '@capacitor/core'
-import { UserService } from './services/user.service';
-import { MenuController } from '@ionic/angular';
+import { Platform } from '@ionic/angular';
+import { BackButtonService } from './services/back-button.service';
 
-const { SplashScreen, StatusBar } = Plugins;
+const { SplashScreen, StatusBar, App } = Plugins;
 
 @Component({
   selector: 'app-root',
@@ -12,7 +12,10 @@ const { SplashScreen, StatusBar } = Plugins;
 })
 export class AppComponent {
 
-  constructor() {
+  constructor(
+    private platform: Platform,
+    private backButtonService: BackButtonService
+  ) {
 
     this.initializeApp();
   }
@@ -20,15 +23,21 @@ export class AppComponent {
 
   initializeApp() {
 
-    SplashScreen.hide().catch(error => {
-      console.log(error);
+    this.platform.ready().then(() => {
+
+      SplashScreen.hide().catch(error => {
+        console.log(error);
+      });
+
+      StatusBar.hide().catch(error => {
+        console.log(error);
+      });
+
+      this.backButtonService.init();
+
     });
 
-    StatusBar.hide().catch(error => {
-      console.log(error);
-    });
   }
-
 }
 
 

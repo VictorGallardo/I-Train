@@ -26,7 +26,29 @@ export class UiService {
     await alert.present();
   }
 
-  // ------------------------------------------------------------------
+
+  // Alertas al cerrar ------------------------------------------------
+
+  async alertClose(message: string, action: () => void) {
+    const alert = await this.alertCtrl.create({
+
+      message,
+      buttons:
+        [
+          {
+            text: 'Cancelar',
+            role: 'cancel',
+
+          },
+          {
+            text: 'Ok',
+            handler: action
+          }
+        ]
+    });
+
+    await alert.present();
+  }
 
 
   // Toast ------------------------------------------------------------

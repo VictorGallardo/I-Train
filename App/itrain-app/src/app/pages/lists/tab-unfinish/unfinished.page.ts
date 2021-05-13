@@ -33,6 +33,7 @@ export class UnfinishedPage implements OnInit {
 
   ngOnInit() {
 
+    console.log(this.router.url);
     this.nextsItems();
 
     this.listsService.newList.subscribe(list => {
