@@ -8,10 +8,10 @@
 -   [Landing page](Landing-page/README.md)
 -   [Mockup](Mockup/README.md)
 
-# I-Train Server
+## I-Train Server
 
 -   [Enlace al repositorio de la API](https://github.com/VictorGallardo/I-Train-server)
 
-# I-Train Admin
+## I-Train Admin
 
 -   [Enlace al repositorio de la Web de administración](https://github.com/VictorGallardo/I-Train-admin)
