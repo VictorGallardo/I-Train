@@ -9,11 +9,14 @@
           <!-- (click)="listSelect(list)" -->
           <ion-item detail (click)="goToItems(list._id, list.title)">
             <ion-label>{{ list.title }}</ion-label>
-            <ion-note slot="end">{{ list.items.length }}</ion-note>
+            <ion-note slot="end"></ion-note>
           </ion-item>
 
           <ion-item-options side="end">
-            <ion-item-option (click)="deleteList(list._id, i)" color="danger">
+            <ion-item-option
+              (click)="deleteListAlert(list._id, i)"
+              color="danger"
+            >
               <ion-icon
                 color="itrain-cream"
                 slot="icon-only"

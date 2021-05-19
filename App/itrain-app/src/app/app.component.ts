@@ -13,7 +13,6 @@ const { SplashScreen, StatusBar, App } = Plugins;
 export class AppComponent {
 
   constructor(
-    private platform: Platform,
     private backButtonService: BackButtonService
   ) {
 
@@ -23,19 +22,16 @@ export class AppComponent {
 
   initializeApp() {
 
-    this.platform.ready().then(() => {
-
-      SplashScreen.hide().catch(error => {
-        console.log(error);
-      });
-
-      StatusBar.hide().catch(error => {
-        console.log(error);
-      });
-
-      this.backButtonService.init();
-
+    SplashScreen.hide().catch(error => {
+      console.log(error);
     });
+
+    StatusBar.hide().catch(error => {
+      console.log(error);
+    });
+
+    this.backButtonService.init();
+
 
   }
 }

@@ -12,7 +12,15 @@
         <!-- [(ngModel)]="item.completed" -->
         <!-- (ionChange)="cambioCheck()" -->
         <!-- <ion-checkbox slot="start"></ion-checkbox> -->
-        <ion-label>{{ item.title }}</ion-label>
+        <ion-label>
+          <h2>{{ item.title }}</h2>
+          <p>{{ item.description }}</p>
+        </ion-label>
+
+        <ion-label slot="end">
+          <h2>{{ item.totalTime }}</h2>
+          <p>{{ item.time * item.repeats }}</p>
+        </ion-label>
       </ion-item>
 
       <ion-item-options (click)="deleteItemAlert(item._id, i)" side="end">

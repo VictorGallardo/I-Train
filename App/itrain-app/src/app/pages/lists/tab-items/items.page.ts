@@ -15,6 +15,8 @@ export class ItemsPage implements OnInit {
   listId: string;
   enabled: boolean = true;
   listTitle: string;
+  itemCount: number;
+
 
   constructor
     (
@@ -43,6 +45,7 @@ export class ItemsPage implements OnInit {
 
 
     });
+
 
   }
 

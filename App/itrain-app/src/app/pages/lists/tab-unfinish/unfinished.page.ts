@@ -33,7 +33,6 @@ export class UnfinishedPage implements OnInit {
 
   ngOnInit() {
 
-    console.log(this.router.url);
     this.nextsItems();
 
     this.listsService.newList.subscribe(list => {
@@ -55,7 +54,7 @@ export class UnfinishedPage implements OnInit {
   }
 
   // Infinite Scroll
-  nextsItems(event?, pull: boolean = true) {
+  nextsItems(event?, pull: boolean = false) {
 
     this.listsService.getLists(pull) // getList de listService // Esto me devuelve las listas del usuario logeado
       .subscribe(resp => {
@@ -65,9 +64,9 @@ export class UnfinishedPage implements OnInit {
         if (event) {
           event.target.complete();
 
-          if (resp.lists.length === 0) {
+          if (resp.lists.length === 0)
             event.target.disabled = false;
-          }
+
         }
       });
 

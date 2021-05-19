@@ -25,6 +25,7 @@ export class ListItemsComponent implements OnInit {
 
     // console.log(this.items); // Para asegurarnos de que recibimos las listas
 
+
   }
 
   goToTimer(itemId) {
@@ -36,15 +37,15 @@ export class ListItemsComponent implements OnInit {
   }
 
 
+  // Eliminar item
 
   deleteItem(itemId: string, index: number) {
     this.itemsService.deleteItem(itemId);
     this.items.splice(index, 1);
-
-
   }
 
-  // Alert para crear lista
+  // Alert para eliminar item
+
   async deleteItemAlert(itemId: string, index: number) {
 
     const alert = await this.alertCtrl.create({

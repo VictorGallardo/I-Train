@@ -93,3 +93,25 @@ Diario de trabajo **Proyecto Fin de Ciclo**, en el se anotarán los avances prod
     **Angular app**
 
     -   Métodos **GET** para obtener todos los usuarios, listas e items.
+
+## :calendar: Semana **5** ( 10/05 - 16/05 )
+
+-   Proyecto **Ionic app**.
+
+    -   Retoques en el diseño y ajustes de lógica.
+    -   Corrección en ifinite-scroll.
+    -   Corrección en item list.
+
+-   Proyecto **Angular app**.
+
+    -   Retoques en el diseño.
+
+-   Proyecto **Backend Server**
+
+    -   Preparando la API para producción.
+    -   Corrección en la paginación.
+
+#### Cambios importantes.
+
+-   Subida de API a producción **Heroku**.
+-   Subida de base de datos a producción **MongoDB Atlas**.

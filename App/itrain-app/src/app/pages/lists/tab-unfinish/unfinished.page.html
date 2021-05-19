@@ -16,13 +16,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-refresher
-    slot="fixed"
-    (ionRefresh)="loadLists($event)"
-    pullFactor="0.8"
-    pullMin="60"
-    pullMax="120"
-  >
+  <ion-refresher slot="fixed" (ionRefresh)="loadLists($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 

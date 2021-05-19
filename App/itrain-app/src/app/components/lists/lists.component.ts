@@ -1,9 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { IList } from '../../interfaces/interfaces';
+import { IList, IItem } from '../../interfaces/interfaces';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { ListsService } from '../../services/lists.service';
 import { ItemsService } from '../../services/items.service';
+import { UiService } from '../../services/ui.service';
 
 @Component({
   selector: 'app-lists',
@@ -13,7 +14,6 @@ import { ItemsService } from '../../services/items.service';
 export class ListsComponent implements OnInit {
 
   @Input() lists: IList[] = []; // Aquí estoy recibiendo las listas que le paso del unfinished.page.html
-
   list: IList = {};
 
   constructor
@@ -21,6 +21,7 @@ export class ListsComponent implements OnInit {
       private alertCtrl: AlertController,
       private listsService: ListsService,
       private itemsService: ItemsService,
+      private uiService: UiService,
       private route: Router
     ) { }
 
@@ -45,17 +46,41 @@ export class ListsComponent implements OnInit {
     this.route.navigateByUrl(`main/lists/items/${listId}/${listTitle}`);
   }
 
-  // Eliminar Lista
-  deleteList(listId, index) {
 
+  // Eliminar lista
+
+  deleteList(listId: string, index: number) {
     this.listsService.deleteList(listId);
     this.lists.splice(index, 1);
-    this.itemsService.deleteItemsList(listId);
-    console.log('Lista e items de esa lista eliminados');
-
-
   }
 
+  // Alert para eliminar lista
+  async deleteListAlert(listId: string, index: number) {
+
+    const alert = await this.alertCtrl.create({
+      header: 'Eliminar Lista',
+      message: '¿ Está seguro que desea eliminar esta lista ?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancelar');
+          }
+        },
+        {
+          text: 'Borrar',
+          handler: () => {
+
+            this.deleteList(listId, index)
+            this.uiService.presentToast('Lista eliminada correctamente.');
+
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
 
   async editList(listId, list) {
 

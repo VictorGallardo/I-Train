@@ -127,11 +127,8 @@ export class AddEditPage implements OnInit {
       if (formAddEdit.invalid) { return; }
       console.log(this.item);
 
-      this.item.totalTime = await
-        this.item.preparation
-        + this.item.restReps
-        + this.item.restSets
-        + this.item.time;
+      // Total Time
+
 
       const valid = await this.itemsService.createdItem(this.item, this.listId);
 
