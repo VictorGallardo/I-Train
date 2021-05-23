@@ -8,7 +8,7 @@
   //
   --ion-background-color: #121213;
   // Color texto
-  --ion-text-color: #e9d5b6;
+  --ion-text-color: #d6c4a8;
 
   // ----------------------------------------------------
   /** primary **/
@@ -380,4 +380,24 @@
   --ion-color-contrast-rgb: var(--ion-color-itrain-darkcream-contrast-rgb);
   --ion-color-shade: var(--ion-color-itrain-darkcream-shade);
   --ion-color-tint: var(--ion-color-itrain-darkcream-tint);
+}
+
+// Celeste itrain
+
+:root {
+  --ion-color-itrain-indigo: #509ecc;
+  --ion-color-itrain-indigo-rgb: 80, 158, 204;
+  --ion-color-itrain-indigo-contrast: #000000;
+  --ion-color-itrain-indigo-contrast-rgb: 0, 0, 0;
+  --ion-color-itrain-indigo-shade: #468bb4;
+  --ion-color-itrain-indigo-tint: #62a8d1;
+}
+
+.ion-color-itrain-indigo {
+  --ion-color-base: var(--ion-color-itrain-indigo);
+  --ion-color-base-rgb: var(--ion-color-itrain-indigo-rgb);
+  --ion-color-contrast: var(--ion-color-itrain-indigo-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-itrain-indigo-contrast-rgb);
+  --ion-color-shade: var(--ion-color-itrain-indigo-shade);
+  --ion-color-tint: var(--ion-color-itrain-indigo-tint);
 }

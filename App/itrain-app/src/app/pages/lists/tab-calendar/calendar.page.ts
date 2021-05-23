@@ -1,12 +1,13 @@
 import { formatDate } from '@angular/common';
 import { Component, Inject, Input, LOCALE_ID, OnInit, ViewChild } from '@angular/core';
 import { Plugins } from '@capacitor/core';
-import { AlertController, ModalController } from '@ionic/angular';
+import { AlertController, ModalController, NavController } from '@ionic/angular';
 import { CalendarComponent } from 'ionic2-calendar';
 import { CalendarService } from '../../../services/calendar.service';
 import { IEvent } from '../../../interfaces/interfaces';
-
-const { Storage } = Plugins;
+import { CalendarMode } from 'ionic2-calendar/calendar';
+import { Step } from 'ionic2-calendar/calendar';
+import { EventPage } from 'src/app/modals/event/event.page';
 
 
 @Component({
@@ -16,115 +17,125 @@ const { Storage } = Plugins;
 })
 export class CalendarPage implements OnInit {
 
-  eventSource = [];
-  counterId: number = 0;
-
-  viewTitle: string;
-
-  event: IEvent = {};
-
-  calendar = {
-    mode: 'month',
-    currentDate: new Date(),
+  newEvent = {
+    title: '',
+    description: '',
+    imageURL: '',
+    startTime: '',
+    endTime: ''
   };
 
-  @ViewChild(CalendarComponent) myCal: CalendarComponent;
+  allEvents = []
+
+  currentMonth: string;
+  showAddEvent: boolean;
+  minDate = new Date().toISOString();
+
+  calendar = {
+    mode: 'month' as CalendarMode,
+    currentDate: new Date(),
+    step: 30 as Step
+  };
+
+  @ViewChild(CalendarComponent, { static: false }) myCalendar: CalendarComponent;
 
   constructor(
     @Inject(LOCALE_ID) private locale: string,
     private calService: CalendarService,
-    private alertCtrl: AlertController,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
   ) {
-
-
   }
+  ngOnInit(): void {
 
-  ngOnInit() {
+    this.loadEvent();
 
-    // this.calService.getEvents()
-    //   .subscribe(resp => {
-    //     console.log(resp);
-    //     this.eventSource.push(...resp.events);
-    //   });
+    this.calService.newEvent.subscribe(ev => {
+      this.allEvents.unshift(ev)
 
-    // this.calService.newEvent.subscribe(event => {
-    //   // Insertamos el item en el array de items en la 1º posición
-    //   this.eventSource.unshift(event);
-
-    // });
-  }
-
-  addNewEvent() {
-    var date = new Date();
-    let start = new Date(
-      Date.UTC(
-        date.getUTCFullYear(),
-        date.getUTCMonth(),
-        date.getUTCDate()
-      ));
-    let end = new Date(
-      Date.UTC(
-        date.getUTCFullYear(),
-        date.getUTCMonth(),
-        date.getUTCDate()
-      ));
-    this.event = {
-      title: 'Event # ',
-      startTime: start,
-      endTime: end,
-      allDay: false
-    }
-
-    console.log('Llega');
-
-    this.calService.createdEvent(this.event)
-  }
-
-
-
-
-  // Título
-  onViewTitleChanged(title) {
-    this.viewTitle = title;
-  }
-
-  onTimeSelected = (ev: { selectedTime: Date, events: any[] }) => {
-    console.log('Selected time: ' + ev.selectedTime + ', hasEvents: ' + (ev.events !== undefined && ev.events.length !== 0));
-  };
-
-  onCurrentChanged = (ev: Date) => {
-    console.log('Currently viewed date: ' + ev);
-  };
-
-  onCurrentDateChanged(event: Date) {
-    console.log('Current data changed: ' + event);
-
-  }
-
-  onRangeChanged(ev) {
-    console.log('range changed: startTime: ' + ev.start + ' endTime: ' + ev.end);
-
-  }
-  // Día seleccionado
-  async onEventSelected(event) {
-    // Use Angular date pipe for conversion
-    let start = formatDate(event.startTime, 'medium', this.locale);
-    let end = formatDate(event.endTime, 'medium', this.locale);
-
-    const alert = await this.alertCtrl.create({
-      header: event.title,
-      subHeader: event.desc,
-      message: 'From: ' + start + '<br><br>To: ' + end,
-      buttons: ['OK'],
     });
-    alert.present();
+
   }
 
-  // Eliminar eventos
-  removeEvents() {
-    this.eventSource = [];
+  /**
+   *
+   * Carga los eventos creados en array allEvent
+   *
+   */
+
+  loadEvent() {
+
+    this.calService.getEvents().subscribe(resp => {
+      this.allEvents = [];
+
+      resp.events.forEach(action => {
+        this.allEvents.push({
+          title: action.title,
+          startTime: new Date(action.startTime),
+          endTime: new Date(action.endTime),
+          description: action.description,
+        });
+        this.myCalendar.loadEvents()
+      })
+    })
+
   }
+
+  async onEventSelected(event: any) {
+
+    const modal = await this.modalCtrl.create({
+      component: EventPage,
+      componentProps: {
+        'event': event
+      }
+    });
+    return await modal.present();
+
+  }
+
+  /**
+   * Titulo del calendario (meses)
+   * @param title
+   */
+  onViewTitleChanged(title: string) {
+    this.currentMonth = title;
+  }
+
+  showHideForm() {
+    this.showAddEvent = !this.showAddEvent;
+    this.newEvent = {
+      title: '',
+      description: '',
+      imageURL: '',
+      startTime: new Date().toISOString(),
+      endTime: new Date().toISOString()
+    };
+  }
+
+
+  /**
+   * Añadir eventos
+   */
+  addEvent() {
+    this.calService.createdEvent({
+      title: this.newEvent.title,
+      startTime: new Date(this.newEvent.startTime),
+      endTime: new Date(this.newEvent.endTime),
+      description: this.newEvent.description,
+      imageURL: this.newEvent.imageURL
+    });
+    this.loadEvent();
+    this.showHideForm();
+  }
+
+  onTimeSelected(ev: any) {
+    const selected = new Date(ev.selectedTime);
+    this.newEvent.startTime = selected.toISOString();
+    selected.setHours(selected.getHours() + 1);
+    this.newEvent.endTime = (selected.toISOString());
+  }
+
+
+
 
 
 }

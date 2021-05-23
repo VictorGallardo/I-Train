@@ -2,6 +2,10 @@ h2 {
   text-transform: capitalize;
 }
 
+ion-label {
+  color: gray;
+}
+
 .event-indicator {
   background: var(--ion-color-itrain-yellow);
   width: 5px;

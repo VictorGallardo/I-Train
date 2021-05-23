@@ -72,6 +72,8 @@ export class AddEditPage implements OnInit {
   restReps: number
   totalTime: number
 
+  date: any = new Date().toISOString()
+
 
   constructor
     (

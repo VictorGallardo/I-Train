@@ -1,10 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { IList, IItem } from '../../interfaces/interfaces';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { ListsService } from '../../services/lists.service';
 import { ItemsService } from '../../services/items.service';
 import { UiService } from '../../services/ui.service';
+import { AddEditListsPage } from '../../modals/add-edit-lists/add-edit-lists.page';
 
 @Component({
   selector: 'app-lists',
@@ -14,13 +15,15 @@ import { UiService } from '../../services/ui.service';
 export class ListsComponent implements OnInit {
 
   @Input() lists: IList[] = []; // Aquí estoy recibiendo las listas que le paso del unfinished.page.html
-  list: IList = {};
+  list: IList = {
+    title: ''
+  }
 
   constructor
     (
       private alertCtrl: AlertController,
       private listsService: ListsService,
-      private itemsService: ItemsService,
+      private modalCtrl: ModalController,
       private uiService: UiService,
       private route: Router
     ) { }
@@ -82,7 +85,15 @@ export class ListsComponent implements OnInit {
     await alert.present();
   }
 
-  async editList(listId, list) {
+
+  editList(listId: string, index: number) {
+    this.listsService.deleteList(listId);
+    this.lists.splice(index, 1);
+  }
+
+
+  async editListAlert(listId: string, list: string) {
+
 
     const alert = await this.alertCtrl.create({
       header: 'Editar lista',
@@ -90,7 +101,7 @@ export class ListsComponent implements OnInit {
         {
           name: 'titulo',
           type: 'text',
-          value: list.title,
+          value: list,
           placeholder: 'Nombre de la lista '
         }
       ],
@@ -105,12 +116,29 @@ export class ListsComponent implements OnInit {
         },
         {
           text: 'Guardar',
-          handler: (data) => {
-            if (data.titulo.length === 0) { return; }
+          handler: async (data) => {
 
-            this.listsService.updateList(listId, list)
+            console.log(data);
+
+
+            this.list.title = data.titulo
+
+            const update = await this.listsService.updateList(listId, this.list);
+
+            if (update) {
+
+              this.uiService.presentToast('Item actualizado correctamente')// Toast con mensaje de actualizado
+              this.lists.slice();
+
+            } else {
+
+              this.uiService.presentToast('Error al actualizar item')
+            }
+
 
           }
+
+
         }
       ]
     });
@@ -118,4 +146,6 @@ export class ListsComponent implements OnInit {
     await alert.present();
 
   }
+
+
 }

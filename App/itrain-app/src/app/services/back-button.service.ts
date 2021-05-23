@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 })
 export class BackButtonService {
 
+  id: string;
 
   constructor
     (
@@ -21,8 +22,14 @@ export class BackButtonService {
     this.platform.backButton.subscribeWithPriority(10, async () => {
 
       const currentUrl = this.router.url;
+
       if (currentUrl === "/main/lists/unfinish") {
 
+        this.exitAlert("¿Desea salir de la app?", () => {
+          navigator['app'].exitApp();
+        });
+
+      } else if (currentUrl === "/login") {
         this.exitAlert("¿Desea salir de la app?", () => {
           navigator['app'].exitApp();
         });

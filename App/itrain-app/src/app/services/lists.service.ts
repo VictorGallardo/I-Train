@@ -78,7 +78,7 @@ export class ListsService {
 
   // Actualizar listas
 
-  updateList(listId, list: IList) {
+  updateList(listId: string, list: IList) {
     return new Promise(resolve => {
       this.http.post(`${URL}/lists/update/${listId}`, list)
         .subscribe(resp => {

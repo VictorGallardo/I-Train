@@ -2,11 +2,11 @@ ion-icon {
   font-size: 1.5em;
 }
 h3 {
-  font-size: 2em;
+  font-size: 2.5em;
   font-weight: 600;
-  text-transform: uppercase;
+  // text-transform: uppercase;
   margin-top: 30px;
-  color: #f9c028 !important;
+  color: #ffffff !important;
 }
 
 #progress-circle {
@@ -19,7 +19,7 @@ h3 {
   transform-origin: center;
   font-size: 36px;
   text-anchor: middle;
-  font-weight: 600;
-  fill: #fff;
+  font-weight: 700;
+  fill: rgb(255, 255, 255);
   // fill: #ffeed0;
 }

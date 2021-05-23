@@ -46,7 +46,7 @@ const routes: Routes = [
     pathMatch: 'full',
     redirectTo: 'main/lists/unfinish',
 
-  }
+  },
 
 
 

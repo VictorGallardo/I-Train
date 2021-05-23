@@ -25,6 +25,7 @@
           [(ngModel)]="item.title"
           name="title"
           type="text"
+          autocapitalize
           required
           clearInput
           placeholder="Ejercicio"
@@ -37,11 +38,16 @@
           [(ngModel)]="item.description"
           name="description"
           type="text"
+          autocapitalize
           clearInput
           required
           placeholder="Descripción"
         ></ion-input>
-        <ion-icon color="itrain-blue" slot="end" name="clipboard"></ion-icon>
+        <ion-icon
+          color="itrain-darkcream"
+          slot="end"
+          name="clipboard"
+        ></ion-icon>
       </ion-item>
 
       <ion-item (click)="pickerPreparation()">
@@ -49,7 +55,7 @@
         <ion-label slot="end" required
           >{{stringPreparationMin + dots + stringPreparationSec}}</ion-label
         >
-        <ion-icon color="itrain-blue" slot="end" name="timer"></ion-icon>
+        <ion-icon color="itrain-indigo" slot="end" name="timer"></ion-icon>
       </ion-item>
 
       <ion-item>
@@ -63,7 +69,7 @@
           placeholder="0"
         >
         </ion-input>
-        <ion-icon color="itrain-blue" slot="end" name="repeat"></ion-icon>
+        <ion-icon color="itrain-darkyellow" slot="end" name="repeat"></ion-icon>
       </ion-item>
 
       <ion-item (click)="pickerRestSSets()">
@@ -71,15 +77,15 @@
         <ion-label slot="end"
           >{{stringRestSetsMin + dots + stringRestSetsSec}}</ion-label
         >
-        <ion-icon color="itrain-blue" slot="end" name="hand-right"></ion-icon>
+        <ion-icon color="itrain-red" slot="end" name="hand-right"></ion-icon>
       </ion-item>
 
       <ion-item (click)="pickerTime()">
-        <ion-label>Time</ion-label>
+        <ion-label>Tiempo</ion-label>
         <ion-label slot="end"
           >{{stringTimeMin + dots + stringTimeSec}}</ion-label
         >
-        <ion-icon color="itrain-blue" slot="end" name="timer"></ion-icon>
+        <ion-icon color="success" slot="end" name="timer"></ion-icon>
       </ion-item>
 
       <ion-item>
@@ -93,7 +99,7 @@
           placeholder="0"
         >
         </ion-input>
-        <ion-icon color="itrain-blue" slot="end" name="repeat"></ion-icon>
+        <ion-icon color="itrain-darkyellow" slot="end" name="repeat"></ion-icon>
       </ion-item>
 
       <ion-item (click)="pickerRestRep()">
@@ -101,7 +107,7 @@
         <ion-label slot="end"
           >{{stringRestRepMin + dots + stringRestRepSec}}</ion-label
         >
-        <ion-icon color="itrain-blue" slot="end" name="hand-right"></ion-icon>
+        <ion-icon color="itrain-red" slot="end" name="hand-right"></ion-icon>
       </ion-item>
 
       <!-- Botón guardar -->
@@ -109,15 +115,15 @@
         *ngIf="buttonStatus === 'create'"
         type="submit"
         [disabled]="
-          (item.title.length &&
-          item.description.length &&
-          item.preparation && 
-          item.sets && 
-          item.restSets && 
-          item.restReps && 
-          item.time &&
-          item.repeats && 
-          item.restReps) < 1"
+        (item.title.length &&
+        item.description.length &&
+        item.preparation &&
+        item.sets &&
+        item.restSets &&
+        item.restReps &&
+        item.time &&
+        item.repeats &&
+        item.restReps) < 1"
         class="ion-margin"
         color="itrain-yellow"
         expand="block"

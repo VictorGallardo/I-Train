@@ -19,14 +19,13 @@ export class AppComponent {
     this.initializeApp();
   }
 
-
   initializeApp() {
 
     SplashScreen.hide().catch(error => {
       console.log(error);
     });
 
-    StatusBar.hide().catch(error => {
+    StatusBar.show().catch(error => {
       console.log(error);
     });
 
