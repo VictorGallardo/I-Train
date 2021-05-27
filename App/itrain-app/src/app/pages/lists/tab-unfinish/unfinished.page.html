@@ -22,7 +22,48 @@
 
   <!-- Lists Component -->
   <!-- Estas listas hacen referencia a las que estoy reciviendo en el ts -->
-  <app-lists [lists]="lists"></app-lists>
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size="12" size-lg="3" size-md="4" size-sm="6" size-xs="12">
+        <ion-list>
+          <!-- | filtroCompletado:terminada -->
+          <ion-item-sliding *ngFor="let list of lists; let i = index">
+            <!-- (click)="listSelect(list)" -->
+            <ion-item detail (click)="goToItems(list._id, list.title)">
+              <ion-label>{{ list.title }}</ion-label>
+              <ion-note slot="end"></ion-note>
+            </ion-item>
+
+            <ion-item-options side="end">
+              <ion-item-option
+                (click)="deleteListAlert(list._id, i)"
+                color="danger"
+              >
+                <ion-icon
+                  color="itrain-cream"
+                  slot="icon-only"
+                  name="close"
+                ></ion-icon>
+              </ion-item-option>
+            </ion-item-options>
+
+            <ion-item-options side="start">
+              <ion-item-option
+                (click)="editListAlert(list._id, list.title)"
+                color="itrain-blue"
+              >
+                <ion-icon
+                  color="itrain-cream"
+                  slot="icon-only"
+                  name="create-outline"
+                ></ion-icon>
+              </ion-item-option>
+            </ion-item-options>
+          </ion-item-sliding>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
   <!-- Infinite Scroll -->
   <ion-infinite-scroll

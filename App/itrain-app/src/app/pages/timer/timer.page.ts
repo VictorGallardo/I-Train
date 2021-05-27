@@ -88,16 +88,6 @@ export class TimerPage implements OnInit {
   ) { }
 
 
-  // Cerrar la sesión
-
-  closeSesion() {
-
-    this.uiService.alertClose("¿Terminar la sesión?", async () => {
-      await this.navCtrl.navigateBack('/', { animated: true });
-    });
-
-  }
-
   ngOnInit() {
 
     this.itemId = this.actvRoute.snapshot.paramMap.get('itemId');
@@ -112,6 +102,14 @@ export class TimerPage implements OnInit {
           this.updateCountersAndDuration()
         }
       });
+  }
+
+  ngOnDestroy() {
+
+    clearInterval(this.interval);
+    this.time.next('00:00');
+    this.updateCountersAndDuration();
+
   }
 
 

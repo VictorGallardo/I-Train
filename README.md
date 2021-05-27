@@ -16,7 +16,6 @@
 
 -   [Enlace al repositorio de la Web de administración](https://github.com/VictorGallardo/I-Train-admin)
 
-###  :movie_camera: Vídeo   
+<!-- ###  :movie_camera: Vídeo
 
- [Primera version I-Train 1.1.0 ](https://drive.google.com/file/d/1rrB4uA3F1u-7I0r0mJRuVqMvU_hUDgvz/view?usp=sharing)
-
+ [Primera version I-Train 1.1.0 ](https://drive.google.com/file/d/1rrB4uA3F1u-7I0r0mJRuVqMvU_hUDgvz/view?usp=sharing) -->

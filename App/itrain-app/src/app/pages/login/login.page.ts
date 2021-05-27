@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { IonSlides, MenuController, NavController } from '@ionic/angular';
+import { IonSlides, MenuController, NavController, LoadingController } from '@ionic/angular';
 import { UserService } from '../../services/user.service';
 import { UiService } from '../../services/ui.service';
 import { IUser } from '../../interfaces/interfaces';
@@ -27,10 +27,13 @@ export class LoginPage implements OnInit {
   }
 
   slideNgIf: number = 0;
+  loading: HTMLIonLoadingElement;
+
 
 
   constructor
     (
+      private loadingCtrl: LoadingController,
       private userService: UserService,
       private navCtrl: NavController,
       private uiService: UiService,
@@ -47,8 +50,21 @@ export class LoginPage implements OnInit {
   //   this.menuCtrl.enable(false, 'first');
   // }
 
+  async presentLoading() {
+    this.loading = await this.loadingCtrl.create({
+      spinner: 'bubbles',
+      message: 'Cargando datos...',
+
+    });
+    await this.loading.present();
+
+  }
+
+
   // Login
   async login(formLogin: NgForm) {
+
+    this.presentLoading()
 
     if (formLogin.invalid) { return; }
 
@@ -56,6 +72,7 @@ export class LoginPage implements OnInit {
 
     if (valid) {
       // navega a main
+      this.loading.dismiss()
       // this.navCtrl.navigateRoot('/main/tabs/tab1', { animated: true }); // Para ir a los Posts
       this.navCtrl.navigateRoot('/main/lists/unfinish', { animated: true }); // Para ir a las listas
 
@@ -76,6 +93,7 @@ export class LoginPage implements OnInit {
     if (formRegister.invalid) { return; }
 
     const valid = await this.userService.register(this.registerUser);
+
     if (valid) {
       // navega a main
       this.navCtrl.navigateRoot('/main/lists/unfinish', { animated: true });

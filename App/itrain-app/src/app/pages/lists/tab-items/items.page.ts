@@ -36,7 +36,7 @@ export class ItemsPage implements OnInit {
       .subscribe(resp => {
         console.log(resp);
         this.items.push(...resp.items);
-        this.listTitle = resp.items[0]?.list.title // Obtengo el titulo del primer item
+        // this.listTitle = resp.items[0]?.list.title // Obtengo el titulo del primer item
       });
 
     this.itemsService.newItem.subscribe(item => {

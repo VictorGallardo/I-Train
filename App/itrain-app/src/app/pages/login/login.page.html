@@ -5,7 +5,7 @@
         <ion-grid fixed>
           <ion-row>
             <ion-col>
-              <img src="/assets/avatars/av-1.png" />
+              <img src="/assets/img/head.jpg" />
             </ion-col>
           </ion-row>
 
@@ -13,7 +13,6 @@
             <ion-col>
               <div class="container">
                 <ion-list>
-
                   <!-- Input email -->
                   <ion-item class="roundedInput">
                     <ion-input
@@ -26,7 +25,7 @@
                   </ion-item>
 
                   <!-- Input contraseña -->
-                  <ion-item class="roundedInput" >
+                  <ion-item class="roundedInput">
                     <ion-input
                       [(ngModel)]="loginUser.password"
                       name="Contraseña"
@@ -34,23 +33,19 @@
                       required
                     ></ion-input>
                   </ion-item>
-
                 </ion-list>
               </div>
             </ion-col>
           </ion-row>
 
-         <!-- Boton login -->
+          <!-- Boton login -->
           <ion-row>
             <ion-col>
-              <ion-button color="itrain-yellow"
-                          type="submit"
-                          expand="block">
+              <ion-button color="itrain-yellow" type="submit" expand="block">
                 Login
               </ion-button>
             </ion-col>
           </ion-row>
-
         </ion-grid>
       </form>
     </ion-slide>
@@ -59,7 +54,6 @@
 
     <ion-slide>
       <ion-grid fixed>
-
         <!-- Componente de avatars -->
 
         <app-avatar-select
@@ -73,16 +67,15 @@
             <ion-col>
               <div class="container">
                 <ion-list>
-
                   <!-- Email -->
                   <ion-item class="roundedInput">
-                   <ion-label>Email</ion-label>
+                    <ion-label>Email</ion-label>
                     <ion-input
                       [(ngModel)]="registerUser.email"
                       name="email"
                       type="email"
                       required
-                      style="font-family: JetBrain;"
+                      style="font-family: lato"
                     >
                     </ion-input>
                   </ion-item>
@@ -102,14 +95,13 @@
                   <!-- Contraseña -->
                   <ion-item class="roundedInput">
                     <ion-label>Password</ion-label>
-                   <ion-input
+                    <ion-input
                       [(ngModel)]="registerUser.password"
                       name="password"
                       type="password"
                       required
                     ></ion-input>
                   </ion-item>
-
                 </ion-list>
               </div>
             </ion-col>
@@ -123,13 +115,11 @@
               </ion-button>
             </ion-col>
           </ion-row>
-
         </form>
       </ion-grid>
     </ion-slide>
   </ion-slides>
 </ion-content>
-
 
 <!-- Footer -->
 <ion-footer class="ion-no-border">
@@ -137,7 +127,6 @@
     <ion-row>
       <div class="container">
         <ion-col *ngIf="slideNgIf === 1">
-
           <!-- Botón ir al login -->
           <ion-button
             expand="block"

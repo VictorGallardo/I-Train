@@ -7,7 +7,7 @@
   "linuxAndroidStudioPath": "/snap/android-studio/current/android-studio/bin/studio.sh",
   "plugins": {
     "SplashScreen": {
-      "launchShowDuration": 0
+      "launchShowDuration": 3000
     }
   },
   "cordova": {}

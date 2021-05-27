@@ -4,7 +4,7 @@
     <ion-buttons slot="start">
       <ion-menu-button menu="first"></ion-menu-button>
     </ion-buttons>
-    <ion-title class="ion-text-center">Actualizar perfil</ion-title>
+    <ion-title class="ion-text-center">Perfil</ion-title>
     <ion-buttons slot="end">
       <ion-button>
         <ion-icon name="information-circle-outline" slot="icon-only"></ion-icon>
@@ -14,23 +14,28 @@
 </ion-header>
 
 <ion-content>
-  <ion-row class="top-40">
-    <ion-col size="12" class="ion-text-center">
-      <img src="assets/avatars/{{user.avatar}}" class="img-avatar" />
-    </ion-col>
-  </ion-row>
+  <ion-card>
+    <ion-card-content class="ion-text-center">
+      <ion-row class="top-40">
+        <ion-col size="12" class="ion-text-center">
+          <img src="assets/avatars/{{user.avatar}}" class="img-avatar" />
+        </ion-col>
+      </ion-row>
 
-  <!-- Los parentesis son para emitir  -->
-  <!-- Las llaves cuadradas son para mandar información (En el ts lo recogemos la info con el input) -->
+      <ion-card-title class="ion-margin-top" color="itrain-cream"
+        ><strong>{{user.name}}</strong></ion-card-title
+      >
+      <ion-card-title class="ion-margin-bottom" color="itrain-cream"
+        >{{user.email}}</ion-card-title
+      >
+    </ion-card-content>
+  </ion-card>
+
   <app-avatar-select
     (avatarSelect)="user.avatar = $event"
     [currentAvatar]="user.avatar"
   >
   </app-avatar-select>
-
-  <!-- El ngSubmit llama a la función update del ts
-          #formUpdate es el nombre del formulario
-          pasamos el formulario como argumento -->
 
   <form class="top-40" (ngSubmit)="update( formUpdate )" #formUpdate="ngForm">
     <ion-row>

@@ -15,6 +15,7 @@ import { AddEditListsPage } from '../../modals/add-edit-lists/add-edit-lists.pag
 export class ListsComponent implements OnInit {
 
   @Input() lists: IList[] = []; // Aquí estoy recibiendo las listas que le paso del unfinished.page.html
+
   list: IList = {
     title: ''
   }
@@ -86,12 +87,6 @@ export class ListsComponent implements OnInit {
   }
 
 
-  editList(listId: string, index: number) {
-    this.listsService.deleteList(listId);
-    this.lists.splice(index, 1);
-  }
-
-
   async editListAlert(listId: string, list: string) {
 
 
@@ -127,8 +122,8 @@ export class ListsComponent implements OnInit {
 
             if (update) {
 
+              this.lists.unshift(this.list)
               this.uiService.presentToast('Item actualizado correctamente')// Toast con mensaje de actualizado
-              this.lists.slice();
 
             } else {
 

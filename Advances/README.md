@@ -115,3 +115,13 @@ Diario de trabajo **Proyecto Fin de Ciclo**, en el se anotarán los avances prod
 
 -   Subida de API a producción **Heroku**.
 -   Subida de base de datos a producción **MongoDB Atlas**.
+
+## :calendar: Semana **6** ( 17/05 - 23/05 )
+
+-   Proyecto **Ionic app**.
+
+    -   Esta semana la he dedicado completamente al calendario.
+    -   Diseño de la página para añadir eventos.
+    -   Diseño de la página para ver el evento individualmente.
+    -   Añadir eventos por fecha y hora.
+    -   Reflejar los eventos marcados.
