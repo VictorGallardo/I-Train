@@ -120,7 +120,7 @@ Diario de trabajo **Proyecto Fin de Ciclo**, en el se anotarán los avances prod
 
 -   Proyecto **Ionic app**.
 
-    -   Esta semana la he dedicado completamente al calendario.
+-   Trabajando en el calendario.
     -   Diseño de la página para añadir eventos.
     -   Diseño de la página para ver el evento individualmente.
     -   Añadir eventos por fecha y hora.
