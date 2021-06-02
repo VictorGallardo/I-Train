@@ -1,10 +1,5 @@
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component } from '@angular/core';
-import { Plugins } from '@capacitor/core'
-import { Platform } from '@ionic/angular';
-import { BackButtonService } from './services/back-button.service';
-
-// const { SplashScreen, StatusBar } = Plugins;
+import { BackButtonService } from './shared/services/back-button.service';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +11,6 @@ export class AppComponent {
 
   constructor(
     private backButtonService: BackButtonService,
-    private platform: Platform
   ) {
 
     this.initializeApp();
@@ -25,22 +19,8 @@ export class AppComponent {
 
   initializeApp() {
 
-    this.platform.ready().then(() => {
-
-      // SplashScreen.hide().catch(error => {
-      //   console.log(error);
-      // });
-
-      // StatusBar.show().catch(error => {
-      //   console.log(error);
-      // });
-
-      this.backButtonService.init();
-    })
-
+    this.backButtonService.init();
 
 
   }
 }
-
-

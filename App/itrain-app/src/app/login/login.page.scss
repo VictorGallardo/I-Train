@@ -1,0 +1,54 @@
+@font-face {
+  font-family: myFont;
+  src: url("../../assets/fonts/lato/Lato-Regular.ttf");
+}
+* {
+  font-family: myFont;
+}
+.mainSlide,
+.mainSlide ion-slide {
+  width: 100%;
+  height: 100%;
+}
+
+img {
+  width: 320px;
+}
+
+.pick-avatar {
+  width: 80px;
+  opacity: 0.3;
+}
+
+.pick-avatar-selected {
+  transition: opacity 0.5s linear;
+  opacity: 1 !important;
+}
+
+.roundedInput {
+  // --border-color: var(--ion-color-medium-shade);
+  --border-radius: 5px;
+  --border-width: 1px;
+  --box-shadow: 2px gray;
+  --highlight-height: 0;
+  --background: #f6dab7;
+  --color: #333336;
+  margin-top: 10px;
+}
+.roundedInput.ion-invalid.item-has-focus {
+  --border-color: var(--ion-color-danger-shade);
+}
+.roundedInput.ion-valid.item-has-focus {
+  --border-color: var(--ion-color-success-shade);
+}
+.roundedInput.ion-invalid.ion-dirty {
+  --border-color: var(--ion-color-danger-shade);
+}
+.roundedInput.ion-valid.ion-dirty {
+  --border-color: var(--ion-color-success-shade);
+}
+.container {
+  width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+}

@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  url: 'https://itrain-server.herokuapp.com'
+  url: 'https://server-itrain.herokuapp.com'
 };
 
 /*

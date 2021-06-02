@@ -23,6 +23,7 @@
     "@capacitor/core": "2.4.7",
     "@ionic/angular": "^5.5.2",
     "@ionic/pwa-elements": "^3.0.2",
+    "ionic-hide-fab-onscroll": "^0.2.1",
     "ionic2-calendar": "^0.6.7",
     "moment": "^2.29.1",
     "ng-circle-progress": "^1.6.0",

@@ -1,0 +1,61 @@
+h2 {
+  text-transform: capitalize;
+}
+
+ion-label {
+  color: gray;
+}
+
+.indicator-container {
+  padding-left: 0.5rem;
+  padding-right: 0.4rem;
+}
+
+.event-indicator {
+  background: var(--ion-color-itrain-yellow);
+  width: 5px;
+  height: 5px;
+  border-radius: 5px;
+  display: table-cell;
+}
+:host ::ng-deep {
+  .monthview-primary-with-event {
+    background-color: var(--ion-color-itrain-blue) !important;
+  }
+
+  .calendar-hour-column {
+    width: 40px;
+  }
+
+  .dayview-allday-label {
+    border: 1px solid rgb(78, 78, 78) !important;
+    width: 40px;
+  }
+  .weekview-allday-label {
+    border: 1px solid rgb(78, 78, 78) !important;
+    width: 40px;
+  }
+
+  .monthview-selected {
+    background-color: var(--ion-color-itrain-darkyellow) !important;
+  }
+
+  table,
+  tfoot,
+  thead,
+  tbody,
+  tr,
+  td,
+  th {
+    border: 1px solid rgb(78, 78, 78) !important;
+  }
+}
+
+hr.solid {
+  border-top: 3px solid #bbb;
+}
+
+// .with-event {
+//   background-color: var(--ion-color-primary);
+//   // border-radius: 60px;
+// }

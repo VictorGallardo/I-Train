@@ -1,56 +1,48 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { UserGuard } from './guards/user.guard';
+import { UserGuard } from './shared/guards/user.guard';
 
 const routes: Routes = [
 
   // Login
   {
     path: 'login',
-    loadChildren: () => import('./pages/login/login.module').then((m) => m.LoginPageModule),
+    loadChildren: () => import('./login/login.module').then((m) => m.LoginPageModule),
   },
-  // Posts tabs
-  {
-    path: 'posts',
-    loadChildren: () => import('./pages/posts/tabs/tabs.module').then((m) => m.TabsPageModule),
-    canLoad: [UserGuard]
-  },
-  // Listas tabs
+
+  // Core
   {
     path: 'main',
-    loadChildren: () => import('./pages/lists/tabs/lists-tabs.module').then(m => m.ListsTabsPageModule),
+    loadChildren: () => import('./core/pages/tabs/tabs.module').then(m => m.TabsPageModule),
     canLoad: [UserGuard]
   },
+
   // Añadir items
   {
     path: 'add/:listId',
-    loadChildren: () => import('./pages/lists/add-edit/add-edit.module').then((m) => m.AddEditPageModule),
+    loadChildren: () => import('./core/pages/add-edit/add-edit.module').then((m) => m.AddEditPageModule),
 
   },
+
   // Añadir items
   {
     path: 'edit/:listId/:itemId',
-    loadChildren: () => import('./pages/lists/add-edit/add-edit.module').then((m) => m.AddEditPageModule),
+    loadChildren: () => import('./core/pages/add-edit/add-edit.module').then((m) => m.AddEditPageModule),
 
   },
+
+  // Timer
   {
     path: 'timer/:itemId',
-    loadChildren: () => import('./pages/timer/timer.module').then(m => m.TimerPageModule)
+    loadChildren: () => import('./core/pages/timer/timer.module').then(m => m.TimerPageModule)
   },
-  // {
-  //   path: 'calendar',
-  //   loadChildren: () => import('./pages/calendar/calendar.module').then(m => m.CalendarPageModule)
-  // },
+
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'main/lists/unfinish',
+    redirectTo: 'main/tabs/home',
 
   },
-
-
-
-
 
 ];
 
