@@ -1,14 +1,14 @@
 {
-	"appId": "io.ionic.starter",
-	"appName": "I-Train",
-	"bundledWebRuntime": false,
-	"npmClient": "npm",
-	"webDir": "www",
-	"linuxAndroidStudioPath": "/snap/android-studio/current/android-studio/bin/studio.sh",
-	"plugins": {
-		"SplashScreen": {
-			"launchShowDuration": 3000
-		}
-	},
-	"cordova": {}
+  "appId": "io.ionic.starter",
+  "appName": "I-Train",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www",
+  "linuxAndroidStudioPath": "/snap/android-studio/current/android-studio/bin/studio.sh",
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 3000
+    }
+  },
+  "cordova": {}
 }

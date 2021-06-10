@@ -125,3 +125,35 @@ Diario de trabajo **Proyecto Fin de Ciclo**, en el se anotarán los avances prod
     -   Diseño de la página para ver el evento individualmente.
     -   Añadir eventos por fecha y hora.
     -   Reflejar los eventos marcados.
+
+## :calendar: Semana **7** ( 24/05 - 30/05 )
+
+-   Proyecto **Ionic app**.
+
+-   Reestructuración del proyecto.
+
+    -   Eliminando código, páginas y componentes innecesarios.
+    -   Reestructrando carpetas y organizando de manera más lógica la estructura del proyecto.
+
+-   Diseño
+
+    -   Creando el splashscreen y inserción de los logos e imágenes.
+    -   Ultimando cambios en el diseño.
+
+-   Proyecto **Angular app**.
+
+-   Subiendo la app i-admin a producción (Heroku).
+
+## :calendar: Semana **8** ( 31/05 - 06/06 )
+
+-   Proyecto **Angular app**.
+
+-   Diseño
+
+    -   Trabajando en el login.
+    -   Creando los dialogos para crear y editar usuarios, listas, items y eventos.
+    -   Creando toast para información.
+
+-   Lógica:
+    -   Crear y editar usuarios, listas, items y eventos.
+    -   Trabajando con [@angular-material-components/datetime-picker](https://www.npmjs.com/package/@angular-material-components/datetime-picker)

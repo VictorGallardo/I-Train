@@ -80,10 +80,7 @@ export class TimerPage implements OnInit {
     public modalCtrl: ModalController,
     private actvRoute: ActivatedRoute,
     public platform: Platform,
-    private backButton: BackButtonService,
-    private navCtrl: NavController,
-    private uiService: UiService,
-    private alertCtrl: AlertController
+
 
   ) { }
 
