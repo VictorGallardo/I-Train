@@ -107,6 +107,7 @@ export class ListsPage implements OnInit {
   async addList() {
 
     const alert = await this.alertCtrl.create({
+      cssClass: 'alert-list',
       header: 'Nueva lista',
       inputs: [
         {

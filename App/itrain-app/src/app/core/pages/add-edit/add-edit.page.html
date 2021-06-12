@@ -10,13 +10,18 @@
 <ion-content class="ion-text-center">
   <ion-card class="ion-margin">
     <ion-card-header>
-      <ion-card-title class="mInput" color="itrain-blue" position="stacked">
-        Introducir ejercicio</ion-card-title
+      <ion-card-title
+        *ngIf="item.title.length < 1"
+        class="mInput"
+        color="itrain-blue"
+        position="stacked"
+      >
+        Nuevo ejercicio</ion-card-title
       >
 
-      <ion-card-title class="mInput" color="itrain-blue" position="stacked">
-        {{item.title}}</ion-card-title
-      >
+      <ion-card-title class="mInput" color="itrain-blue" position="stacked"
+        ><strong>{{item.title}}</strong>
+      </ion-card-title>
     </ion-card-header>
 
     <form (ngSubmit)="createdItem(formAddEdit)" #formAddEdit="ngForm">

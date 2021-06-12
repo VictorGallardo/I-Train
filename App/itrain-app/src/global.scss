@@ -40,6 +40,10 @@
   font-family: "poppins";
 }
 
+ion-item {
+  --border-color: #333333;
+}
+
 .calendar-modal {
   --height: 80%;
   --border-radius: 10px;
@@ -65,4 +69,9 @@
   color: #d6c4a8;
   --background: #202022;
   --spinner-color: #78af9f;
+}
+
+.alert-list .alert-wrapper {
+  width: 90%;
+  height: auto;
 }
