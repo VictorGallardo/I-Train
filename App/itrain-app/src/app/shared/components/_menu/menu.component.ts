@@ -8,9 +8,9 @@ import { ListsService } from '../../services/lists.service';
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.scss'],
 })
-export class MenuComponent implements OnInit {
+export class MenuComponent {
 
-  @Input() user: IUser = {};
+  @Input() user: IUser;
 
   constructor(
 
@@ -18,12 +18,6 @@ export class MenuComponent implements OnInit {
     private listService: ListsService
 
   ) { }
-
-
-  ngOnInit(): void {
-
-
-  }
 
   logout() {
     this.listService.listPage = 0;

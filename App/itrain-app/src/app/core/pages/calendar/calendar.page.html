@@ -17,22 +17,20 @@
 <ion-content>
   <div *ngIf="showAddEvent">
     <ion-card class="ion-padding">
-      <!--
-        <ion-button (click)="showHideForm()" color="itrain-red">
-          <ion-icon
-            slot="icon-only"
-            color="itrain-cream"
-            name="close-circle-outline"
-          ></ion-icon>
-        </ion-button> -->
-
       <ion-item-divider class="ion-padding-end">
-        <h6><strong>Nuevo entrenamiento</strong></h6>
-        <ion-button (click)="showHideForm()" color="itrain-red" slot="end">
+        <h6>Nuevo entrenamiento</h6>
+        <ion-button
+          fill="outline"
+          (click)="showHideForm()"
+          color="itrain-red"
+          slot="end"
+          size="small"
+        >
           <ion-icon
             slot="icon-only"
-            color="itrain-cream"
-            name="close-circle-outline"
+            color="itrain-red"
+            name="close"
+            size="small"
           ></ion-icon
         ></ion-button>
       </ion-item-divider>
@@ -151,15 +149,11 @@
   >
     <hr class="solid" />
     <ion-item-divider>
-      <h5><strong>Entrenamientos</strong></h5>
+      <h6><strong>Entrenamientos</strong></h6>
     </ion-item-divider>
-    <!-- <ion-item *ngIf="selectedDate.length > 0">
-      <ion-label><strong>Entrenamientos</strong></ion-label>
-    </ion-item> -->
+
     <ion-item *ngIf="selectedDate.length === 0">
-      <ion-label color="medium"
-        ><strong>Sin entrenamientos para este día</strong>
-      </ion-label>
+      <p color="medium">Sin entrenamientos para este día</p>
     </ion-item>
     <ion-list *ngIf="selectedDate.length > 0" style="margin-left: 10px">
       <ion-item
@@ -171,7 +165,6 @@
           <p>
             {{event.startTime|date: 'HH:mm' }} - {{event.endTime|date: 'HH:mm'
             }}
-            <!-- <ion-icon color="medium" name="time-outline"></ion-icon> -->
           </p>
         </ion-label>
       </ion-item>
@@ -187,12 +180,6 @@
   >
     <ion-fab-button color="itrain-darkyellow" (click)="showHideForm()">
       <ion-icon color="itrain-cream" size="large" name="add"></ion-icon>
-      <!-- <ion-icon
-        *ngIf="showAddEvent"
-        color="itrain-cream"
-        size="large"
-        name="close"
-      ></ion-icon> -->
     </ion-fab-button>
   </ion-fab>
 </ion-content>

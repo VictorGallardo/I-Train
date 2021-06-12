@@ -8,7 +8,6 @@ import { AppComponent } from './app.component';
 // My imports
 import { HttpClientModule } from '@angular/common/http'
 import { ComponentsModule } from './shared/components/components.module';
-import { AutoHideDirective } from './shared/directives/auto-hide.directive';
 
 @NgModule({
 

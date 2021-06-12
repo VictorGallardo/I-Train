@@ -7,7 +7,6 @@ import { IonicModule } from '@ionic/angular';
 import { ListsPageRoutingModule } from './lists-routing.module';
 
 import { ListsPage } from './lists.page';
-import { AutoHideDirective } from '../../../shared/directives/auto-hide.directive';
 
 
 
@@ -19,6 +18,6 @@ import { AutoHideDirective } from '../../../shared/directives/auto-hide.directiv
     ListsPageRoutingModule,
 
   ],
-  declarations: [ListsPage, AutoHideDirective]
+  declarations: [ListsPage]
 })
 export class ListsPageModule { }

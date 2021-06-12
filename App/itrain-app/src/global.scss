@@ -30,13 +30,14 @@
 
 // Regular
 @font-face {
-  font-family: "lato";
-  src: url("assets/fonts/lato/Lato-Regular.ttf");
+  font-family: "poppins";
+  src: url("assets/fonts/sfpro/SFProDisplay-Regular.ttf");
   font-style: normal;
+  font-size: small;
 }
 
 * {
-  font-family: "lato";
+  font-family: "poppins";
 }
 
 .calendar-modal {
@@ -53,4 +54,15 @@
 .lightTheme {
   --ion-background-color: #ecf0f3;
   --ion-text-color: #121213;
+}
+
+.avatar-modal .modal-wrapper {
+  width: 80%;
+  height: 48%;
+}
+
+.ion-loading-class {
+  color: #d6c4a8;
+  --background: #202022;
+  --spinner-color: #78af9f;
 }

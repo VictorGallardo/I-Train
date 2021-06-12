@@ -9,13 +9,17 @@ import { EventEmitter } from '@angular/core';
 export class AvatarSelectComponent implements OnInit {
 
   @Output() avatarSelect = new EventEmitter<string>();
-  @Input() currentAvatar: string = "av-1.png"
+  @Input() currentAvatar: string = "userDefault.png"
 
 
   avatars = [
     {
-      img: 'avatar01.png',
+      img: 'userDefault.png',
       seleccionado: true,
+    },
+    {
+      img: 'avatar01.png',
+      seleccionado: false,
     },
     {
       img: 'avatar02.png',

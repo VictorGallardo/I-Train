@@ -62,7 +62,7 @@ export class UserService {
 
   // Registro de usuario
 
-  register(user: IUser) {
+  register(user: any) {
 
     return new Promise((resolve) => {
       this.http.post(`${URL}/user/create`, user)

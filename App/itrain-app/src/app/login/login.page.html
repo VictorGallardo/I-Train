@@ -1,7 +1,7 @@
 <ion-content>
   <ion-slides class="mainSlide" #slideLoginToRegister>
     <ion-slide>
-      <form (ngSubmit)="login(formLogin)" #formLogin="ngForm">
+      <form [formGroup]="loginUser" (ngSubmit)="login()">
         <ion-grid fixed>
           <ion-row>
             <ion-col>
@@ -14,10 +14,11 @@
                 <ion-list>
                   <!-- Input email -->
                   <ion-item class="roundedInput">
+                    <ion-label position="floating">Email</ion-label>
                     <ion-input
-                      [(ngModel)]="loginUser.email"
-                      name="Email"
+                      formControlName="email"
                       type="email"
+                      placeholder="itrain@ejemplo.com"
                       required
                     >
                     </ion-input>
@@ -25,9 +26,9 @@
 
                   <!-- Input contraseña -->
                   <ion-item class="roundedInput">
+                    <ion-label position="floating">Contraseña</ion-label>
                     <ion-input
-                      [(ngModel)]="loginUser.password"
-                      name="Contraseña"
+                      formControlName="password"
                       type="password"
                       required
                     ></ion-input>
@@ -53,67 +54,85 @@
 
     <ion-slide>
       <ion-grid fixed>
-        <!-- Componente de avatars -->
-
-        <app-avatar-select
-          (avatarSelect)="registerUser.avatar = $event"
-        ></app-avatar-select>
+        <ion-row>
+          <ion-col>
+            <img src="/assets/img/itrain-logo.png" />
+          </ion-col>
+        </ion-row>
 
         <!-- REGISTRAR USUARIO -->
 
-        <form (ngSubmit)="register(formRegister)" #formRegister="ngForm">
-          <ion-row>
-            <ion-col>
-              <div class="container">
+        <form [formGroup]="registerUser" (ngSubmit)="register()">
+          <div class="container">
+            <ion-row>
+              <ion-col>
                 <ion-list>
                   <!-- Email -->
                   <ion-item class="roundedInput">
-                    <ion-label>Email</ion-label>
-                    <ion-input
-                      [(ngModel)]="registerUser.email"
-                      name="email"
-                      type="email"
-                      required
-                      style="font-family: lato"
-                    >
+                    <ion-label position="floating">Email</ion-label>
+                    <ion-input formControlName="email" type="email" required>
                     </ion-input>
                   </ion-item>
 
                   <!-- Nombre -->
                   <ion-item class="roundedInput">
-                    <ion-label>Nombre</ion-label>
+                    <ion-label position="floating">Nombre</ion-label>
                     <ion-input
-                      [(ngModel)]="registerUser.name"
-                      name="name"
+                      formControlName="name"
                       type="text"
                       required
+                      autocapitalize
                     >
                     </ion-input>
                   </ion-item>
 
                   <!-- Contraseña -->
                   <ion-item class="roundedInput">
-                    <ion-label>Password</ion-label>
+                    <ion-label position="floating">Contraseña</ion-label>
                     <ion-input
-                      [(ngModel)]="registerUser.password"
-                      name="password"
+                      formControlName="password"
+                      type="password"
+                      required
+                    ></ion-input>
+                  </ion-item>
+
+                  <!-- Confirmar contraseña -->
+                  <ion-item class="roundedInput">
+                    <ion-label position="floating"
+                      >Confirmar contraseña</ion-label
+                    >
+                    <ion-input
+                      [(ngModel)]="password2"
+                      [ngModelOptions]="{standalone: true}"
                       type="password"
                       required
                     ></ion-input>
                   </ion-item>
                 </ion-list>
-              </div>
-            </ion-col>
-          </ion-row>
+              </ion-col>
+            </ion-row>
+            <!-- *ngIf="registerUser.get('password').valid" -->
+            <div class="ion-margin-bottom">
+              <ion-item lines="none" style="margin: 0px 0px 0px 8px">
+                <ion-label color="medium"
+                  ><strong>Seleccione avatar</strong></ion-label
+                >
+              </ion-item>
 
-          <!-- Botón de crear usuario -->
-          <ion-row>
-            <ion-col>
-              <ion-button type="submit" color="itrain-yellow">
-                Crear usuario
-              </ion-button>
-            </ion-col>
-          </ion-row>
+              <app-avatar-select
+                (avatarSelect)="avatar = $event"
+              ></app-avatar-select>
+            </div>
+
+            <!-- Botón de crear usuario -->
+            <ion-row>
+              <ion-col>
+                <ion-button type="submit" color="itrain-yellow" expand="block">
+                  Crear usuario
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </div>
         </form>
       </ion-grid>
     </ion-slide>
@@ -129,7 +148,6 @@
           <!-- Botón ir al login -->
           <ion-button
             expand="block"
-            size="small"
             fill="outline"
             color="tertiary"
             (click)="showLogin()"
@@ -143,7 +161,6 @@
         <ion-col *ngIf="slideNgIf === 0">
           <ion-button
             expand="block"
-            size="small"
             fill="outline"
             color="tertiary"
             (click)="showRegister()"

@@ -1,50 +1,63 @@
 <ion-menu side="start" menuId="first" contentId="main">
   <ion-header class="ion-no-border">
-    <ion-toolbar>
-      <ion-row class="ion-padding">
-        <ion-col>
-          <img src="/assets/img/itrain-logo.png" />
-        </ion-col>
-      </ion-row>
-    </ion-toolbar>
+    <ion-row style="margin: 10px 0px 0px 15px">
+      <ion-col>
+        <img src="/assets/img/itrain-logo.png" />
+      </ion-col>
+    </ion-row>
+
+    <!-- <ion-item>
+      <ion-avatar slot="end">
+        <img src="assets/avatars/{{ userService.getUser().avatar }}" />
+      </ion-avatar>
+      <ion-label>
+        <h3>{{ userService.getUser().name }}</h3>
+        <p>{{ userService.getUser().email }}</p>
+      </ion-label>
+    </ion-item> -->
   </ion-header>
   <ion-content>
     <ion-list>
       <ion-menu-toggle>
-        <ion-item lines="none" [routerLink]="'/main/tabs/lists'">
+        <ion-item [routerLink]="'/main/tabs/lists'" detail>
           <ion-icon
+            name="clipboard-outline"
+            class="ion-margin-end"
             color="itrain-blue"
             slot="start"
-            name="clipboard-outline"
           ></ion-icon>
           Entrenamientos
         </ion-item>
-        <ion-item [routerLink]="'/main/tabs/calendar'" lines="none">
+        <ion-item [routerLink]="'/main/tabs/calendar'" detail>
           <ion-icon
+            name="calendar-number-outline"
+            class="ion-margin-end"
             color="itrain-blue"
             slot="start"
-            name="calendar-number-outline"
           ></ion-icon>
           Calendario
         </ion-item>
-        <ion-item [routerLink]="'/main/tabs/profile'" lines="none">
+        <ion-item [routerLink]="'/main/tabs/profile'" detail>
           <ion-icon
+            name="person-outline"
+            class="ion-margin-end"
             color="itrain-blue"
             slot="start"
-            name="person-outline"
           ></ion-icon>
           Perfil
         </ion-item>
-        <ion-item [routerLink]="'/posts/tabs/tab1'" lines="none">
+        <ion-item [routerLink]="'/posts/tabs/tab1'" detail>
           <ion-icon
+            name="camera-outline"
+            class="ion-margin-end"
             slot="start"
             color="itrain-blue"
-            name="camera-outline"
           ></ion-icon>
           Fotos
         </ion-item>
-        <ion-item (click)="logout()" lines="none">
+        <ion-item (click)="logout()" detail>
           <ion-icon
+            class="ion-margin-end"
             slot="start"
             color="itrain-blue"
             name="log-out-outline"
@@ -54,9 +67,5 @@
       </ion-menu-toggle>
     </ion-list>
   </ion-content>
-  <ion-footer>
-    <ion-toolbar>
-      <ion-title>Footer</ion-title>
-    </ion-toolbar>
-  </ion-footer>
+  <ion-footer> </ion-footer>
 </ion-menu>
