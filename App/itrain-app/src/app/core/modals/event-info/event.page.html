@@ -1,8 +1,8 @@
 <ion-header>
-  <ion-toolbar color="itrain-darkyellow">
-    <ion-title>{{ event.title }}</ion-title>
+  <ion-toolbar color="brown">
+    <ion-title color="itrain-cream">{{ event.title }}</ion-title>
     <ion-buttons slot="end">
-      <ion-button color="itrain-cream" (click)="close()">
+      <ion-button color="itrain-cream" (click)="close('close')">
         <ion-icon slot="icon-only" name="close"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -12,21 +12,18 @@
   <ion-card>
     <ion-card-header>
       <ion-item class="ion-no-padding">
-        <ion-card-subtitle>Evento</ion-card-subtitle>
+        <ion-card-subtitle>Entrenamiento</ion-card-subtitle>
         <ion-buttons slot="end">
-          <ion-button>
+          <ion-button (click)="editEvent('update')">
             <ion-icon name="create-outline" color="primary"></ion-icon>
           </ion-button>
-          <ion-button (click)="deleteEventAlert()">
+          <ion-button (click)="deleteEventAlert('delete')">
             <ion-icon name="trash-outline" color="itrain-red"></ion-icon>
           </ion-button>
         </ion-buttons>
-        <!-- <ion-button fill="outline" slot="end">Editar</ion-button>
-        <ion-button color="itrain-red" fill="outline" slot="end"
-          >Borrar</ion-button
-        > -->
       </ion-item>
     </ion-card-header>
+
     <ion-item>
       <ion-icon
         name="bookmark-outline"
@@ -44,7 +41,7 @@
       ></ion-icon>
       <ion-label>Inicio</ion-label>
 
-      <p>{{event.startTime}}</p>
+      <p>{{startDate }}</p>
     </ion-item>
 
     <ion-item>
@@ -55,7 +52,7 @@
       ></ion-icon>
       <ion-label>Fin</ion-label>
 
-      <p>{{event.endTime}}</p>
+      <p>{{endDate}}</p>
     </ion-item>
 
     <ion-card-header>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { IList } from 'src/app/shared/interfaces/interfaces';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ItemsService } from '../../../shared/services/items.service';
@@ -16,7 +16,7 @@ import { IItem } from '../../../shared/interfaces/interfaces';
 })
 
 
-export class AddEditPage implements OnInit {
+export class AddEditPage implements OnInit, OnDestroy {
 
   list: IList;
   listId: string;
@@ -32,57 +32,41 @@ export class AddEditPage implements OnInit {
     created: null,
     completed: false,
     preparation: null,
-    sets: null,
+    sets: 2,
     time: null,
     restSets: null,
-    repeats: null,
+    repeats: 2,
     restReps: null,
     totalTime: null,
     list: null,
 
   }
 
-  // Strings
-  dots: string = ':';
-  stringPreparationSec: string = '00';
-  stringPreparationMin: string = '00';
-  stringTimeSec: string = '00';
-  stringTimeMin: string = '00';
-  stringRestRepSec: string = '00';
-  stringRestRepMin: string = '00';
-  stringRestSetsSec: string = '00';
-  stringRestSetsMin: string = '00';
-
-
   // Nubers
-  preparationSec: number;
-  preparationMin: number;
-  timeSec: number;
-  timeMin: number;
-  restRepSec: number;
-  restRepMin: number;
-  restSetsSec: number;
-  restSetsMin: number;
-
-  created: number
-  sets: number
-  time: number
-  restSets: number
-  repeats: number
-  restReps: number
-  totalTime: number
+  preparationSec: number = 0;
+  preparationMin: number = 0;
+  timeSec: number = 0;
+  timeMin: number = 0;
+  restRepsSec: number = 0;
+  restRepsMin: number = 0;
+  restSetsSec: number = 0;
+  restSetsMin: number = 0;
 
   date: any = new Date().toISOString()
 
 
   constructor
     (
-      private pickerCtrl: PickerController,
       private itemsService: ItemsService,
       private actvdRoute: ActivatedRoute,
       private uiService: UiService,
       private route: Router
     ) { }
+
+
+  ngOnDestroy(): void {
+
+  }
 
 
   ngOnInit() {
@@ -94,8 +78,19 @@ export class AddEditPage implements OnInit {
       this.buttonStatus = 'update'
       this.itemsService.getItemById(this.itemId)
         .subscribe(resp => {
-          console.log(resp);
-          const load = this.item = resp.items[0];
+
+          const rItem = resp.items[0];
+
+          const load = this.item = rItem;
+          this.preparationMin = Math.trunc(rItem.preparation / 60);
+          this.preparationSec = rItem.preparation %= 60
+          this.timeMin = Math.trunc(rItem.time / 60);
+          this.timeSec = rItem.time %= 60
+          this.restRepsMin = Math.trunc(rItem.restReps / 60);
+          this.restRepsSec = rItem.restReps %= 60
+          this.restSetsMin = Math.trunc(rItem.restSets / 60);
+          this.restSetsSec = rItem.restSets %= 60
+
           if (load) {
             this.load = true
           }
@@ -106,9 +101,209 @@ export class AddEditPage implements OnInit {
 
   }
 
+  addTime(option: string) {
+
+    switch (option) {
+
+      case 'preparationMin':
+        if (this.preparationMin === 59) {
+          this.preparationMin = 0;
+        } else {
+          this.preparationMin++
+        }
+        break;
+
+      case 'preparationSec':
+        if (this.preparationSec === 59) {
+          this.preparationSec = 0;
+        } else {
+          this.preparationSec++
+        }
+        break;
+
+      case 'timeMin':
+        if (this.timeMin === 59) {
+          this.timeMin = 0;
+        } else {
+          this.timeMin++
+        }
+        break;
+
+      case 'timeSec':
+        if (this.timeSec === 59) {
+          this.timeSec = 0;
+        } else {
+          this.timeSec++
+        }
+        break;
+
+      case 'restSetsMin':
+
+        if (this.restSetsMin === 59) {
+          this.restSetsMin = 0;
+        } else {
+          this.restSetsMin++
+        }
+        break;
+
+      case 'restSetsSec':
+        if (this.restSetsSec === 59) {
+          this.restSetsSec = 0;
+        } else {
+          this.restSetsSec++;
+        }
+        break;
+
+      case 'restRepsMin':
+        if (this.restRepsMin === 59) {
+          this.restRepsMin = 0;
+        } else {
+          this.restRepsMin++
+        }
+        break;
+
+      case 'restRepsSec':
+        if (this.restRepsSec === 59) {
+          this.restRepsSec = 0;
+        } else {
+          this.restRepsSec++
+        }
+        break;
+
+      case 'repeats':
+        if (this.item.repeats === 100) {
+          this.item.repeats = 2;
+        } else {
+          this.item.repeats++
+        }
+        break;
+
+      case 'sets':
+        if (this.item.sets === 100) {
+          this.item.sets = 2;
+        } else {
+          this.item.sets++
+        }
+        break;
+
+      default:
+        break;
+    }
+
+  }
+
+  removeTime(option: string) {
+
+    switch (option) {
+
+      case 'preparationMin':
+        if (this.preparationMin === 0) {
+          this.preparationMin = 59;
+        } else {
+          this.preparationMin--;
+        }
+        break;
+      case 'preparationSec':
+        if (this.preparationSec === 0) {
+          this.preparationSec = 59;
+        } else {
+          this.preparationSec--;
+        }
+        break;
+
+      case 'timeMin':
+        if (this.timeMin === 0) {
+          this.timeMin = 59;
+        } else {
+          this.timeMin--;
+        }
+        break;
+      case 'timeSec':
+        if (this.timeSec === 0) {
+          this.timeSec = 59;
+        } else {
+          this.timeSec--;
+        }
+        break;
+
+      case 'restSetsMin':
+        if (this.restSetsMin === 0) {
+          this.restSetsMin = 59;
+        } else {
+          this.restSetsMin--;
+        }
+        break;
+      case 'restSetsSec':
+        if (this.restSetsSec === 0) {
+          this.restSetsSec = 59;
+        } else {
+          this.restSetsSec--;
+        }
+        break;
+
+      case 'restRepsMin':
+        if (this.restRepsMin === 0) {
+          this.restRepsMin = 59;
+        } else {
+          this.restRepsMin--;
+        }
+        break;
+      case 'restRepsSec':
+        if (this.restRepsSec === 0) {
+          this.restRepsSec = 59;
+        } else {
+          this.restRepsSec--;
+        }
+        break;
+
+      case 'repeats':
+        if (this.item.repeats === 2) {
+          this.item.repeats = 100;
+        } else {
+          this.item.repeats--;
+        }
+        break;
+      case 'sets':
+        if (this.item.sets === 2) {
+          this.item.sets = 100;
+        } else {
+          this.item.sets--;
+        }
+        break;
+
+      default:
+        break;
+    }
+
+  }
   // Crear Item y actualizar item
 
   async createdItem(formAddEdit: NgForm) {
+
+    if (this.preparationMin != 0) {
+      this.item.preparation = this.preparationSec + (this.preparationMin * 60);
+    } else {
+      this.item.preparation = this.preparationSec;
+    }
+
+    if (this.restSetsMin != 0) {
+      this.item.restSets = this.restSetsSec + (this.restSetsMin * 60);
+    } else {
+      this.item.restSets = this.restSetsSec;
+    }
+
+    if (this.timeMin != 0) {
+      this.item.time = this.timeSec + (this.timeMin * 60);
+    } else {
+      this.item.time = this.timeSec;
+    }
+
+    if (this.restRepsMin != 0) {
+      this.item.restReps = this.restRepsSec + (this.restRepsMin * 60);
+    } else {
+      this.item.restReps = this.restRepsSec;
+    }
+
 
     if (this.load === true) {
 
@@ -119,7 +314,7 @@ export class AddEditPage implements OnInit {
 
       if (updated) {
         this.uiService.presentToast('Item actualizado correctamente')// Toast con mensaje de actualizado
-        this.route.navigateByUrl(`/main/lists/items/${this.listId}`);
+        this.route.navigateByUrl(`/main/tabs/items/${this.listId}`);
       } else {
         this.uiService.presentToast('Error al actualizar item')
       }
@@ -162,676 +357,6 @@ export class AddEditPage implements OnInit {
       }
     }
   }
-
-  // Pickers
-
-  async pickerPreparation() {
-    let opts: PickerOptions = {
-      buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel'
-        },
-        {
-          text: 'Ok',
-          role: 'done'
-        }
-
-      ],
-      columns: [
-        {
-          name: 'minutes',
-          options: [
-            { text: '00', value: 0 },
-            { text: '01', value: 1 },
-            { text: '02', value: 2 },
-            { text: '03', value: 3 },
-            { text: '04', value: 4 },
-            { text: '05', value: 5 },
-            { text: '06', value: 6 },
-            { text: '07', value: 7 },
-            { text: '08', value: 8 },
-            { text: '09', value: 9 },
-            { text: '10', value: 10 },
-            { text: '12', value: 12 },
-            { text: '13', value: 13 },
-            { text: '14', value: 14 },
-            { text: '15', value: 15 },
-            { text: '16', value: 16 },
-            { text: '17', value: 17 },
-            { text: '18', value: 18 },
-            { text: '19', value: 19 },
-            { text: '20', value: 20 },
-            { text: '21', value: 21 },
-            { text: '22', value: 22 },
-            { text: '23', value: 23 },
-            { text: '24', value: 24 },
-            { text: '25', value: 25 },
-            { text: '26', value: 26 },
-            { text: '27', value: 27 },
-            { text: '28', value: 28 },
-            { text: '29', value: 29 },
-            { text: '30', value: 30 },
-            { text: '31', value: 31 },
-            { text: '32', value: 32 },
-            { text: '33', value: 33 },
-            { text: '34', value: 34 },
-            { text: '35', value: 35 },
-            { text: '36', value: 36 },
-            { text: '37', value: 37 },
-            { text: '38', value: 38 },
-            { text: '39', value: 39 },
-            { text: '40', value: 40 },
-            { text: '41', value: 41 },
-            { text: '42', value: 42 },
-            { text: '43', value: 43 },
-            { text: '44', value: 44 },
-            { text: '45', value: 45 },
-            { text: '46', value: 46 },
-            { text: '47', value: 47 },
-            { text: '48', value: 48 },
-            { text: '49', value: 49 },
-            { text: '50', value: 50 },
-            { text: '51', value: 51 },
-            { text: '52', value: 52 },
-            { text: '53', value: 53 },
-            { text: '54', value: 54 },
-            { text: '55', value: 55 },
-            { text: '56', value: 56 },
-            { text: '57', value: 57 },
-            { text: '58', value: 58 },
-            { text: '59', value: 59 },
-          ]
-        },
-        {
-          name: 'seconds',
-          options: [
-            { text: '00', value: 0 },
-            { text: '01', value: 1 },
-            { text: '02', value: 2 },
-            { text: '03', value: 3 },
-            { text: '04', value: 4 },
-            { text: '05', value: 5 },
-            { text: '06', value: 6 },
-            { text: '07', value: 7 },
-            { text: '08', value: 8 },
-            { text: '09', value: 9 },
-            { text: '10', value: 10 },
-            { text: '12', value: 12 },
-            { text: '13', value: 13 },
-            { text: '14', value: 14 },
-            { text: '15', value: 15 },
-            { text: '16', value: 16 },
-            { text: '17', value: 17 },
-            { text: '18', value: 18 },
-            { text: '19', value: 19 },
-            { text: '20', value: 20 },
-            { text: '21', value: 21 },
-            { text: '22', value: 22 },
-            { text: '23', value: 23 },
-            { text: '24', value: 24 },
-            { text: '25', value: 25 },
-            { text: '26', value: 26 },
-            { text: '27', value: 27 },
-            { text: '28', value: 28 },
-            { text: '29', value: 29 },
-            { text: '30', value: 30 },
-            { text: '31', value: 31 },
-            { text: '32', value: 32 },
-            { text: '33', value: 33 },
-            { text: '34', value: 34 },
-            { text: '35', value: 35 },
-            { text: '36', value: 36 },
-            { text: '37', value: 37 },
-            { text: '38', value: 38 },
-            { text: '39', value: 39 },
-            { text: '40', value: 40 },
-            { text: '41', value: 41 },
-            { text: '42', value: 42 },
-            { text: '43', value: 43 },
-            { text: '44', value: 44 },
-            { text: '45', value: 45 },
-            { text: '46', value: 46 },
-            { text: '47', value: 47 },
-            { text: '48', value: 48 },
-            { text: '49', value: 49 },
-            { text: '50', value: 50 },
-            { text: '51', value: 51 },
-            { text: '52', value: 52 },
-            { text: '53', value: 53 },
-            { text: '54', value: 54 },
-            { text: '55', value: 55 },
-            { text: '56', value: 56 },
-            { text: '57', value: 57 },
-            { text: '58', value: 58 },
-            { text: '59', value: 59 },
-          ]
-        }
-      ]
-    };
-    let picker = await this.pickerCtrl.create(opts);
-    picker.present();
-    picker.onDidDismiss().then(async data => {
-
-      let colMin = await picker.getColumn('minutes');
-      let colSec = await picker.getColumn('seconds');
-
-      this.stringPreparationMin = colMin.options[colMin.selectedIndex].text
-      this.stringPreparationSec = colSec.options[colSec.selectedIndex].text
-      this.dots = ':'
-
-      this.preparationMin = colMin.options[colMin.selectedIndex].value;
-      this.preparationSec = colSec.options[colSec.selectedIndex].value;
-
-      if (this.preparationMin != 0) {
-        this.item.preparation = this.preparationSec + (this.preparationMin * 60);
-      } else {
-        this.item.preparation = this.preparationSec;
-      }
-    });
-  }
-
-  async pickerTime() {
-    let opts: PickerOptions = {
-      buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel'
-        },
-        {
-          text: 'Ok',
-          role: 'done'
-        }
-
-      ],
-      columns: [
-        {
-          name: 'minutes',
-          options: [
-            { text: '00', value: 0 },
-            { text: '01', value: 1 },
-            { text: '02', value: 2 },
-            { text: '03', value: 3 },
-            { text: '04', value: 4 },
-            { text: '05', value: 5 },
-            { text: '06', value: 6 },
-            { text: '07', value: 7 },
-            { text: '08', value: 8 },
-            { text: '09', value: 9 },
-            { text: '10', value: 10 },
-            { text: '12', value: 12 },
-            { text: '13', value: 13 },
-            { text: '14', value: 14 },
-            { text: '15', value: 15 },
-            { text: '16', value: 16 },
-            { text: '17', value: 17 },
-            { text: '18', value: 18 },
-            { text: '19', value: 19 },
-            { text: '20', value: 20 },
-            { text: '21', value: 21 },
-            { text: '22', value: 22 },
-            { text: '23', value: 23 },
-            { text: '24', value: 24 },
-            { text: '25', value: 25 },
-            { text: '26', value: 26 },
-            { text: '27', value: 27 },
-            { text: '28', value: 28 },
-            { text: '29', value: 29 },
-            { text: '30', value: 30 },
-            { text: '31', value: 31 },
-            { text: '32', value: 32 },
-            { text: '33', value: 33 },
-            { text: '34', value: 34 },
-            { text: '35', value: 35 },
-            { text: '36', value: 36 },
-            { text: '37', value: 37 },
-            { text: '38', value: 38 },
-            { text: '39', value: 39 },
-            { text: '40', value: 40 },
-            { text: '41', value: 41 },
-            { text: '42', value: 42 },
-            { text: '43', value: 43 },
-            { text: '44', value: 44 },
-            { text: '45', value: 45 },
-            { text: '46', value: 46 },
-            { text: '47', value: 47 },
-            { text: '48', value: 48 },
-            { text: '49', value: 49 },
-            { text: '50', value: 50 },
-            { text: '51', value: 51 },
-            { text: '52', value: 52 },
-            { text: '53', value: 53 },
-            { text: '54', value: 54 },
-            { text: '55', value: 55 },
-            { text: '56', value: 56 },
-            { text: '57', value: 57 },
-            { text: '58', value: 58 },
-            { text: '59', value: 59 },
-          ]
-        },
-        {
-          name: 'seconds',
-          options: [
-            { text: '00', value: 0 },
-            { text: '01', value: 1 },
-            { text: '02', value: 2 },
-            { text: '03', value: 3 },
-            { text: '04', value: 4 },
-            { text: '05', value: 5 },
-            { text: '06', value: 6 },
-            { text: '07', value: 7 },
-            { text: '08', value: 8 },
-            { text: '09', value: 9 },
-            { text: '10', value: 10 },
-            { text: '12', value: 12 },
-            { text: '13', value: 13 },
-            { text: '14', value: 14 },
-            { text: '15', value: 15 },
-            { text: '16', value: 16 },
-            { text: '17', value: 17 },
-            { text: '18', value: 18 },
-            { text: '19', value: 19 },
-            { text: '20', value: 20 },
-            { text: '21', value: 21 },
-            { text: '22', value: 22 },
-            { text: '23', value: 23 },
-            { text: '24', value: 24 },
-            { text: '25', value: 25 },
-            { text: '26', value: 26 },
-            { text: '27', value: 27 },
-            { text: '28', value: 28 },
-            { text: '29', value: 29 },
-            { text: '30', value: 30 },
-            { text: '31', value: 31 },
-            { text: '32', value: 32 },
-            { text: '33', value: 33 },
-            { text: '34', value: 34 },
-            { text: '35', value: 35 },
-            { text: '36', value: 36 },
-            { text: '37', value: 37 },
-            { text: '38', value: 38 },
-            { text: '39', value: 39 },
-            { text: '40', value: 40 },
-            { text: '41', value: 41 },
-            { text: '42', value: 42 },
-            { text: '43', value: 43 },
-            { text: '44', value: 44 },
-            { text: '45', value: 45 },
-            { text: '46', value: 46 },
-            { text: '47', value: 47 },
-            { text: '48', value: 48 },
-            { text: '49', value: 49 },
-            { text: '50', value: 50 },
-            { text: '51', value: 51 },
-            { text: '52', value: 52 },
-            { text: '53', value: 53 },
-            { text: '54', value: 54 },
-            { text: '55', value: 55 },
-            { text: '56', value: 56 },
-            { text: '57', value: 57 },
-            { text: '58', value: 58 },
-            { text: '59', value: 59 },
-          ]
-        }
-      ]
-    };
-    let picker = await this.pickerCtrl.create(opts);
-    picker.present();
-    picker.onDidDismiss().then(async data => {
-
-      let colMin = await picker.getColumn('minutes');
-      let colSec = await picker.getColumn('seconds');
-
-      this.stringTimeMin = colMin.options[colMin.selectedIndex].text
-      this.stringTimeSec = colSec.options[colSec.selectedIndex].text
-      this.dots = ':'
-
-      this.timeMin = colMin.options[colMin.selectedIndex].value;
-      this.timeSec = colSec.options[colSec.selectedIndex].value;
-
-      if (this.timeMin != 0) {
-        this.item.time = this.timeSec + (this.timeMin * 60);
-      } else {
-        this.item.time = this.timeSec;
-      }
-
-    });
-  }
-
-  async pickerRestRep() {
-    let opts: PickerOptions = {
-      buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel'
-        },
-        {
-          text: 'Ok',
-          role: 'done'
-        }
-
-      ],
-      columns: [
-        {
-          name: 'minutes',
-          options: [
-            { text: '00', value: 0 },
-            { text: '01', value: 1 },
-            { text: '02', value: 2 },
-            { text: '03', value: 3 },
-            { text: '04', value: 4 },
-            { text: '05', value: 5 },
-            { text: '06', value: 6 },
-            { text: '07', value: 7 },
-            { text: '08', value: 8 },
-            { text: '09', value: 9 },
-            { text: '10', value: 10 },
-            { text: '12', value: 12 },
-            { text: '13', value: 13 },
-            { text: '14', value: 14 },
-            { text: '15', value: 15 },
-            { text: '16', value: 16 },
-            { text: '17', value: 17 },
-            { text: '18', value: 18 },
-            { text: '19', value: 19 },
-            { text: '20', value: 20 },
-            { text: '21', value: 21 },
-            { text: '22', value: 22 },
-            { text: '23', value: 23 },
-            { text: '24', value: 24 },
-            { text: '25', value: 25 },
-            { text: '26', value: 26 },
-            { text: '27', value: 27 },
-            { text: '28', value: 28 },
-            { text: '29', value: 29 },
-            { text: '30', value: 30 },
-            { text: '31', value: 31 },
-            { text: '32', value: 32 },
-            { text: '33', value: 33 },
-            { text: '34', value: 34 },
-            { text: '35', value: 35 },
-            { text: '36', value: 36 },
-            { text: '37', value: 37 },
-            { text: '38', value: 38 },
-            { text: '39', value: 39 },
-            { text: '40', value: 40 },
-            { text: '41', value: 41 },
-            { text: '42', value: 42 },
-            { text: '43', value: 43 },
-            { text: '44', value: 44 },
-            { text: '45', value: 45 },
-            { text: '46', value: 46 },
-            { text: '47', value: 47 },
-            { text: '48', value: 48 },
-            { text: '49', value: 49 },
-            { text: '50', value: 50 },
-            { text: '51', value: 51 },
-            { text: '52', value: 52 },
-            { text: '53', value: 53 },
-            { text: '54', value: 54 },
-            { text: '55', value: 55 },
-            { text: '56', value: 56 },
-            { text: '57', value: 57 },
-            { text: '58', value: 58 },
-            { text: '59', value: 59 },
-          ]
-        },
-        {
-          name: 'seconds',
-          options: [
-            { text: '00', value: 0 },
-            { text: '01', value: 1 },
-            { text: '02', value: 2 },
-            { text: '03', value: 3 },
-            { text: '04', value: 4 },
-            { text: '05', value: 5 },
-            { text: '06', value: 6 },
-            { text: '07', value: 7 },
-            { text: '08', value: 8 },
-            { text: '09', value: 9 },
-            { text: '10', value: 10 },
-            { text: '12', value: 12 },
-            { text: '13', value: 13 },
-            { text: '14', value: 14 },
-            { text: '15', value: 15 },
-            { text: '16', value: 16 },
-            { text: '17', value: 17 },
-            { text: '18', value: 18 },
-            { text: '19', value: 19 },
-            { text: '20', value: 20 },
-            { text: '21', value: 21 },
-            { text: '22', value: 22 },
-            { text: '23', value: 23 },
-            { text: '24', value: 24 },
-            { text: '25', value: 25 },
-            { text: '26', value: 26 },
-            { text: '27', value: 27 },
-            { text: '28', value: 28 },
-            { text: '29', value: 29 },
-            { text: '30', value: 30 },
-            { text: '31', value: 31 },
-            { text: '32', value: 32 },
-            { text: '33', value: 33 },
-            { text: '34', value: 34 },
-            { text: '35', value: 35 },
-            { text: '36', value: 36 },
-            { text: '37', value: 37 },
-            { text: '38', value: 38 },
-            { text: '39', value: 39 },
-            { text: '40', value: 40 },
-            { text: '41', value: 41 },
-            { text: '42', value: 42 },
-            { text: '43', value: 43 },
-            { text: '44', value: 44 },
-            { text: '45', value: 45 },
-            { text: '46', value: 46 },
-            { text: '47', value: 47 },
-            { text: '48', value: 48 },
-            { text: '49', value: 49 },
-            { text: '50', value: 50 },
-            { text: '51', value: 51 },
-            { text: '52', value: 52 },
-            { text: '53', value: 53 },
-            { text: '54', value: 54 },
-            { text: '55', value: 55 },
-            { text: '56', value: 56 },
-            { text: '57', value: 57 },
-            { text: '58', value: 58 },
-            { text: '59', value: 59 },
-          ]
-        }
-      ]
-    };
-    let picker = await this.pickerCtrl.create(opts);
-    picker.present();
-    picker.onDidDismiss().then(async data => {
-
-      let colMin = await picker.getColumn('minutes');
-      let colSec = await picker.getColumn('seconds');
-
-      this.stringRestRepMin = colMin.options[colMin.selectedIndex].text
-      this.stringRestRepSec = colSec.options[colSec.selectedIndex].text
-      this.dots = ':'
-
-      this.restRepMin = colMin.options[colMin.selectedIndex].value;
-      this.restRepSec = colSec.options[colSec.selectedIndex].value;
-
-      if (this.restRepMin != 0) {
-        this.item.restReps = this.restRepSec + (this.restRepMin * 60);
-      } else {
-        this.item.restReps = this.restRepSec;
-      }
-
-    });
-  }
-
-  async pickerRestSSets() {
-    let opts: PickerOptions = {
-      buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel'
-        },
-        {
-          text: 'Ok',
-          role: 'done'
-        }
-
-      ],
-      columns: [
-        {
-          name: 'minutes',
-          options: [
-            { text: '00', value: 0 },
-            { text: '01', value: 1 },
-            { text: '02', value: 2 },
-            { text: '03', value: 3 },
-            { text: '04', value: 4 },
-            { text: '05', value: 5 },
-            { text: '06', value: 6 },
-            { text: '07', value: 7 },
-            { text: '08', value: 8 },
-            { text: '09', value: 9 },
-            { text: '10', value: 10 },
-            { text: '12', value: 12 },
-            { text: '13', value: 13 },
-            { text: '14', value: 14 },
-            { text: '15', value: 15 },
-            { text: '16', value: 16 },
-            { text: '17', value: 17 },
-            { text: '18', value: 18 },
-            { text: '19', value: 19 },
-            { text: '20', value: 20 },
-            { text: '21', value: 21 },
-            { text: '22', value: 22 },
-            { text: '23', value: 23 },
-            { text: '24', value: 24 },
-            { text: '25', value: 25 },
-            { text: '26', value: 26 },
-            { text: '27', value: 27 },
-            { text: '28', value: 28 },
-            { text: '29', value: 29 },
-            { text: '30', value: 30 },
-            { text: '31', value: 31 },
-            { text: '32', value: 32 },
-            { text: '33', value: 33 },
-            { text: '34', value: 34 },
-            { text: '35', value: 35 },
-            { text: '36', value: 36 },
-            { text: '37', value: 37 },
-            { text: '38', value: 38 },
-            { text: '39', value: 39 },
-            { text: '40', value: 40 },
-            { text: '41', value: 41 },
-            { text: '42', value: 42 },
-            { text: '43', value: 43 },
-            { text: '44', value: 44 },
-            { text: '45', value: 45 },
-            { text: '46', value: 46 },
-            { text: '47', value: 47 },
-            { text: '48', value: 48 },
-            { text: '49', value: 49 },
-            { text: '50', value: 50 },
-            { text: '51', value: 51 },
-            { text: '52', value: 52 },
-            { text: '53', value: 53 },
-            { text: '54', value: 54 },
-            { text: '55', value: 55 },
-            { text: '56', value: 56 },
-            { text: '57', value: 57 },
-            { text: '58', value: 58 },
-            { text: '59', value: 59 },
-          ]
-        },
-        {
-          name: 'seconds',
-          options: [
-            { text: '00', value: 0 },
-            { text: '01', value: 1 },
-            { text: '02', value: 2 },
-            { text: '03', value: 3 },
-            { text: '04', value: 4 },
-            { text: '05', value: 5 },
-            { text: '06', value: 6 },
-            { text: '07', value: 7 },
-            { text: '08', value: 8 },
-            { text: '09', value: 9 },
-            { text: '10', value: 10 },
-            { text: '12', value: 12 },
-            { text: '13', value: 13 },
-            { text: '14', value: 14 },
-            { text: '15', value: 15 },
-            { text: '16', value: 16 },
-            { text: '17', value: 17 },
-            { text: '18', value: 18 },
-            { text: '19', value: 19 },
-            { text: '20', value: 20 },
-            { text: '21', value: 21 },
-            { text: '22', value: 22 },
-            { text: '23', value: 23 },
-            { text: '24', value: 24 },
-            { text: '25', value: 25 },
-            { text: '26', value: 26 },
-            { text: '27', value: 27 },
-            { text: '28', value: 28 },
-            { text: '29', value: 29 },
-            { text: '30', value: 30 },
-            { text: '31', value: 31 },
-            { text: '32', value: 32 },
-            { text: '33', value: 33 },
-            { text: '34', value: 34 },
-            { text: '35', value: 35 },
-            { text: '36', value: 36 },
-            { text: '37', value: 37 },
-            { text: '38', value: 38 },
-            { text: '39', value: 39 },
-            { text: '40', value: 40 },
-            { text: '41', value: 41 },
-            { text: '42', value: 42 },
-            { text: '43', value: 43 },
-            { text: '44', value: 44 },
-            { text: '45', value: 45 },
-            { text: '46', value: 46 },
-            { text: '47', value: 47 },
-            { text: '48', value: 48 },
-            { text: '49', value: 49 },
-            { text: '50', value: 50 },
-            { text: '51', value: 51 },
-            { text: '52', value: 52 },
-            { text: '53', value: 53 },
-            { text: '54', value: 54 },
-            { text: '55', value: 55 },
-            { text: '56', value: 56 },
-            { text: '57', value: 57 },
-            { text: '58', value: 58 },
-            { text: '59', value: 59 },
-          ]
-        }
-      ]
-    };
-    let picker = await this.pickerCtrl.create(opts);
-    picker.present();
-    picker.onDidDismiss().then(async data => {
-
-      let colMin = await picker.getColumn('minutes');
-      let colSec = await picker.getColumn('seconds');
-
-      this.stringRestSetsMin = colMin.options[colMin.selectedIndex].text
-      this.stringRestSetsSec = colSec.options[colSec.selectedIndex].text
-      this.dots = ':'
-
-      this.restSetsMin = colMin.options[colMin.selectedIndex].value;
-      this.restSetsSec = colSec.options[colSec.selectedIndex].value;
-
-      if (this.restSetsMin != 0) {
-        this.item.restSets = this.restSetsSec + (this.restSetsMin * 60);
-      } else {
-        this.item.restSets = this.restSetsSec;
-      }
-
-    });
-  }
-
 
 
 

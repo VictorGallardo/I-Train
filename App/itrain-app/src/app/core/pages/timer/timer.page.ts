@@ -110,7 +110,6 @@ export class TimerPage implements OnInit {
   }
 
 
-
   updateCountersAndDuration() {
     // Duration
     this.preparation = this.item.preparation;
@@ -122,26 +121,6 @@ export class TimerPage implements OnInit {
     this.counterSets = this.item.sets;
     this.counterTimeEx = this.item.repeats * this.counterSets;
     this.counterRestReps = this.item.repeats - 1;
-  }
-
-
-  // Popover de configuracion
-  async openConfigPopover(ev: any) {
-    const popover = await this.popoverCtrl.create({
-      component: ConfigPopoverComponent,
-      event: ev,
-      translucent: true
-    });
-    await popover.present();
-
-    const { data } = await popover.onWillDismiss();
-
-    if (data) {
-      if (data.value === 1) this.mute = true;
-      if (data.value === 2) this.onlyDigits = true;
-      if (data.value === 3) this.noFeatures = true;
-    }
-
   }
 
 
@@ -299,8 +278,9 @@ export class TimerPage implements OnInit {
   // Muestra el modal de final del ejercicio
   async modalEnd() {
     const modal = await this.modalCtrl.create({
+      cssClass: 'modal-end',
       component: TimerEndPage,
-      cssClass: 'my-custom-class'
+
     });
     return await modal.present();
   }
@@ -328,6 +308,25 @@ export class TimerPage implements OnInit {
     this.updateCountersAndDuration();
     this.state = 'stop';
   }
+
+  // // Popover de configuracion
+  // async openConfigPopover(ev: any) {
+  //   const popover = await this.popoverCtrl.create({
+  //     component: ConfigPopoverComponent,
+  //     event: ev,
+  //     translucent: true
+  //   });
+  //   await popover.present();
+
+  //   const { data } = await popover.onWillDismiss();
+
+  //   if (data) {
+  //     if (data.value === 1) this.mute = true;
+  //     if (data.value === 2) this.onlyDigits = true;
+  //     if (data.value === 3) this.noFeatures = true;
+  //   }
+
+  // }
 
 
 

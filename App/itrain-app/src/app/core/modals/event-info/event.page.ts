@@ -4,6 +4,7 @@ import { ActionSheetController, ModalController, AlertController } from '@ionic/
 import { formatDate } from '@angular/common';
 import { CalendarService } from '../../../shared/services/calendar.service';
 import { UiService } from '../../../shared/services/ui.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -14,6 +15,9 @@ import { UiService } from '../../../shared/services/ui.service';
 export class EventPage implements OnInit {
 
   @Input() event: IEvent = {};
+  eventModal: IEvent = {};
+  startDate: string;
+  endDate: string;
 
   constructor
     (
@@ -22,39 +26,53 @@ export class EventPage implements OnInit {
       private modalCtrl: ModalController,
       private alertCtrl: AlertController,
       private uiService: UiService,
+      private router: Router
 
-  ) {
+    ) { }
 
-  }
+
   ngOnInit(): void {
+    console.log(this.router.url); //  /tu-ruta
 
-    this.event = {
+    this.eventModal = this.event;
+    console.log(this.eventModal);
+
+    this.startDate = formatDate(this.event.startTime, 'dd-MM-yyy | HH:mm', this.locale);
+    this.endDate = formatDate(this.event.endTime, 'dd-MM-yyy | HH:mm', this.locale)
+
+    this.eventModal = {
       _id: this.event._id,
       title: this.event.title,
       description: this.event.description,
-      startTime: formatDate(this.event.startTime, 'dd-MM-yyy | HH:mm', this.locale),
-      endTime: formatDate(this.event.endTime, 'dd-MM-yyy | HH:mm', this.locale),
+
     }
-    console.log(JSON.stringify(this.event) + " Evento");
   }
 
-  close() {
-    this.modalCtrl.dismiss();
+
+  close(opt?: string) {
+    this.modalCtrl.dismiss({
+      option: opt,
+    });
+
   }
 
-  editEvent(eventId: string, event: IEvent) {
+  editEvent(opt?: string) {
 
-    this.calendarService.editEvent(eventId, event);
+    this.modalCtrl.dismiss({
+      option: opt,
+      event: this.event
+
+    });
 
   }
 
 
   // Alert para eliminar lista
-  async deleteEventAlert() {
+  async deleteEventAlert(opt?: string) {
 
     const alert = await this.alertCtrl.create({
-      header: 'Eliminar Evento',
-      message: '¿ Está seguro que desea eliminar éste evento ?',
+      header: 'Eliminar entrenamiento',
+      message: '¿ Está seguro que desea eliminar éste entrenamiento ?',
       buttons: [
         {
           text: 'Cancelar',
@@ -68,9 +86,10 @@ export class EventPage implements OnInit {
           handler: () => {
 
             this.calendarService.deleteEvent(this.event._id);
-            this.modalCtrl.dismiss();
-            this.uiService.presentToast('Evento eliminado correctamente.');
-
+            this.modalCtrl.dismiss({
+              option: opt,
+            });
+            this.uiService.presentToast('Entrenamiento eliminado correctamente.');
 
           }
         }

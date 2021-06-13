@@ -6,6 +6,8 @@ import { Step } from 'ionic2-calendar/calendar';
 import { CalendarService } from 'src/app/shared/services/calendar.service';
 import { UiService } from 'src/app/shared/services/ui.service';
 import { EventPage } from '../../modals/event-info/event.page';
+import { IEvent } from '../../../shared/interfaces/interfaces';
+import { ThisReceiver } from '@angular/compiler';
 
 @Component({
   selector: 'app-calendar',
@@ -14,7 +16,8 @@ import { EventPage } from '../../modals/event-info/event.page';
 })
 export class CalendarPage implements OnInit {
 
-  newEvent = {
+  newEvent: IEvent = {
+    _id: '',
     title: '',
     description: '',
     startTime: '',
@@ -22,7 +25,7 @@ export class CalendarPage implements OnInit {
   };
 
   respId: string;
-
+  update: boolean = false;
   allEvents = []
 
   currentMonth: string;
@@ -42,6 +45,7 @@ export class CalendarPage implements OnInit {
     @Inject(LOCALE_ID) private locale: string,
     private calService: CalendarService,
     private modalCtrl: ModalController,
+    private uiService: UiService
 
 
   ) { }
@@ -58,6 +62,21 @@ export class CalendarPage implements OnInit {
 
   }
 
+  loadEventEdit(event: IEvent) {
+
+    console.log(event);
+
+    if (this.update) {
+
+      this.newEvent._id = event._id;
+      this.newEvent.title = event.title;
+      this.newEvent.description = event.description;
+      this.newEvent.startTime = new Date(event.startTime).toISOString();
+      this.newEvent.endTime = new Date(event.endTime).toISOString();
+
+    }
+  }
+
   // Carga los eventos creados en array allEvent
 
   loadEvent() {
@@ -70,9 +89,9 @@ export class CalendarPage implements OnInit {
         this.allEvents.push({
           _id: event._id,
           title: event.title,
+          description: event.description,
           startTime: new Date(event.startTime),
           endTime: new Date(event.endTime),
-          description: event.description,
         });
         this.myCalendar.loadEvents();
       })
@@ -88,14 +107,30 @@ export class CalendarPage implements OnInit {
         'event': event
       }
     });
-    modal.onDidDismiss().then(() => {
+    await modal.present();
 
-      this.loadEvent();
+    const { data } = await modal.onDidDismiss()
+
+    if (data) {
+
+      if (data.option === 'close') this.loadEvent();
+      if (data.option === 'update') {
+
+        this.update = true;
+        console.log('Actualizamos');
+        console.log(data.event);
+
+        this.loadEventEdit(data.event)
+        this.showAddEvent = !this.showAddEvent;
 
 
-    });
-    return await modal.present();
+      } else {
+        console.log('cargamos eventos');
+        this.update = false;
+        this.loadEvent();
 
+      }
+    }
   }
 
 
@@ -115,18 +150,35 @@ export class CalendarPage implements OnInit {
 
   async addEvent() {
 
-    const created = await this.calService.createdEvent({
-      title: this.newEvent.title,
-      startTime: new Date(this.newEvent.startTime),
-      endTime: new Date(this.newEvent.endTime),
-      description: this.newEvent.description,
-    });
+    console.log(this.update);
 
-    if (created) {
-      this.loadEvent();
-      this.showHideForm();
+
+    if (this.update) {
+
+      const edit = await this.calService.editEvent(this.newEvent._id, this.newEvent);
+
+      if (edit) {
+        this.uiService.presentToast('Entrenamiento editado correctamente')
+        this.showHideForm();
+        this.loadEvent();
+        this.update = false;
+      }
+    } else {
+
+      const created = await this.calService.createdEvent(this.newEvent);
+
+      if (created) {
+        this.uiService.presentToast('Entrenamiento creado correctamente')
+        this.showHideForm();
+        this.loadEvent();
+      }
 
     }
+
+  }
+
+  async editEvent() {
+
   }
 
   onTimeSelected(ev: any) {

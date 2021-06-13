@@ -13,8 +13,8 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
-  <ion-card>
+<ion-content>
+  <ion-card class="ion-margin-bottom">
     <ion-card-content class="ion-text-center">
       <ion-row class="top-40">
         <ion-col size="12" class="ion-text-center">
@@ -22,12 +22,15 @@
         </ion-col>
       </ion-row>
 
-      <ion-card-title class="ion-margin-top" color="itrain-cream"
-        ><strong>{{user.name}}</strong></ion-card-title
-      >
-      <ion-card-title class="ion-margin-bottom" color="itrain-cream"
-        >{{user.email}}</ion-card-title
-      >
+      <ion-row class="ion-margin-top">
+        <ion-col size="12">
+          <ion-label class="ion-margin-top" color="itrain-cream"
+            ><strong>{{user.name}}</strong></ion-label
+          ></ion-col
+        >
+      </ion-row>
+
+      <ion-label color="itrain-cream">{{user.email}}</ion-label>
     </ion-card-content>
   </ion-card>
 
@@ -42,7 +45,7 @@
       <ion-col>
         <ion-list>
           <ion-item>
-            <ion-label>Email</ion-label>
+            <ion-label position="stacked">Email</ion-label>
             <ion-input
               name="email"
               type="email"
@@ -52,7 +55,7 @@
           </ion-item>
 
           <ion-item>
-            <ion-label>Nombre</ion-label>
+            <ion-label position="stacked">Nombre</ion-label>
             <ion-input
               name="nombre"
               type="text"

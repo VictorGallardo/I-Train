@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-timer-end',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TimerEndPage implements OnInit {
 
-  constructor() { }
+  constructor(private modalCtrl: ModalController) { }
 
   ngOnInit() {
   }
 
+
+  closeModal() {
+    this.modalCtrl.dismiss();
+  }
 }

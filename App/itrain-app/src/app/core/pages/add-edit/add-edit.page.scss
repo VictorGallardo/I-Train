@@ -1,3 +1,11 @@
+@font-face {
+  font-family: myFont;
+  src: url("../../../../assets/fonts/sfpro/SFProDisplay-Semibold.ttf");
+}
+* {
+  font-family: myFont;
+}
+
 .mInput {
   font-size: 1.5em;
   margin-bottom: 10px;
@@ -6,3 +14,15 @@
 .rep {
   margin-left: 148px;
 }
+
+span {
+  color: #b8a990;
+}
+
+// ion-card-header {
+//   background-color: #3c3c41;
+//   font-size: 1em;
+// }
+// ion-item {
+//   background-color: #3c3c41;
+// }

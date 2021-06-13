@@ -69,7 +69,7 @@ export interface IItem {
   repeats?: number;
   restReps?: number;
   totalTime?: number;
-  list?: IList;
+  list?: string;
 
 }
 

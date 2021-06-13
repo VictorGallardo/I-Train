@@ -86,10 +86,22 @@
         (click)="addEvent()"
         expand="block"
         color="primary"
+        [disabled]="(newEvent.title.length && newEvent.description.length) < 1"
       >
         <ion-icon class="ion-margin-end" name="folder-outline"></ion-icon>
         Guardar
       </ion-button>
+
+      <!-- <ion-button
+        *ngIf="update"
+        class="ion-padding"
+        (click)="editEvent()"
+        expand="block"
+        color="primary"
+      >
+        <ion-icon name="checkmark-circle-outline"></ion-icon>
+        Actualizar
+      </ion-button> -->
     </ion-card>
   </div>
 
@@ -157,6 +169,7 @@
     </ion-item>
     <ion-list *ngIf="selectedDate.length > 0" style="margin-left: 10px">
       <ion-item
+        detail
         *ngFor="let event of selectedDate"
         (click)="onEventSelected(event)"
       >

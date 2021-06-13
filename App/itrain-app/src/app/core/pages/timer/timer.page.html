@@ -1,23 +1,24 @@
 <ion-header>
-  <ion-toolbar class="ion-text-center">
-    <ion-icon
-      name="exit-outline"
-      color="yellow"
-      class="ion-padding"
-      slot="start"
-    ></ion-icon>
+  <ion-header class="ion-no-border">
+    <ion-toolbar class="ion-text-center">
+      <!-- Menu -->
+      <ion-buttons slot="start">
+        <ion-menu-button autoHide="false" menu="first"></ion-menu-button>
+      </ion-buttons>
+      <!-- Título -->
+      <ion-title>{{item.title}}</ion-title>
 
-    <ion-title>{{item.title}}</ion-title>
-    <!-- (click)="goAddEdit(exercise.id)" -->
-    <ion-icon
-      (click)="openConfigPopover($event)"
-      class="ion-padding"
-      color="yellow"
-      slot="end"
-      name="build"
-    >
-    </ion-icon>
-  </ion-toolbar>
+      <!-- Icono info -->
+      <ion-buttons slot="end">
+        <ion-button>
+          <ion-icon
+            name="information-circle-outline"
+            slot="icon-only"
+          ></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
 </ion-header>
 
 <ion-content class="ion-text-center">
@@ -96,7 +97,7 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <ion-card *ngIf="!noFeatures" class="ion-padding">
+  <!-- <ion-card *ngIf="!noFeatures" class="ion-padding">
     <ion-card-header class="ion-text-center">
       <ion-card-subtitle>Caracteristicas del ejercicio</ion-card-subtitle>
     </ion-card-header>
@@ -134,7 +135,7 @@
       </ion-row>
     </ion-grid>
     <ion-list> </ion-list>
-  </ion-card>
+  </ion-card> -->
 
   <ion-card>
     <ion-card-header>

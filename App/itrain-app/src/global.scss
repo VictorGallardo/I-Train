@@ -30,14 +30,14 @@
 
 // Regular
 @font-face {
-  font-family: "poppins";
-  src: url("assets/fonts/sfpro/SFProDisplay-Regular.ttf");
+  font-family: "sfPro";
+  src: url("assets/fonts/sfpro/SFProDisplay-Medium.ttf");
   font-style: normal;
   font-size: small;
 }
 
 * {
-  font-family: "poppins";
+  font-family: "sfPro";
 }
 
 ion-item {
@@ -60,9 +60,9 @@ ion-item {
   --ion-text-color: #121213;
 }
 
-.avatar-modal .modal-wrapper {
+.modal-end .modal-wrapper {
   width: 80%;
-  height: 48%;
+  height: 50%;
 }
 
 .ion-loading-class {
