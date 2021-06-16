@@ -18,17 +18,20 @@ export class ItemsService {
 
 
   // Obtener Items
+
   getItems(listId: string) {
     return this.http.get<IRespItem>(`${URL}/items/${listId}`)
   }
 
   // Obtener item por id
+
   getItemById(itemId: string) {
     return this.http.get<IRespItem>(`${URL}/items/search/${itemId}`)
 
   }
 
   // Crear Item
+
   async createdItem(item, listId) {
 
     return new Promise(resolve => {
@@ -48,6 +51,7 @@ export class ItemsService {
   }
 
   // Actualizar Item
+
   async updateItem(listId: string, itemId: string, item: IItem) {
 
     return new Promise(resolve => {
@@ -69,6 +73,7 @@ export class ItemsService {
   }
 
   // Eliminar Item
+
   async deleteItem(itemId: string) {
     return new Promise(resolve => {
       this.http.delete(`${URL}/items/delete/${itemId}`)

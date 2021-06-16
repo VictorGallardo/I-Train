@@ -93,7 +93,7 @@ export class LoginPage implements OnInit {
       // navega a main
       this.loading.dismiss()
       // this.navCtrl.navigateRoot('/main/tabs/tab1', { animated: true }); // Para ir a los Posts
-      this.navCtrl.navigateRoot('/main/tabs/home', { animated: true }); // Para ir a las listas
+      this.navCtrl.navigateRoot('/main/tabs/lists', { animated: true }); // Para ir a las listas
 
     } else {
       // Mostrar alert : usuario/contraseña no correctos
@@ -124,7 +124,7 @@ export class LoginPage implements OnInit {
       if (valid) {
         // navega a main
         this.loading.dismiss()
-        this.navCtrl.navigateRoot('/main/tabs/home', { animated: true });
+        this.navCtrl.navigateRoot('/main/tabs/lists', { animated: true });
 
       } else {
         // Mostrar alert : usuario/contraseña no correctos

@@ -11,7 +11,6 @@ import { ConfigPopoverComponent } from './config-popover/config-popover.componen
 
 
 @NgModule({
-  // Declaro mis componentes
   declarations: [
     AvatarSelectComponent,
     PostComponent,
@@ -19,14 +18,12 @@ import { ConfigPopoverComponent } from './config-popover/config-popover.componen
     MenuComponent,
     ConfigPopoverComponent
   ],
-  // Exporto mis componentes para poder usarlos
   exports: [
     AvatarSelectComponent,
     PostsComponent,
     MenuComponent,
     ConfigPopoverComponent
   ],
-  // Importaciones de componentes que quiero usar en mis componentes
   imports: [
     CommonModule,
     IonicModule,

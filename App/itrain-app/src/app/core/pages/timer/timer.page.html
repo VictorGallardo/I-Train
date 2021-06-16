@@ -97,99 +97,56 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <!-- <ion-card *ngIf="!noFeatures" class="ion-padding">
-    <ion-card-header class="ion-text-center">
-      <ion-card-subtitle>Caracteristicas del ejercicio</ion-card-subtitle>
-    </ion-card-header>
-
-    <ion-grid fixed>
+  <ion-card class="ion-padding">
+    <ion-item>
+      <ion-label>
+        <h2>Descripción</h2>
+        <p>{{item.description}}</p>
+      </ion-label>
+    </ion-item>
+    <!-- <ion-grid fixed>
       <ion-row>
         <ion-col size="6">
           <ion-item>
-            <ion-label position="stacked">Preparación</ion-label>
-            <ion-label position="stacked">{{item.preparation}}</ion-label>
-          </ion-item>
-          <ion-item>
             <ion-label position="stacked">Series</ion-label>
-            <ion-label position="stacked">{{item.sets}}</ion-label>
-          </ion-item>
-          <ion-item>
-            <ion-label position="stacked">Descanso Series</ion-label>
-            <ion-label position="stacked">{{item.restSets}}</ion-label>
+            <ion-label position="stacked">{{counterRestSets}}</ion-label>
           </ion-item>
         </ion-col>
         <ion-col size="6">
           <ion-item>
-            <ion-label position="stacked">Tiempo</ion-label>
-            <ion-label position="stacked">{{item.time}}</ion-label>
-          </ion-item>
-          <ion-item>
             <ion-label position="stacked">Repeticiones</ion-label>
-            <ion-label position="stacked">{{item.repeats}}</ion-label>
-          </ion-item>
-          <ion-item>
-            <ion-label position="stacked">Descanso Reps.</ion-label>
-            <ion-label position="stacked">{{item.restReps}}</ion-label>
+            <ion-label position="stacked">{{counterRestReps}}</ion-label>
           </ion-item>
         </ion-col>
       </ion-row>
-    </ion-grid>
-    <ion-list> </ion-list>
-  </ion-card> -->
-
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title color="oranje" class="ion-text-center"
-        >Descripción</ion-card-title
-      >
-    </ion-card-header>
-    <ion-card-content>{{item.description}}</ion-card-content>
+    </ion-grid> -->
   </ion-card>
 </ion-content>
 
-<ion-footer>
+<ion-footer class="ion-padding">
   <ion-toolbar>
-    <ion-grid fixed>
-      <ion-row>
-        <ion-col size="4">
-          <ion-button color="itrain-blue" expand="block">
-            <ion-icon color="itrain-darkcream" name="reload"></ion-icon>
-          </ion-button>
-        </ion-col>
-        <ion-col size="4">
-          <ion-button
-            *ngIf="state === 'stop'"
-            (click)="startPreparation(this.preparation)"
-            color="itrain-darkyellow"
-            expand="block"
-          >
-            <ion-icon color="itrain-darkcream" name="play"></ion-icon>
-          </ion-button>
+    <ion-button
+      *ngIf="state === 'stop'"
+      (click)="startPreparation(this.preparation)"
+      color="itrain-blue"
+      expand="block"
+    >
+      <ion-icon color="itrain-darkcream" name="play"></ion-icon>
+    </ion-button>
 
-          <ion-button
-            *ngIf="state === 'start'"
-            (click)="stopTimer()"
-            color="itrain-darkyellow"
-            expand="block"
-          >
-            <ion-icon
-              *ngIf="state === 'start'"
-              color="itrain-darkcream"
-              name="pause"
-            ></ion-icon>
-          </ion-button>
-        </ion-col>
-        <ion-col size="4">
-          <ion-button
-            (click)="stopTimer()"
-            color="itrain-orange"
-            expand="block"
-          >
-            <ion-icon color="itrain-darkcream" name="stop"></ion-icon>
-          </ion-button>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+    <ion-button
+      *ngIf="state === 'start'"
+      (click)="stopTimer()"
+      color="itrain-red"
+      expand="block"
+    >
+      <ion-icon
+        *ngIf="state === 'start'"
+        color="itrain-darkcream"
+        name="stop"
+      ></ion-icon>
+    </ion-button>
+
     <!-- (click)="startTimer()" -->
     <!-- *ngIf="state === 'stop'" -->
     <!-- *ngIf="state === 'start'"  -->

@@ -11,16 +11,18 @@ const URL = environment.url;
 })
 export class ListsService {
 
+  newList = new EventEmitter<IList>();
+  listPage = 0;
+
 
   constructor(
     private http: HttpClient,
     private userService: UserService
   ) { }
 
-  newList = new EventEmitter<IList>();
-  listPage = 0;
 
   // Obtener listas
+
   getLists(pull: boolean = false) {
 
     if (pull) {
@@ -37,6 +39,7 @@ export class ListsService {
 
 
   // Crear listas
+
   createdList(list) {
 
     const headers = new HttpHeaders({

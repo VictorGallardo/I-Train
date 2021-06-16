@@ -5,16 +5,6 @@
         <img src="/assets/img/itrain-logo.png" />
       </ion-col>
     </ion-row>
-
-    <!-- <ion-item>
-      <ion-avatar slot="end">
-        <img src="assets/avatars/{{ userService.getUser().avatar }}" />
-      </ion-avatar>
-      <ion-label>
-        <h3>{{ userService.getUser().name }}</h3>
-        <p>{{ userService.getUser().email }}</p>
-      </ion-label>
-    </ion-item> -->
   </ion-header>
   <ion-content>
     <ion-list>
@@ -45,15 +35,6 @@
             slot="start"
           ></ion-icon>
           Perfil
-        </ion-item>
-        <ion-item [routerLink]="'/posts/tabs/tab1'" detail>
-          <ion-icon
-            name="camera-outline"
-            class="ion-margin-end"
-            slot="start"
-            color="itrain-blue"
-          ></ion-icon>
-          Fotos
         </ion-item>
         <ion-item (click)="logout()" detail>
           <ion-icon

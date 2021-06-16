@@ -23,7 +23,7 @@ export class BackButtonService {
 
       const currentUrl = this.router.url;
 
-      if (currentUrl === "/main/tabs/home") {
+      if (currentUrl === "/main/tabs/lists") {
 
         this.exitAlert("¿Desea salir de la app?", () => {
           navigator['app'].exitApp();

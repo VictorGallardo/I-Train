@@ -5,6 +5,7 @@ import { AlertController } from '@ionic/angular';
 import { IList } from 'src/app/shared/interfaces/interfaces';
 import { ListsService } from 'src/app/shared/services/lists.service';
 import { UiService } from 'src/app/shared/services/ui.service';
+import { ItemsService } from '../../../shared/services/items.service';
 
 const { SplashScreen } = Plugins;
 
@@ -30,6 +31,7 @@ export class ListsPage implements OnInit {
 
   constructor(
     private listsService: ListsService,
+    private itemsService: ItemsService,
     private alertCtrl: AlertController,
     private uiService: UiService,
     private route: Router
@@ -153,6 +155,7 @@ export class ListsPage implements OnInit {
 
   deleteList(listId: string, index: number) {
     this.listsService.deleteList(listId);
+    this.itemsService.deleteItemsList(listId);
     this.lists.splice(index, 1);
   }
 
