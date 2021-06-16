@@ -6,6 +6,7 @@
 -   [App](App/README.md)
 -   [Diario de trabajo](Advances/README.md)
 -   [Mockup](Mockup/README.md)
+-   [Logos svg](https://github.com/VictorGallardo/I-Train/tree/main/svg)
 
 # Enlaces
 
