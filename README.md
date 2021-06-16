@@ -12,9 +12,9 @@
 # Enlaces
 
 -   [Descargar APK](https://github.com/VictorGallardo/I-Train/blob/main/Apk/itrain.apk)
--   [Enlace al repositorio de la API](https://github.com/VictorGallardo/I-Train-server)
--   [Enlace al repositorio de la Web de administración](https://github.com/VictorGallardo/I-Train-admin)
--   [Enlace a la web de administración](https://admin-itrain.herokuapp.com/)
+-   [Repositorio de la API](https://github.com/VictorGallardo/I-Train-server)
+-   [Repositorio de la Web de administración](https://github.com/VictorGallardo/I-Train-admin)
+-   [Web de administración](https://admin-itrain.herokuapp.com/)
 -   [Vídeo I-Train](https://youtu.be/gZHpCa7A1iM)
 
 <!-- ###  :movie_camera: Vídeo
